@@ -14,40 +14,41 @@ public class ColorManager : MonoBehaviour
         switch (currentColor)
         {                      
             case 0:
-                c =  Color.blue;
+                ColorUtility.TryParseHtmlString("#4DD5AD", out c);
                 break;
             case 1:
-                c = Color.cyan;
+                ColorUtility.TryParseHtmlString("#5DBFE4", out c);
                 break;
             case 2:
-               c = Color.gray;
+                ColorUtility.TryParseHtmlString("#FFC73C", out c);
                 break;
             case 3:
-                c = Color.green;
+                ColorUtility.TryParseHtmlString("#EF9549", out c);
                 break;
             case 4:
-                c = Color.magenta;
+                ColorUtility.TryParseHtmlString("#59CB86", out c);
                 break;
             case 5:
-                c = Color.red;
+                ColorUtility.TryParseHtmlString("#E86A82", out c);
                 break;
             case 6:
-                c = Color.white;
-                break;
-            case 7:
-                c = Color.yellow;
-                break;
-            case 8:
-                c = new Color(0.2f,0.4f,05f);
+                ColorUtility.TryParseHtmlString("#7989C4", out c);
                 break;
          
         }
+       
         return c;
     }
     public static void IncrementColor()
     {
         currentColor++;
-        if (currentColor == 9)
+        if (currentColor == 7)
             currentColor = 0;
+    }
+    public static Color SetDefaultColour()
+    {
+        Color c;
+        ColorUtility.TryParseHtmlString("#353535", out c);
+        return c;
     }
 }

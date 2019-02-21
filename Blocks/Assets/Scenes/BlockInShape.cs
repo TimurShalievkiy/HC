@@ -5,30 +5,56 @@ using UnityEngine.UI;
 
 public class BlockInShape : MonoBehaviour
 {
+    public static int matrixLength = 5;
+
+
     Transform target;
+    int targetIndex = -1;
+
+    public Transform Target { get => target; set => target = value; }
+    public int TargetIndex { get => targetIndex; set => targetIndex = value; }
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        //Debug.Log(2);
+
         if (collision.gameObject.name == "Cell")
         {
-           
-           // Debug.Log(collision.transform.GetSiblingIndex());
-           // Debug.Log(collision.transform.GetSiblingIndex());
-        }
-    }
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-       // Debug.Log(2);
-        if (collision.gameObject.name == "Cell")
-        {
-            target = collision.transform;
-           
+            if (!collision.transform.GetComponent<Cell>().isSet)
+            {
+                Target = collision.transform;
+                targetIndex = collision.transform.GetSiblingIndex();
+            }           
+
         }
     }
 
-    public void GetCurrentTarger()
+    private void OnCollisionExit2D(Collision2D collision)
     {
-        target.transform.GetComponent<Image>().color = ColorManager.GetNextColor();
+
+        if (collision.gameObject.name == "Cell")
+        {
+            if (Target != null)
+            {
+                targetIndex = -1;
+                Target = null;
+            }
+        }
     }
+
+    public void SetValueForCurrentTarger()
+    {
+        if (Target != null )
+        {
+            Target.transform.GetComponent<Image>().color = ColorManager.GetNextColor();
+
+            Target.transform.GetComponent<Cell>().SetValue(true);
+        }
+    }
+
+
+    public int GetTargetIndex()
+    {
+        return targetIndex;
+    }
+
 }

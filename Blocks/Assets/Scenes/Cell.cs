@@ -4,20 +4,10 @@ using UnityEngine;
 
 public class Cell : MonoBehaviour
 {
-    //private void OnCollisionStay2D(Collision2D collision)
-    //{
-    //    Debug.Log(1);
-    //    if (collision.gameObject.name == "Cell")
-    //    {
-    //        Debug.Log(collision.transform.GetSiblingIndex());
-    //    }
-    //}
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    Debug.Log(1);
-    //    if (collision.gameObject.name == "Cell")
-    //    {
-    //        Debug.Log(collision.transform.GetSiblingIndex());
-    //    }
-    //}
+    public bool isSet = false;
+
+    public void SetValue(bool value)
+    {
+        isSet = value;
+    }
 }
