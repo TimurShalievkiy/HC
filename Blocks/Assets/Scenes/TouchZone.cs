@@ -7,7 +7,7 @@ public class TouchZone : MonoBehaviour
 {
     public FieldManager fieldManager;
 
-    
+
 
 
     Vector3 posOfTouch;
@@ -47,7 +47,7 @@ public class TouchZone : MonoBehaviour
         flag = true;
         startPos = this.transform.position;
         this.transform.localScale = new Vector3(1.6f, 1.6f, 1.6f);
-     
+
 
     }
     public void PointerUp()
@@ -73,7 +73,7 @@ public class TouchZone : MonoBehaviour
                 {
                     numBoxWithColl = transform.GetChild(i).GetSiblingIndex();
 
-                    targetIndex = transform.GetChild(i).GetComponent<BlockInShape>().GetTargetIndex();
+                    targetIndex = transform.GetChild(i).GetComponent<BlockInShape>().TargetIndex;
                 }
                 listOfIndexs.Add(transform.GetChild(i).GetSiblingIndex());
             }
@@ -92,7 +92,7 @@ public class TouchZone : MonoBehaviour
         }
 
 
-                fieldManager.CheckFieldForFullLines();
+        fieldManager.CheckFieldForFullLines();
     }
 
 

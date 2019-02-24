@@ -72,6 +72,7 @@ public class FieldManager : MonoBehaviour
     public void  CheckShapeForPlacement(int targetIndex,int numBoxWithColl, List<int> listOfIndex)
     {
         int length = BlockInShape.matrixLength;
+
         if (targetIndex == -1 || numBoxWithColl == -1)
         {
             Debug.Log(targetIndex + " " + numBoxWithColl);

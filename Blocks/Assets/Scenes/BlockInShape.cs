@@ -52,9 +52,9 @@ public class BlockInShape : MonoBehaviour
     }
 
 
-    public int GetTargetIndex()
-    {
-        return targetIndex;
-    }
+    //public int GetTargetIndex()
+    //{
+    //    return targetIndex;
+    //}
 
 }
