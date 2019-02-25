@@ -60,11 +60,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scenes\BlockInShape.cs" />
-    <Compile Include="Assets\Scenes\Cell.cs" />
-    <Compile Include="Assets\Scenes\ColorManager.cs" />
-    <Compile Include="Assets\Scenes\FieldManager.cs" />
-    <Compile Include="Assets\Scenes\TouchZone.cs" />
+    <Compile Include="Assets\Scripts\BlockInShape.cs" />
+    <Compile Include="Assets\Scripts\Cell.cs" />
+    <Compile Include="Assets\Scripts\ColorManager.cs" />
+    <Compile Include="Assets\Scripts\FieldManager.cs" />
+    <Compile Include="Assets\Scripts\LevelLoad.cs" />
+    <Compile Include="Assets\Scripts\TouchZone.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>D:/MyProjects/Proj/Blocks/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
