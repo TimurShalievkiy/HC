@@ -5,9 +5,13 @@ using UnityEngine.UI;
 
 public class FieldManager : MonoBehaviour
 {
-    public Transform field;
-    
+    public static Transform field;
 
+
+    public void Start()
+    {
+        field = this.transform;
+    }
     public void CheckFieldForFullLines()
     {
         List<GameObject> listFullCells = new List<GameObject>();
@@ -71,67 +75,16 @@ public class FieldManager : MonoBehaviour
         return listFullCells;
     }
 
-    public void  CheckShapeForPlacement(int targetIndex,int numBoxWithColl, List<int> listOfIndex)
-    {
-        int length = BlockInShape.matrixLength;
 
-        if (targetIndex == -1 || numBoxWithColl == -1)
-        {
-           // Debug.Log(targetIndex + " " + numBoxWithColl);
-            return;
-        }
-
-        //int colPosX = numBoxWithColl / length;
-        //int colPosy = numBoxWithColl - colPosX * length;
-
-        ////Debug.Log(colPosX + " +++ "+ colPosy);
-
-        //int targetPosX = targetIndex / 10;
-        //int targetPosY = targetIndex - targetPosX * 10;
-        //// Debug.Log(targetPosX + " --- " + targetPosY);
-        //Debug.Log(listOfIndex.Count);
-
-        int zeroPoint = targetIndex - numBoxWithColl -10;
-
-        int x = zeroPoint + 10 * (int)(listOfIndex[0] / BlockInShape.matrixLength) + listOfIndex[0] % BlockInShape.matrixLength;
-
-
-        int line = (x / 10 - listOfIndex[0] / 5);
-        for (int i = 0; i < listOfIndex.Count; i++)
-        {
-            x = zeroPoint + 10*(int)(listOfIndex[i] / BlockInShape.matrixLength) + listOfIndex[i] % BlockInShape.matrixLength;
-            if(x>99||x<0)
-                return;
-
-            if (field.GetChild(x).GetComponent<Cell>().isSet)
-            {
-                return;
-            }
-
-
-            if (line != (x / 10 - listOfIndex[i] / 5))
-            {
-                Debug.Log("linr = " + line + " != " + (x / 10 - listOfIndex[i] / 5));
-                return;
-            }        
-
-        }
-        for (int i = 0; i < listOfIndex.Count; i++)
-        {
-            x = zeroPoint + 10 * (int)(listOfIndex[i] / BlockInShape.matrixLength) + listOfIndex[i] % BlockInShape.matrixLength;
-            field.GetChild(x).GetComponent<Cell>().SetValue(true);
-            field.GetChild(x).GetComponent<Image>().color = ColorManager.GetNextColor();
-
-        }
-        ColorManager.IncrementColor();
-    }
 
 
     public bool ChekShapeForPlacement(Transform parrent)
     {
+        CleerFieldColor();
         int length = BlockInShape.matrixLength;
         int numBoxWithColl = -1;
         int targetIndex = -1;
+        Color color = new Color();
 
         List<int> listOfIndexs = new List<int>();
 
@@ -149,83 +102,55 @@ public class FieldManager : MonoBehaviour
             {
                 numBoxWithColl = i;
                 targetIndex = parrent.GetChild(i).GetComponent<BoxCollider2D>().GetComponent<BlockInShape>().TargetIndex;
+                color = parrent.GetComponent<TouchZone>().currentColor;
+                break;
             }
         }
-        //
-        //
-        //for (int i = 0; i < transform.childCount; i++)
-        //{
-        //    //transform.GetChild(i).GetComponent<BlockInShape>().SetValueForCurrentTarger();
-        //    if (transform.GetChild(i).gameObject.activeSelf)
-        //    {
-        //        if (transform.GetChild(i).gameObject.GetComponent<BoxCollider2D>().isActiveAndEnabled)
-        //        {
-        //            numBoxWithColl = transform.GetChild(i).GetSiblingIndex();
-
-        //            targetIndex = transform.GetChild(i).GetComponent<BlockInShape>().TargetIndex;
-        //        }
-        //        listOfIndexs.Add(transform.GetChild(i).GetSiblingIndex());
-        //    }
-        //}
 
         if (targetIndex == -1 || numBoxWithColl == -1)
         {
             Debug.Log(targetIndex + " " + numBoxWithColl);
             return false;
         }
-        else
-            Debug.Log(targetIndex + " " + numBoxWithColl);
 
-        ////int colPosX = numBoxWithColl / length;
-        ////int colPosy = numBoxWithColl - colPosX * length;
-
-        //////Debug.Log(colPosX + " +++ "+ colPosy);
-
-        ////int targetPosX = targetIndex / 10;
-        ////int targetPosY = targetIndex - targetPosX * 10;
-        ////// Debug.Log(targetPosX + " --- " + targetPosY);
-        ////Debug.Log(listOfIndex.Count);
-
-        //int zeroPoint = targetIndex - numBoxWithColl - 10;
-
-        //int x = zeroPoint + 10 * (int)(listOfIndexs[0] / BlockInShape.matrixLength) + listOfIndexs[0] % BlockInShape.matrixLength;
+        int zeroPoint = targetIndex - numBoxWithColl - (BlockInShape.matrixLength * (int)(numBoxWithColl / BlockInShape.matrixLength));
 
 
-        //int line = (x / 10 - listOfIndexs[0] / 5);
-        //for (int i = 0; i < listOfIndexs.Count; i++)
-        //{
-        //    x = zeroPoint + 10 * (int)(listOfIndexs[i] / BlockInShape.matrixLength) + listOfIndexs[i] % BlockInShape.matrixLength;
-        //    if (x > 99 || x < 0)
-        //        return false;
-
-        //    if (field.GetChild(x).GetComponent<Cell>().isSet)
-        //    {
-        //        return false;
-        //    }
+        int x = zeroPoint + 10 * (int)(listOfIndexs[0] / BlockInShape.matrixLength) + listOfIndexs[0] % BlockInShape.matrixLength;
 
 
-        //    if (line != (x / 10 - listOfIndexs[i] / 5))
-        //    {
-        //        Debug.Log("linr = " + line + " != " + (x / 10 - listOfIndexs[i] / 5));
-        //        return false;
-        //    }
+        int line = (x / 10 - listOfIndexs[0] / 5);
 
-        //}
-        //for (int i = 0; i < listOfIndexs.Count; i++)
-        //{
-        //    x = zeroPoint + 10 * (int)(listOfIndexs[i] / BlockInShape.matrixLength) + listOfIndexs[i] % BlockInShape.matrixLength;
-        //    field.GetChild(x).GetComponent<Cell>().SetValue(true);
-        //    field.GetChild(x).GetComponent<Image>().color = ColorManager.GetNextColor();
 
-        //}
-
-        string str = "";
-        foreach (var item in listOfIndexs)
+        for (int i = 0; i < listOfIndexs.Count; i++)
         {
-            str += item + " ";
+            x = zeroPoint + 10 * (int)(listOfIndexs[i] / BlockInShape.matrixLength) + listOfIndexs[i] % BlockInShape.matrixLength;
+            if (x > 99 || x < 0)
+                return false;
+
+            if (field.GetChild(x).GetComponent<Cell>().isSet)
+            {
+                return false;
+            }
+
+
+            if (line != (x / 10 - listOfIndexs[i] / 5))
+            {
+                Debug.Log("linr = " + line + " != " + (x / 10 - listOfIndexs[i] / 5));
+                return false;
+            }
+
         }
-        Debug.Log(str);
-            return false;
+        for (int i = 0; i < listOfIndexs.Count; i++)
+        {
+            x = zeroPoint + 10 * (int)(listOfIndexs[i] / BlockInShape.matrixLength) + listOfIndexs[i] % BlockInShape.matrixLength;
+            field.GetChild(x).GetComponent<Cell>().SetValue(true);
+            field.GetChild(x).GetComponent<Image>().color = color;
+
+        }
+
+       
+        return false;
     }
     public void MakeShapeShadowInGameField(Transform parrent)
     {
@@ -236,4 +161,76 @@ public class FieldManager : MonoBehaviour
 
 
     }
+
+    public void CleerFieldColor()
+    {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            if (!transform.GetChild(i).GetComponent<Cell>().isSet)
+            {
+                transform.GetChild(i).GetComponent<Image>().color = ColorManager.GetDefaultColour();
+            }
+        }
+    }
 }
+
+
+
+
+
+
+
+//public void CheckShapeForPlacement(int targetIndex, int numBoxWithColl, List<int> listOfIndex)
+//{
+//    int length = BlockInShape.matrixLength;
+
+//    if (targetIndex == -1 || numBoxWithColl == -1)
+//    {
+//        // Debug.Log(targetIndex + " " + numBoxWithColl);
+//        return;
+//    }
+
+//    //int colPosX = numBoxWithColl / length;
+//    //int colPosy = numBoxWithColl - colPosX * length;
+
+//    ////Debug.Log(colPosX + " +++ "+ colPosy);
+
+//    //int targetPosX = targetIndex / 10;
+//    //int targetPosY = targetIndex - targetPosX * 10;
+//    //// Debug.Log(targetPosX + " --- " + targetPosY);
+//    //Debug.Log(listOfIndex.Count);
+
+//    int zeroPoint = targetIndex - numBoxWithColl - 10;
+
+//    int x = zeroPoint + 10 * (int)(listOfIndex[0] / BlockInShape.matrixLength) + listOfIndex[0] % BlockInShape.matrixLength;
+
+
+//    int line = (x / 10 - listOfIndex[0] / 5);
+//    for (int i = 0; i < listOfIndex.Count; i++)
+//    {
+//        x = zeroPoint + 10 * (int)(listOfIndex[i] / BlockInShape.matrixLength) + listOfIndex[i] % BlockInShape.matrixLength;
+//        if (x > 99 || x < 0)
+//            return;
+
+//        if (field.GetChild(x).GetComponent<Cell>().isSet)
+//        {
+//            return;
+//        }
+
+
+//        if (line != (x / 10 - listOfIndex[i] / 5))
+//        {
+//            Debug.Log("linr = " + line + " != " + (x / 10 - listOfIndex[i] / 5));
+//            return;
+//        }
+
+//    }
+//    for (int i = 0; i < listOfIndex.Count; i++)
+//    {
+//        x = zeroPoint + 10 * (int)(listOfIndex[i] / BlockInShape.matrixLength) + listOfIndex[i] % BlockInShape.matrixLength;
+//        field.GetChild(x).GetComponent<Cell>().SetValue(true);
+//        field.GetChild(x).GetComponent<Image>().color = ColorManager.GetNextColor();
+
+//    }
+//    //ColorManager.IncrementColor();
+//}

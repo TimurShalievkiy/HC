@@ -29,7 +29,7 @@ public class LevelLoad : MonoBehaviour
 
     public void LoaaLobbiScene()
     {
-        SceneManager.LoadScene(currentSceneIndex + 1);
+        SceneManager.LoadScene("Lobbi");
     }
     public void LoaaMainGameScene()
     {

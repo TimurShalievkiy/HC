@@ -8,7 +8,7 @@ public class TouchZone : MonoBehaviour
     public FieldManager fieldManager;
 
 
-
+    public Color currentColor;
 
     Vector3 posOfTouch;
     Vector2 startPos;
@@ -37,7 +37,7 @@ public class TouchZone : MonoBehaviour
                 break;
             }
         }
-
+        currentColor = ColorManager.GetNextColor();
         ColorManager.IncrementColor();
 
     }
@@ -99,14 +99,14 @@ public class TouchZone : MonoBehaviour
         fieldManager.MakeShapeShadowInGameField(transform);
 
 
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            //transform.GetChild(i).GetComponent<BlockInShape>().SetValueForCurrentTarger();
-            if (transform.GetChild(i).gameObject.activeSelf)
-            {
-                transform.GetChild(i).GetComponent<Image>().color = ColorManager.GetNextColor();
-            }
-        }
+        //for (int i = 0; i < transform.childCount; i++)
+        //{
+        //    //transform.GetChild(i).GetComponent<BlockInShape>().SetValueForCurrentTarger();
+        //    if (transform.GetChild(i).gameObject.activeSelf)
+        //    {
+        //        transform.GetChild(i).GetComponent<Image>().color = ColorManager.GetNextColor();
+        //    }
+        //}
 
 
         fieldManager.CheckFieldForFullLines();
