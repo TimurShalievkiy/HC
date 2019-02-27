@@ -21,6 +21,11 @@ public class TouchZone : MonoBehaviour
     private void Start()
     {
         fieldManager = FieldManager.field.transform.GetComponent<FieldManager>();
+        //====
+        float x = FieldManager.field.GetComponent<GridLayoutGroup>().cellSize.x;
+        transform.GetComponent<GridLayoutGroup>().cellSize = new Vector2(x*0.7f,x * 0.7f);
+
+
         for (int i = 0; i < transform.childCount; i++)
         {
             transform.GetChild(i).GetComponent<Image>().color = ColorManager.GetNextColor();
@@ -73,7 +78,8 @@ public class TouchZone : MonoBehaviour
         {
             flag = true;
             startPos = this.transform.position;
-            transform.localScale = new Vector3(transform.localScale.x * 1.6f, transform.localScale.x * 1.6f);
+            
+            transform.localScale = new Vector3( 1.6f, 1.6f);
             iSinglTouchZone = false;
         }
         
@@ -87,39 +93,21 @@ public class TouchZone : MonoBehaviour
             flag = false;
 
             this.transform.position = startPos;
-            this.transform.localScale = new Vector3(1f, 1f);
+            transform.localScale = new Vector3( 1, 1);
             iSinglTouchZone = true;
         }
     }
 
     void CheckZones()
     {
-        List<int> listOfIndexs = new List<int>();
-        int numBoxWithColl = -1;
-        int targetIndex = -1;
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            //transform.GetChild(i).GetComponent<BlockInShape>().SetValueForCurrentTarger();
-            if (transform.GetChild(i).GetComponent<Image>().enabled)
-            {
-                if (transform.GetChild(i).gameObject.GetComponent<BoxCollider2D>().isActiveAndEnabled)
-                {
-                    numBoxWithColl = transform.GetChild(i).GetSiblingIndex();
-
-                    targetIndex = transform.GetChild(i).GetComponent<BlockInShape>().TargetIndex;
-                }
-                listOfIndexs.Add(transform.GetChild(i).GetSiblingIndex());
-            }
-        }
 
 
-        fieldManager.ChekShapeForPlacement(transform);       
+        if (fieldManager.ChekShapeForPlacement(transform))
+            GameObject.Destroy(gameObject);
+          
 
         fieldManager.CheckFieldForFullLines();
         fieldManager.CheckForLoss();
-       // Debug.Log( fieldManager.CheckShepeForLose(transform));
-
-
     }
 
 

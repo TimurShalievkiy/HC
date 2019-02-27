@@ -79,7 +79,7 @@ public class FieldManager : MonoBehaviour
 
 
 
-    public void ChekShapeForPlacement(Transform touchZone)
+    public bool ChekShapeForPlacement(Transform touchZone)
     {
         CleerFieldColor();
         int length = BlockInShape.matrixLength;
@@ -111,7 +111,7 @@ public class FieldManager : MonoBehaviour
         if (targetIndex == -1 || numBoxWithColl == -1)
         {
             Debug.Log(targetIndex + " " + numBoxWithColl);
-            return ;
+            return false; 
         }
 
         int zeroPoint = targetIndex - numBoxWithColl - (BlockInShape.matrixLength * (int)(numBoxWithColl / BlockInShape.matrixLength));
@@ -127,18 +127,18 @@ public class FieldManager : MonoBehaviour
         {
             x = zeroPoint + 10 * (int)(listOfIndexs[i] / BlockInShape.matrixLength) + listOfIndexs[i] % BlockInShape.matrixLength;
             if (x > 99 || x < 0)
-                return ;
+                return false;
 
             if (field.GetChild(x).GetComponent<Cell>().isSet)
             {
-                return ;
+                return false;
             }
 
 
             if (line != (x / 10 - listOfIndexs[i] / 5))
             {
                 Debug.Log("linr = " + line + " != " + (x / 10 - listOfIndexs[i] / 5));
-                return ;
+                return false;
             }
 
         }
@@ -151,7 +151,7 @@ public class FieldManager : MonoBehaviour
         }
 
        
-        return ;
+        return true;
     }
 
 
@@ -261,15 +261,19 @@ public class FieldManager : MonoBehaviour
     public void CheckForLoss()
     {
         int count = 0;
-        for (int i = 0; i < touchZonesParent.childCount; i++)
+        Debug.Log(touchZonesParent.childCount);
+        if (touchZonesParent.childCount > 1)
         {
-            if (CheckThePossibilityOfPlacement(touchZonesParent.GetChild(i)))
+            for (int i = 0; i < touchZonesParent.childCount; i++)
             {
-                count++;
-            }         
+                if (CheckThePossibilityOfPlacement(touchZonesParent.GetChild(i)))
+                {
+                    count++;
+                }
+            }
+            if (count == 0)
+                RevivePanel.SetActive(true);
         }
-        if (count == 0)
-            RevivePanel.SetActive(true);
     }
 }
 
