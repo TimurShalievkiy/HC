@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class TouchZone : MonoBehaviour
 {
+    public float padding;
+
     public FieldManager fieldManager;
 
 
@@ -14,16 +16,16 @@ public class TouchZone : MonoBehaviour
     Vector2 startPos;
 
     bool flag = false;
+    public static bool iSinglTouchZone = true;
 
     private void Start()
     {
-        
+        fieldManager = FieldManager.field.transform.GetComponent<FieldManager>();
         for (int i = 0; i < transform.childCount; i++)
         {
-            if (transform.GetChild(i).gameObject.activeSelf)
+            transform.GetChild(i).GetComponent<Image>().color = ColorManager.GetNextColor();
+            if (transform.GetChild(i).GetComponent<BoxCollider2D>().enabled)
             {
-                transform.GetChild(i).GetComponent<Image>().color = ColorManager.GetNextColor();
-
                 transform.GetChild(i).GetComponent<BoxCollider2D>().enabled = false;
             }
            
@@ -31,12 +33,17 @@ public class TouchZone : MonoBehaviour
 
         for (int i = 0; i < transform.childCount; i++)
         {
-            if (transform.GetChild(i).gameObject.activeSelf)
+            if (transform.GetChild(i).GetComponent<Image>().enabled)
             {
-                transform.GetComponentInChildren<BoxCollider2D>().enabled = true;
+                transform.GetChild(i).GetComponentInChildren<BoxCollider2D>().enabled = true;
+                //Debug.Log(i + " = " + transform.GetChild(i).GetComponent<Image>().enabled)
+                
+
                 break;
             }
         }
+        padding = Mathf.Abs( transform.GetComponent<RectTransform>().sizeDelta.y ) ;
+        //Debug.Log(padding);
         currentColor = ColorManager.GetNextColor();
         ColorManager.IncrementColor();
 
@@ -49,8 +56,12 @@ public class TouchZone : MonoBehaviour
             {
                 posOfTouch = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
                 posOfTouch.z = 0;
-                posOfTouch.y += 30;
-                this.transform.position = posOfTouch;
+
+                posOfTouch.y += padding/5;
+
+
+                transform.position= posOfTouch;
+
             }
     }
 
@@ -58,19 +69,27 @@ public class TouchZone : MonoBehaviour
 
     public void PointerDown()
     {
-        flag = true;
-        startPos = this.transform.position;
-        this.transform.localScale = new Vector3(1.6f, 1.6f, 1.6f);
-
+        if (iSinglTouchZone)
+        {
+            flag = true;
+            startPos = this.transform.position;
+            transform.localScale = new Vector3(transform.localScale.x * 1.6f, transform.localScale.x * 1.6f);
+            iSinglTouchZone = false;
+        }
+        
 
     }
     public void PointerUp()
     {
-        CheckZones();
-        flag = false;
+        if (flag)
+        {
+            CheckZones();
+            flag = false;
 
-        this.transform.position = startPos;
-        this.transform.localScale = new Vector3(1, 1, 1);
+            this.transform.position = startPos;
+            this.transform.localScale = new Vector3(1f, 1f);
+            iSinglTouchZone = true;
+        }
     }
 
     void CheckZones()
@@ -81,7 +100,7 @@ public class TouchZone : MonoBehaviour
         for (int i = 0; i < transform.childCount; i++)
         {
             //transform.GetChild(i).GetComponent<BlockInShape>().SetValueForCurrentTarger();
-            if (transform.GetChild(i).gameObject.activeSelf)
+            if (transform.GetChild(i).GetComponent<Image>().enabled)
             {
                 if (transform.GetChild(i).gameObject.GetComponent<BoxCollider2D>().isActiveAndEnabled)
                 {
@@ -93,23 +112,14 @@ public class TouchZone : MonoBehaviour
             }
         }
 
-        //fieldManager.CheckShapeForPlacement(targetIndex, numBoxWithColl, listOfIndexs);
 
-
-        fieldManager.MakeShapeShadowInGameField(transform);
-
-
-        //for (int i = 0; i < transform.childCount; i++)
-        //{
-        //    //transform.GetChild(i).GetComponent<BlockInShape>().SetValueForCurrentTarger();
-        //    if (transform.GetChild(i).gameObject.activeSelf)
-        //    {
-        //        transform.GetChild(i).GetComponent<Image>().color = ColorManager.GetNextColor();
-        //    }
-        //}
-
+        fieldManager.ChekShapeForPlacement(transform);       
 
         fieldManager.CheckFieldForFullLines();
+        fieldManager.CheckForLoss();
+       // Debug.Log( fieldManager.CheckShepeForLose(transform));
+
+
     }
 
 

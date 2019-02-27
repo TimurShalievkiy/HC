@@ -65,7 +65,9 @@
     <Compile Include="Assets\Scripts\ColorManager.cs" />
     <Compile Include="Assets\Scripts\FieldManager.cs" />
     <Compile Include="Assets\Scripts\LevelLoad.cs" />
+    <Compile Include="Assets\Scripts\TimerForRevive.cs" />
     <Compile Include="Assets\Scripts\TouchZone.cs" />
+    <None Include="Assets\blure.shader" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>D:/MyProjects/Proj/Blocks/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>

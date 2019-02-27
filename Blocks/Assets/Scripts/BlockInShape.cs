@@ -21,7 +21,7 @@ public class BlockInShape : MonoBehaviour
         }
         set => targetIndex = value; }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionStay2D(Collision2D collision)
     {
 
         if (collision.gameObject.name == "Cell")
@@ -47,8 +47,10 @@ public class BlockInShape : MonoBehaviour
 
         if (collision.gameObject.name == "Cell")
         {
-            //collision.gameObject.GetComponent<Image>().color = ColorManager.GetDefaultColour();
-           
+            if (target == null)
+            {
+                transform.parent.GetComponent<TouchZone>().fieldManager.CleerFieldColor();
+            }
 
         }
     }
@@ -78,7 +80,7 @@ public class BlockInShape : MonoBehaviour
 
         for (int i = 0; i < transform.parent.childCount; i++)
         {
-            if (transform.parent.GetChild(i).gameObject.activeSelf)
+            if (transform.parent.GetChild(i).GetComponent<Image>().enabled)
             {
                 listOfIndexs.Add(transform.parent.GetChild(i).GetSiblingIndex());
             }

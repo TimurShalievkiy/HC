@@ -6,7 +6,8 @@ using UnityEngine.UI;
 public class FieldManager : MonoBehaviour
 {
     public static Transform field;
-
+    public Transform touchZonesParent;
+    public GameObject RevivePanel;
 
     public void Start()
     {
@@ -78,7 +79,7 @@ public class FieldManager : MonoBehaviour
 
 
 
-    public bool ChekShapeForPlacement(Transform parrent)
+    public void ChekShapeForPlacement(Transform touchZone)
     {
         CleerFieldColor();
         int length = BlockInShape.matrixLength;
@@ -88,21 +89,21 @@ public class FieldManager : MonoBehaviour
 
         List<int> listOfIndexs = new List<int>();
 
-        for (int i = 0; i < parrent.childCount; i++)
+        for (int i = 0; i < touchZone.childCount; i++)
         {
-            if (parrent.GetChild(i).gameObject.activeSelf)
+            if (touchZone.GetChild(i).GetComponent<Image>().enabled)
             {
-                listOfIndexs.Add(parrent.GetChild(i).GetSiblingIndex());
+                listOfIndexs.Add(touchZone.GetChild(i).GetSiblingIndex());
             }
         }
 
-        for (int i = 0; i < parrent.childCount; i++)
+        for (int i = 0; i < touchZone.childCount; i++)
         {
-            if (parrent.GetChild(i).GetComponent<BoxCollider2D>().isActiveAndEnabled)
+            if (touchZone.GetChild(i).GetComponent<BoxCollider2D>().isActiveAndEnabled)
             {
                 numBoxWithColl = i;
-                targetIndex = parrent.GetChild(i).GetComponent<BoxCollider2D>().GetComponent<BlockInShape>().TargetIndex;
-                color = parrent.GetComponent<TouchZone>().currentColor;
+                targetIndex = touchZone.GetChild(i).GetComponent<BoxCollider2D>().GetComponent<BlockInShape>().TargetIndex;
+                color = touchZone.GetComponent<TouchZone>().currentColor;
                 break;
             }
         }
@@ -110,7 +111,7 @@ public class FieldManager : MonoBehaviour
         if (targetIndex == -1 || numBoxWithColl == -1)
         {
             Debug.Log(targetIndex + " " + numBoxWithColl);
-            return false;
+            return ;
         }
 
         int zeroPoint = targetIndex - numBoxWithColl - (BlockInShape.matrixLength * (int)(numBoxWithColl / BlockInShape.matrixLength));
@@ -126,18 +127,18 @@ public class FieldManager : MonoBehaviour
         {
             x = zeroPoint + 10 * (int)(listOfIndexs[i] / BlockInShape.matrixLength) + listOfIndexs[i] % BlockInShape.matrixLength;
             if (x > 99 || x < 0)
-                return false;
+                return ;
 
             if (field.GetChild(x).GetComponent<Cell>().isSet)
             {
-                return false;
+                return ;
             }
 
 
             if (line != (x / 10 - listOfIndexs[i] / 5))
             {
                 Debug.Log("linr = " + line + " != " + (x / 10 - listOfIndexs[i] / 5));
-                return false;
+                return ;
             }
 
         }
@@ -150,17 +151,9 @@ public class FieldManager : MonoBehaviour
         }
 
        
-        return false;
+        return ;
     }
-    public void MakeShapeShadowInGameField(Transform parrent)
-    {
-        if (!ChekShapeForPlacement(parrent))
-        {
-            return;
-        }
 
-
-    }
 
     public void CleerFieldColor()
     {
@@ -171,6 +164,112 @@ public class FieldManager : MonoBehaviour
                 transform.GetChild(i).GetComponent<Image>().color = ColorManager.GetDefaultColour();
             }
         }
+    }
+
+    public bool CheckThePossibilityOfPlacement(Transform touchZone)
+    {
+        // CleerFieldColor();
+        int counter = 0;
+        int length = BlockInShape.matrixLength;
+        int numBoxWithColl = -1;
+        //int targetIndex = -1;
+
+        List<int> listOfIndexs = new List<int>();
+
+        for (int i = 0; i < touchZone.childCount; i++)
+        {
+            if (touchZone.GetChild(i).GetComponent<Image>().enabled)
+            {
+                listOfIndexs.Add(touchZone.GetChild(i).GetSiblingIndex());
+            }
+        }
+
+        for (int i = 0; i < touchZone.childCount; i++)
+        {
+            if (touchZone.GetChild(i).GetComponent<BoxCollider2D>().isActiveAndEnabled)
+            {
+                numBoxWithColl = i;
+                break;
+            }
+        }
+
+        if (numBoxWithColl == -1)
+        {
+            Debug.Log("numBoxWithColl = " + numBoxWithColl);
+            
+            return false;
+        }
+
+        int zeroPoint = -1;
+        bool flag = true;
+        //Debug.Log("transform.childCount = " + transform.childCount);
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            flag = true;
+            if (transform.GetChild(i).GetComponent<Cell>().isSet)
+                continue;
+            zeroPoint = i - numBoxWithColl - (BlockInShape.matrixLength * (int)(numBoxWithColl / BlockInShape.matrixLength));
+
+            int x = zeroPoint + 10 * (int)(listOfIndexs[0] / BlockInShape.matrixLength) + listOfIndexs[0] % BlockInShape.matrixLength;
+           // Debug.Log(x);
+
+            int line = (x / 10 - listOfIndexs[0] / 5);
+
+
+            for (int j = 0; j < listOfIndexs.Count; j++)
+            {
+                x = zeroPoint + 10 * (int)(listOfIndexs[j] / BlockInShape.matrixLength) + listOfIndexs[j] % BlockInShape.matrixLength;
+                if (x > 99 || x < 0)
+                {
+                   // Debug.Log("(x > 99 || x < 0)");
+                    flag = false;
+                    break;
+                    //return false;
+                }
+
+                if (field.GetChild(x).GetComponent<Cell>().isSet)
+                {
+                    //Debug.Log("field.GetChild(x).GetComponent<Cell>().isSet");
+                    flag = false;
+                    break;
+                    //return false;
+                }
+
+
+                if (line != (x / 10 - listOfIndexs[j] / 5))
+                {
+                    //Debug.Log("linr = " + line + " != " + (x / 10 - listOfIndexs[j] / 5));
+                    flag = false;
+                    break;
+                    //return false;
+                }
+                
+
+            }
+            if (flag)
+            {
+                counter++;
+            }
+            
+        }
+        if (counter == 0)
+            return false;
+        //Debug.Log(counter);
+
+        return true;
+    }
+    public void CheckForLoss()
+    {
+        int count = 0;
+        for (int i = 0; i < touchZonesParent.childCount; i++)
+        {
+            if (CheckThePossibilityOfPlacement(touchZonesParent.GetChild(i)))
+            {
+                count++;
+            }         
+        }
+        if (count == 0)
+            RevivePanel.SetActive(true);
     }
 }
 
