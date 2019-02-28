@@ -31,7 +31,6 @@ public class TouchZonesCreator : MonoBehaviour
         instance.transform.parent = transform;
         instance.transform.localScale = new Vector3(1, 1, 1);
         x = instance.transform.position.x + instance.transform.GetComponent<RectTransform>().sizeDelta.x;
-        Debug.Log(x);
         instance.transform.localPosition =new Vector2( x, 0);
 
 
@@ -51,25 +50,29 @@ public class TouchZonesCreator : MonoBehaviour
         instance3.transform.localScale = new Vector3(1, 1, 1);
 
         x = instance3.transform.position.x + instance3.transform.GetComponent<RectTransform>().sizeDelta.x;
-        Debug.Log(x);
         instance3.transform.localPosition = new Vector2(-x, 0);
-
-        
-        //instance.transform.position = transform.position;
 
     }
 
     GameObject GetNextShape()
     {
-        int x = Random.Range(1, 19);
-        Debug.Log(x);
+        int x = Random.Range(1, 20);
+        //Debug.Log(x);
         return Instantiate(Resources.Load("Shapes/"+x, typeof(GameObject)), transform.position, Quaternion.identity) as GameObject;
     }
 
-    public void DestriyAllZones()
+    public static void DestroyAllZones(Transform touchZonesParent)
     {
 
-        for (int i = transform.childCount-1; i >= 0; i--)
+        for (int i = touchZonesParent.childCount-1; i >= 0; i--)
+        {
+            GameObject.Destroy(touchZonesParent.GetChild(i).gameObject);
+        }
+    }
+    public  void DestroyAllZones()
+    {
+
+        for (int i = transform.childCount - 1; i >= 0; i--)
         {
             GameObject.Destroy(transform.GetChild(i).gameObject);
         }

@@ -8,10 +8,12 @@ public class FieldManager : MonoBehaviour
     public static Transform field;
     public Transform touchZonesParent;
     public GameObject RevivePanel;
+    public ScoreManager scoreManager;
 
     public void Start()
     {
         field = this.transform;
+        ResetGameField();
     }
     public void CheckFieldForFullLines()
     {
@@ -36,24 +38,25 @@ public class FieldManager : MonoBehaviour
             if (horizontal)
                 foreach (GameObject item in ReturnListOfCellsByHorizontal(i))
                 {
-                    listFullCells.Add(item);
+                    if (listFullCells.IndexOf(item) == -1)
+                        listFullCells.Add(item);
                 }
 
 
             if (vertical)
                 foreach (GameObject item in ReturnListOfCellsByVertical(i))
                 {
-                    listFullCells.Add(item);
+                    if (listFullCells.IndexOf(item) == -1)
+                        listFullCells.Add(item);
                 }
         }
-
 
         foreach (var item in listFullCells)
         {
             item.transform.GetComponent<Image>().color = ColorManager.GetDefaultColour();
             item.transform.GetComponent<Cell>().SetValue(false);
         }
-
+        scoreManager.IncreaseScore(listFullCells.Count);
     }
 
     List<GameObject> ReturnListOfCellsByHorizontal(int numHorizontal)
@@ -149,8 +152,9 @@ public class FieldManager : MonoBehaviour
             field.GetChild(x).GetComponent<Image>().color = color;
 
         }
-
-       
+        
+        //Debug.Log(listOfIndexs.Count);
+        scoreManager.IncreaseScore(listOfIndexs.Count);
         return true;
     }
 
@@ -195,7 +199,7 @@ public class FieldManager : MonoBehaviour
 
         if (numBoxWithColl == -1)
         {
-            Debug.Log("numBoxWithColl = " + numBoxWithColl);
+            //Debug.Log("numBoxWithColl = " + numBoxWithColl);
             
             return false;
         }
@@ -261,7 +265,6 @@ public class FieldManager : MonoBehaviour
     public void CheckForLoss()
     {
         int count = 0;
-        Debug.Log(touchZonesParent.childCount);
         if (touchZonesParent.childCount > 1)
         {
             for (int i = 0; i < touchZonesParent.childCount; i++)
@@ -272,68 +275,23 @@ public class FieldManager : MonoBehaviour
                 }
             }
             if (count == 0)
+            {
+                RevivePanel.GetComponent<TimerForRevive>().ResetTimer();
                 RevivePanel.SetActive(true);
+            }
         }
+    }
+
+    public void ResetGameField()
+    {
+        for (int i = 0; i < field.childCount; i++)
+        {
+            field.GetChild(i).GetComponent<Cell>().isSet = false;
+        }
+        CleerFieldColor();
+        scoreManager.ResetScore();
+        TouchZonesCreator.DestroyAllZones(touchZonesParent);
+
     }
 }
 
-
-
-
-
-
-
-//public void CheckShapeForPlacement(int targetIndex, int numBoxWithColl, List<int> listOfIndex)
-//{
-//    int length = BlockInShape.matrixLength;
-
-//    if (targetIndex == -1 || numBoxWithColl == -1)
-//    {
-//        // Debug.Log(targetIndex + " " + numBoxWithColl);
-//        return;
-//    }
-
-//    //int colPosX = numBoxWithColl / length;
-//    //int colPosy = numBoxWithColl - colPosX * length;
-
-//    ////Debug.Log(colPosX + " +++ "+ colPosy);
-
-//    //int targetPosX = targetIndex / 10;
-//    //int targetPosY = targetIndex - targetPosX * 10;
-//    //// Debug.Log(targetPosX + " --- " + targetPosY);
-//    //Debug.Log(listOfIndex.Count);
-
-//    int zeroPoint = targetIndex - numBoxWithColl - 10;
-
-//    int x = zeroPoint + 10 * (int)(listOfIndex[0] / BlockInShape.matrixLength) + listOfIndex[0] % BlockInShape.matrixLength;
-
-
-//    int line = (x / 10 - listOfIndex[0] / 5);
-//    for (int i = 0; i < listOfIndex.Count; i++)
-//    {
-//        x = zeroPoint + 10 * (int)(listOfIndex[i] / BlockInShape.matrixLength) + listOfIndex[i] % BlockInShape.matrixLength;
-//        if (x > 99 || x < 0)
-//            return;
-
-//        if (field.GetChild(x).GetComponent<Cell>().isSet)
-//        {
-//            return;
-//        }
-
-
-//        if (line != (x / 10 - listOfIndex[i] / 5))
-//        {
-//            Debug.Log("linr = " + line + " != " + (x / 10 - listOfIndex[i] / 5));
-//            return;
-//        }
-
-//    }
-//    for (int i = 0; i < listOfIndex.Count; i++)
-//    {
-//        x = zeroPoint + 10 * (int)(listOfIndex[i] / BlockInShape.matrixLength) + listOfIndex[i] % BlockInShape.matrixLength;
-//        field.GetChild(x).GetComponent<Cell>().SetValue(true);
-//        field.GetChild(x).GetComponent<Image>().color = ColorManager.GetNextColor();
-
-//    }
-//    //ColorManager.IncrementColor();
-//}

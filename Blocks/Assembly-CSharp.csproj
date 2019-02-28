@@ -66,6 +66,8 @@
     <Compile Include="Assets\Scripts\FieldManager.cs" />
     <Compile Include="Assets\Scripts\GameProcessManager.cs" />
     <Compile Include="Assets\Scripts\LevelLoad.cs" />
+    <Compile Include="Assets\Scripts\LoseScreen.cs" />
+    <Compile Include="Assets\Scripts\ScoreManager.cs" />
     <Compile Include="Assets\Scripts\TimerForRevive.cs" />
     <Compile Include="Assets\Scripts\TouchZone.cs" />
     <Compile Include="Assets\Scripts\TouchZonesCreator.cs" />

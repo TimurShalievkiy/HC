@@ -60,12 +60,16 @@ public class TouchZone : MonoBehaviour
             if (Input.touchCount > 0)
             {
                 posOfTouch = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
+               
                 posOfTouch.z = 0;
 
-                posOfTouch.y += padding/5;
+                //posOfTouch.y += Mathf.Abs(transform.GetComponent<RectTransform>().sizeDelta.y)/6;
+                float x = fieldManager.GetComponent<GridLayoutGroup>().cellSize.x/1.35f;
+                posOfTouch.y += x;
 
 
-                transform.position= posOfTouch;
+                transform.position = new Vector2(posOfTouch.x, posOfTouch.y);
+                //transform.localPosition = posOfTouch;
 
             }
     }
@@ -79,7 +83,7 @@ public class TouchZone : MonoBehaviour
             flag = true;
             startPos = this.transform.position;
             
-            transform.localScale = new Vector3( 1.6f, 1.6f);
+            transform.localScale = new Vector3( 1.4f, 1.4f);
             iSinglTouchZone = false;
         }
         
