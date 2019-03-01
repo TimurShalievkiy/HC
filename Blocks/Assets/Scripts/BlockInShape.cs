@@ -40,6 +40,11 @@ public class BlockInShape : MonoBehaviour
 
 
         }
+        else
+        {
+            transform.parent.GetComponent<TouchZone>().fieldManager.CleerFieldColor();
+            target = null;
+        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
