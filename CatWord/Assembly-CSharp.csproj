@@ -60,8 +60,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Cat.cs" />
+    <Compile Include="Assets\Scripts\DataManager.cs" />
     <Compile Include="Assets\Scripts\Enemy.cs" />
+    <Compile Include="Assets\Scripts\GameProcess.cs" />
     <Compile Include="Assets\Scripts\ScenesNavigation.cs" />
+    <Compile Include="Assets\Scripts\Tasks\RightOrder.cs" />
+    <Compile Include="Assets\Scripts\WordsManager.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>D:/MyProjects/Proj/CatWord/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>

@@ -1,0 +1,124 @@
+{
+    "words": [
+        {
+            "first": "be",
+            "second": "was/were",
+            "third": "been",
+            "translation": "быть"
+        },
+        {
+            "first": "bet",
+            "second": "bet",
+            "third": "bet",
+            "translation": "держать пари"
+        },
+        {
+            "first": "build",
+            "second": "built",
+            "third": "built",
+            "translation": "строить"
+        },
+        {
+            "first": "come",
+            "second": "came",
+            "third": "come",
+            "translation": "приходить"
+        },
+        {
+            "first": "dig",
+            "second": "dug",
+            "third": "dug",
+            "translation": "копать"
+        },
+        {
+            "first": "eat",
+            "second": "ate",
+            "third": "eaten",
+            "translation": "кушать"
+        },
+        {
+            "first": "fly",
+            "second": "flew",
+            "third": "flown",
+            "translation": "летать"
+        },
+        {
+            "first": "get",
+            "second": "got",
+            "third": "gotten",
+            "translation": "получать"
+        },
+        {
+            "first": "go",
+            "second": "went",
+            "third": "gone",
+            "translation": "идти"
+        },
+        {
+            "first": "grow",
+            "second": "grew",
+            "third": "grown",
+            "translation": "расти"
+        },
+        {
+            "first": "hide",
+            "second": "hid",
+            "third": "hidden",
+            "translation": "прятаться"
+        },
+        {
+            "first": "hold",
+            "second": "held",
+            "third": "held",
+            "translation": "держать"
+        },
+        {
+            "first": "lend",
+            "second": "lent",
+            "third": "lent",
+            "translation": "одалживать"
+        },
+        {
+            "first": "put",
+            "second": "put",
+            "third": "put",
+            "translation": "класть"
+        },
+        {
+            "first": "read",
+            "second": "read",
+            "third": "read",
+            "translation": "читать"
+        },
+        {
+            "first": "rise",
+            "second": "rose",
+            "third": "risen",
+            "translation": "подниматься"
+        },
+        {
+            "first": "shake",
+            "second": "shook",
+            "third": "shaken",
+            "translation": "трясти"
+        },
+        {
+            "first": "shoot",
+            "second": "shot",
+            "third": "shot",
+            "translation": "стрелять"
+        },
+        {
+            "first": "sleep",
+            "second": "slept",
+            "third": "slept",
+            "translation": "спать"
+        },
+        {
+            "first": "write",
+            "second": "wrote",
+            "third": "written",
+            "translation": "писать"
+        }
+    ]
+}

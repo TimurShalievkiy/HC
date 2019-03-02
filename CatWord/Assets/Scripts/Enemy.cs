@@ -8,9 +8,9 @@ public class Enemy : MonoBehaviour
 
     public float helth;
     public float damage;
+    public float atackDuration;
     public Slider helthBar;
-
-    public 
+    
 
     // Start is called before the first frame update
     void Start()
@@ -18,19 +18,12 @@ public class Enemy : MonoBehaviour
         helthBar.maxValue = helth;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (helthBar.value > 0)
-        {
-            helthBar.value -= Time.deltaTime;
-        }
-        else
-            GameObject.Destroy(gameObject);
-    }
+
     public void GetDamage(float dam)
     {
-        helth -= dam;
+        helthBar.value -= dam;
+        if(helthBar.value <= 0)
+            GameObject.Destroy(gameObject);
     }
     public float DoDamage()
     {
