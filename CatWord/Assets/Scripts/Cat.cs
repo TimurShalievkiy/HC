@@ -27,6 +27,8 @@ public class Cat : MonoBehaviour
     }
     public  float DoDamage()
     {
+       // Debug.Log(transform.GetComponent<Animator>().name);
+        
         return damage;
     }
     public void ResetHelth()

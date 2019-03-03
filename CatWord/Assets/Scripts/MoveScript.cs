@@ -12,7 +12,11 @@ public class MoveScript : MonoBehaviour
     {
         if (move)
         {
+            transform.GetComponent<Animator>().SetBool("isAtack", false);
             back.transform.position += Vector3.left;
+        }
+        else {
+            transform.GetComponent<Animator>().SetBool("isAtack", true);
         }
     }
     private void OnCollisionEnter2D(Collision2D collision)
@@ -20,7 +24,7 @@ public class MoveScript : MonoBehaviour
         
         if (collision.transform.GetComponent<Enemy>())
         {
-           // Debug.Log(collision.transform.name);
+            //Debug.Log(collision.transform.name);
             move = false;
             Enemy enemy = collision.transform.GetComponent<Enemy>();
             gameProcess.enemy = enemy;

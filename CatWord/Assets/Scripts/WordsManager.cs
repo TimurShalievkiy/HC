@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class WordsManager : MonoBehaviour
 {
-   public static List<Word> words;
+    public static List<Word> words;
     public GameObject newWordPanel;
 
     public static bool doTask = false;
@@ -20,7 +20,7 @@ public class WordsManager : MonoBehaviour
     {
         if (doTask)
         {
-           // Debug.Log("Create task");
+            // Debug.Log("Create task");
             int min = words.Min(y => y.dif);
             AddTask(words.Find(x => x.dif == min));
             doTask = false;
@@ -28,14 +28,14 @@ public class WordsManager : MonoBehaviour
     }
     public static void AddNewWordToList(Word w)
     {
-        if (!words.Exists(x => x.word ==w.word))
+        if (!words.Exists(x => x.word == w.word))
             words.Add(w);
     }
 
     public static void AddNewWordToList(JsonData w)
-    {  
+    {
         if (!words.Exists(x => x.word == w.first))
-            words.Add(new Word( w.first,1));
+            words.Add(new Word(w.first, 1));
 
         //if (!words.Exists(x => x.word == w.second))
         //    words.Add(new Word(w.second, 1));
@@ -45,25 +45,40 @@ public class WordsManager : MonoBehaviour
     }
     public void CheckForAddingNewWord()
     {
+
         if (words.Count == 0)
         {
 
             AddNewWordToList(transform.GetComponent<DataManager>().GetNextWord());
-            
+
             SetNewWordPanel(transform.GetComponent<DataManager>().GetNextWord());
             DataManager.index++;
             doTask = true;
-           
-           // Debug.Log(words.Count);
-        }
 
-        else if (words.Count(x => x.dif == 0) == 0)
-        {
+            // Debug.Log(words.Count);
+        }
+        else {
             AddNewWordToList(transform.GetComponent<DataManager>().GetNextWord());
             SetNewWordPanel(transform.GetComponent<DataManager>().GetNextWord());
             DataManager.index++;
-            int min = words.Min(y => y.dif);
+
+            doTask = true;
         }
+        //else if (words.Count(x => x.dif == words.Min(y => y.dif)) == 0)
+        //{
+        //    AddNewWordToList(transform.GetComponent<DataManager>().GetNextWord());
+        //    SetNewWordPanel(transform.GetComponent<DataManager>().GetNextWord());
+        //    DataManager.index++;
+        //    //int min = words.Min(y => y.dif);
+        //    doTask = true;
+        //}
+        //else if (words.Count(x => x.dif < 3) > 0&& !doTask)
+        //{
+            
+
+      
+        //}
+        //Debug.Log(doTask + " " + words.Count(x => x.dif == words.Min(y => y.dif)));
     }
     public void IncrementDif(string word)
     {
@@ -85,25 +100,31 @@ public class WordsManager : MonoBehaviour
         newWordPanel.transform.GetChild(1).GetComponent<Text>().text = jd.translation + "\n";
         newWordPanel.transform.GetChild(1).GetComponent<Text>().text += jd.first + "\n";
         newWordPanel.transform.GetChild(1).GetComponent<Text>().text += jd.second + "\n";
-        newWordPanel.transform.GetChild(1).GetComponent<Text>().text += jd.third ;
-     
+        newWordPanel.transform.GetChild(1).GetComponent<Text>().text += jd.third;
+
     }
     public void AddTask(Word x)
     {
-       
+
         switch (x.dif)
         {
             case 1:
-                GameObject g = Instantiate(Resources.Load("Task/TaskPanel") as GameObject, Camera.main.transform.GetChild(0));
-                g.transform.GetChild(0).GetComponent<RightOrder>().InitTask2(x.word);
+                if (!RightOrder.isUsed)
+                {
+                    GameObject g = Instantiate(Resources.Load("Task/TaskPanel") as GameObject, Camera.main.transform.GetChild(0));
+                    g.transform.GetChild(0).GetComponent<RightOrder>().InitTask2(x.word);
+                    RightOrder.isUsed = true;
+                }
                 break;
             case 2:
-                GameObject g2 = Instantiate(Resources.Load("Task/TaskByTrafAndTransl") as GameObject, Camera.main.transform.GetChild(0));
-                g2.transform.GetChild(0).GetComponent<WriteByTrafAndTransl>().InitTask(x.word);
+                
+                    GameObject g2 = Instantiate(Resources.Load("Task/TaskByTrafAndTransl") as GameObject, Camera.main.transform.GetChild(0));
+                    g2.transform.GetChild(0).GetComponent<WriteByTrafAndTransl>().InitTask(x.word);
+                
                 break;
 
         }
-        
+
     }
 }
 

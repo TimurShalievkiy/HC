@@ -15,7 +15,7 @@ public class RightOrder : MonoBehaviour
     public GameObject secondButtonWithAnsver;
     public GameObject thirdButtonWithAnsver;
 
-
+    public static bool isUsed = false;
     int counter = 0;
     // Start is called before the first frame update
     void Start()
@@ -57,6 +57,8 @@ public class RightOrder : MonoBehaviour
             Camera.main.transform.GetComponent<WordsManager>().IncrementDif(firstAnsver.transform.GetChild(0).GetComponent<Text>().text);
             Camera.main.transform.GetComponent<DataManager>().IncrementIndex();
             WordsManager.doTask = true;
+            isUsed = false;
+
             Destroy(transform.parent.gameObject);
         }
     }

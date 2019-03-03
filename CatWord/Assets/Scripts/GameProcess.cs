@@ -8,6 +8,9 @@ public class GameProcess : MonoBehaviour
     public Enemy enemy;
     public float currentCAtAtackDuration;
     public float currentEnemyAtackDuration;
+    public GameObject doubleDamage;
+    public float timeDiubledamage = 5;
+    public float currentTime = 5;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,7 +20,22 @@ public class GameProcess : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    //{
+    //    if (currentTime >= 0)
+    //    {
+    //        currentTime -= Time.deltaTime;
+    //        if (!doubleDamage.active)
+    //        {
+    //            doubleDamage.SetActive(true);
+    //            DoDamage();
+    //        }
+
+    //    }
+    //    else {
+    //        if(!doubleDamage.active)
+    //            doubleDamage.SetActive(false);
+    //        currentTime = timeDiubledamage;
+    //    }
         Damage();
     }
     public void Damage()
@@ -29,6 +47,7 @@ public class GameProcess : MonoBehaviour
                 if (cat != null)
                 {
                     currentEnemyAtackDuration = enemy.atackDuration;
+                    
                     cat.GetDamage(enemy.damage);
                 }
             }
@@ -42,6 +61,8 @@ public class GameProcess : MonoBehaviour
             {
                 if (enemy != null)
                 {
+                    //Debug.Log(111111111111111);
+                    
                     enemy.GetDamage(cat.damage);
                     currentCAtAtackDuration = cat.atackDuration;
                 }
@@ -54,5 +75,32 @@ public class GameProcess : MonoBehaviour
                 currentCAtAtackDuration -= Time.deltaTime;
             }
         }
+    }
+
+    public void DoDamage()
+    {
+        
+        if (!MoveScript.move)
+        {
+
+            if (enemy != null)
+            {
+                Debug.Log("Damage");
+                enemy.GetDamage(cat.damage / 2);
+                currentCAtAtackDuration = cat.atackDuration;
+
+            }
+            else {
+                Debug.Log("No Damage");
+            }
+
+            }
+       
+        
+    }
+
+    public void DoubleDamage()
+    {
+        Debug.Log("123");
     }
 }

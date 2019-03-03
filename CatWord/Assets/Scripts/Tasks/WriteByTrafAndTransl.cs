@@ -82,7 +82,7 @@ public class WriteByTrafAndTransl : MonoBehaviour
             if (count == transform.GetChild(1).transform.childCount)
             {
                 count = 0;
-                Debug.Log(str);
+
                 
                 WordsManager.doTask = true;
                 ClearTask();
