@@ -29,4 +29,9 @@ public class Cat : MonoBehaviour
     {
         return damage;
     }
+    public void ResetHelth()
+    {
+        helthBar.value = helth;
+    }
 }
+

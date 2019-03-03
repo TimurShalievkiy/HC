@@ -39,7 +39,7 @@ public class DataManager : MonoBehaviour
 {
     // List of JsonData objects
     public static MyWrapper data;
-    int index = 0;
+    public static int index = 0;
 
     public void Start()
     {
@@ -59,6 +59,15 @@ public class DataManager : MonoBehaviour
         if(index >= data.words.Count)
             return data.words[data.words.Count-1];
         return data.words[index];
+    }
+    public JsonData GetByWord(string str)
+    {
+        foreach (var item in data.words)
+        {
+            if (item.first == str)
+                return item;
+        }
+        return null;
     }
     public void IncrementIndex()
     {

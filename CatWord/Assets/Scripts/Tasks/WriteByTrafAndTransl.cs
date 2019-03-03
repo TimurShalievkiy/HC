@@ -7,20 +7,22 @@ using UnityEngine.UI;
 public class WriteByTrafAndTransl : MonoBehaviour
 {
     public GameObject translation;
-
+    public string word2 = "";
     public static int count = 0;
     // Start is called before the first frame update
     void Start()
     {
-        InitTask();
+       // InitTask();
     }
 
 
 
-    public void InitTask()
+    public void InitTask(string str)
     {
-        JsonData data = Camera.main.transform.GetComponent<DataManager>().GetNextWord();
-        Camera.main.transform.GetComponent<DataManager>().IncrementIndex();
+        word2 = str;
+        //Debug.Log(str + " 22222222222222");
+        JsonData data = Camera.main.transform.GetComponent<DataManager>().GetByWord(str);
+        //Camera.main.transform.GetComponent<DataManager>().IncrementIndex();
         translation.transform.GetChild(0).GetComponent<Text>().text = data.translation;
 
         string word = data.first;
@@ -71,7 +73,7 @@ public class WriteByTrafAndTransl : MonoBehaviour
 
     public bool CheckAns(string str)
     {
-        //Debug.Log(" 1 " + count);
+ 
         if (transform.GetChild(1).GetChild(count).GetChild(0).GetComponent<Text>().text == str)
         {
             transform.GetChild(1).GetChild(count).GetChild(0).GetComponent<Text>().color = Color.green;
@@ -80,9 +82,12 @@ public class WriteByTrafAndTransl : MonoBehaviour
             if (count == transform.GetChild(1).transform.childCount)
             {
                 count = 0;
+                Debug.Log(str);
+                
+                WordsManager.doTask = true;
                 ClearTask();
-                InitTask();
-                Debug.Log("res");
+                //Destroy(gameObject.transform.parent);
+                //InitTask();
             }
             return true;
         }
@@ -90,10 +95,13 @@ public class WriteByTrafAndTransl : MonoBehaviour
     }
     void ClearTask()
     {
-        for (int i = 0; i < transform.GetChild(1).childCount; i++)
+        
+        for (int i = 0; i < transform.childCount; i++)
         {
-            Destroy(transform.GetChild(1).GetChild(i).gameObject);
+            Destroy(transform.GetChild(i).gameObject);
         }
+        Camera.main.transform.GetComponent<WordsManager>().IncrementDif(word2);
+        //
     }
 
 }

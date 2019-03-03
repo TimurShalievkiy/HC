@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
-
+    public static int counter = 0;
     public float helth;
     public float damage;
     public float atackDuration;
@@ -22,8 +22,18 @@ public class Enemy : MonoBehaviour
     public void GetDamage(float dam)
     {
         helthBar.value -= dam;
-        if(helthBar.value <= 0)
+        if (helthBar.value <= 0)
+        {
+            counter++;
+            if (counter == 2)
+            {
+                Camera.main.GetComponent<WordsManager>().CheckForAddingNewWord();
+                counter = 0;
+            }
             GameObject.Destroy(gameObject);
+
+
+        }
     }
     public float DoDamage()
     {

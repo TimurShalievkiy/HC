@@ -20,20 +20,13 @@ public class RightOrder : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        translation = transform.GetChild(0).gameObject;
-        firstAnsver = transform.GetChild(1).gameObject;
-        secondAnsver = transform.GetChild(2).gameObject;
-        thirdAnsver = transform.GetChild(3).gameObject;
+        
 
-        firstButtonWithAnsver = transform.GetChild(4).GetChild(0).gameObject;
-        secondButtonWithAnsver = transform.GetChild(4).GetChild(1).gameObject;
-        thirdButtonWithAnsver = transform.GetChild(4).GetChild(2).gameObject;
-
-        InitTask2();
+        //InitTask2();
     }
 
 
-
+   
 
     public void CheckAnsver(int buttonNum)
     {
@@ -60,7 +53,12 @@ public class RightOrder : MonoBehaviour
         }
 
         if (!firstButtonWithAnsver.activeSelf && !secondButtonWithAnsver.activeSelf && !thirdButtonWithAnsver.activeSelf)
-            StartCoroutine(InitTask());
+        {
+            Camera.main.transform.GetComponent<WordsManager>().IncrementDif(firstAnsver.transform.GetChild(0).GetComponent<Text>().text);
+            Camera.main.transform.GetComponent<DataManager>().IncrementIndex();
+            WordsManager.doTask = true;
+            Destroy(transform.parent.gameObject);
+        }
     }
 
     bool CheckWord(string ansver)
@@ -103,11 +101,28 @@ public class RightOrder : MonoBehaviour
         return false;
     }
 
-    public void InitTask2()
+    public void InitTask2(string str)
     {
-        JsonData data = Camera.main.transform.GetComponent<DataManager>().GetNextWord();
-        Camera.main.transform.GetComponent<DataManager>().IncrementIndex();
-        translation.transform.GetChild(0).GetComponent<Text>().text = data.translation;
+
+       // Debug.Log("word = " + str);
+        JsonData data = Camera.main.transform.GetComponent<DataManager>().GetByWord(str);
+        //Camera.main.transform.GetComponent<DataManager>().IncrementIndex();
+
+        translation = transform.GetChild(0).gameObject;
+        firstAnsver = transform.GetChild(1).gameObject;
+        secondAnsver = transform.GetChild(2).gameObject;
+        thirdAnsver = transform.GetChild(3).gameObject;
+
+        firstButtonWithAnsver = transform.GetChild(4).GetChild(0).gameObject;
+        secondButtonWithAnsver = transform.GetChild(4).GetChild(1).gameObject;
+        thirdButtonWithAnsver = transform.GetChild(4).GetChild(2).gameObject;
+
+        //Debug.Log(data.translation);
+
+       // Debug.Log(transform.GetChild(0).GetChild(0).GetComponent<Text>().text);
+        transform.GetChild(0).GetChild(0).GetComponent<Text>().text = data.translation;
+
+ 
 
         firstButtonWithAnsver.SetActive(true);
         secondButtonWithAnsver.SetActive(true);
@@ -141,7 +156,7 @@ public class RightOrder : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         JsonData data = Camera.main.transform.GetComponent<DataManager>().GetNextWord();
-        Camera.main.transform.GetComponent<DataManager>().IncrementIndex();
+        
         translation.transform.GetChild(0).GetComponent<Text>().text = data.translation;
 
         firstButtonWithAnsver.SetActive(true);

@@ -9,7 +9,10 @@ public class GetButtonValue : MonoBehaviour
     {
         if(transform.parent.parent.GetComponent<WriteByTrafAndTransl>().CheckAns(transform.GetChild(0).GetComponent<Text>().text))
         {
+            if (transform.parent.parent.childCount == 1)
+                transform.parent.parent.GetComponent<WriteByTrafAndTransl>().transform.gameObject.SetActive(false);
             gameObject.SetActive(false);
+           
         }
     }
 }

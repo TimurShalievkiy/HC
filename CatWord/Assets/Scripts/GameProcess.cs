@@ -22,31 +22,37 @@ public class GameProcess : MonoBehaviour
     }
     public void Damage()
     {
-        if (currentEnemyAtackDuration <= 0)
+        if (!MoveScript.move)
         {
-            if (cat != null)
+            if (currentEnemyAtackDuration <= 0)
             {
-                currentEnemyAtackDuration = enemy.atackDuration;
-                cat.GetDamage(enemy.damage);
+                if (cat != null)
+                {
+                    currentEnemyAtackDuration = enemy.atackDuration;
+                    cat.GetDamage(enemy.damage);
+                }
             }
-        }
-        else
-        {
-            currentEnemyAtackDuration -= Time.deltaTime;
-        }
+            else
+            {
+                currentEnemyAtackDuration -= Time.deltaTime;
+            }
 
 
-        if (currentCAtAtackDuration <= 0)
-        {
-            if (enemy != null)
+            if (currentCAtAtackDuration <= 0)
             {
-                enemy.GetDamage(cat.damage);
-                currentCAtAtackDuration = cat.atackDuration;
+                if (enemy != null)
+                {
+                    enemy.GetDamage(cat.damage);
+                    currentCAtAtackDuration = cat.atackDuration;
+                }
+                
+                   
+                
             }
-        }
-        else
-        {
-            currentCAtAtackDuration -= Time.deltaTime;
+            else
+            {
+                currentCAtAtackDuration -= Time.deltaTime;
+            }
         }
     }
 }
