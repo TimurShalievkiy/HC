@@ -56,6 +56,8 @@ public class DataManager : MonoBehaviour
     }
     public JsonData GetNextWord()
     {
+        if(index >= data.words.Count)
+            return data.words[data.words.Count-1];
         return data.words[index];
     }
     public void IncrementIndex()
