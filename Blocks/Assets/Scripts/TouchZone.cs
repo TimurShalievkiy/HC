@@ -25,6 +25,7 @@ public class TouchZone : MonoBehaviour
     public bool isInStartPos = false;
     private void Start()
     {
+        offset = new Vector3();
         fieldManager = FieldManager.field.transform.GetComponent<FieldManager>();
         //====
         float x = FieldManager.field.GetComponent<GridLayoutGroup>().cellSize.x;
@@ -108,7 +109,9 @@ public class TouchZone : MonoBehaviour
     {
         if (iSinglTouchZone)
         {
+            Debug.Log(name);
            // Vector3 z = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
+           if(Input.touchCount>0)
             offset = transform.position - Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
             //Debug.Log(transform.position + " - " + z + " = " + offset);
             flag = true;

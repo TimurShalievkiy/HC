@@ -9,14 +9,33 @@ public class TouchZonesCreator : MonoBehaviour
     Transform secondTouchZone;
     Transform thirdTouchZone;
 
-
+    List<GameObject> lo;
 
 
     public Slider slider;
     // Start is called before the first frame update
+    void MixList()
+    {
+        lo = new List<GameObject>();
+
+        foreach (var item in Resources.LoadAll("Prefs/"))
+        {
+            lo.Add(item as GameObject);
+        }
+        int x = 0;
+
+        for (int i = lo.Count - 1; i >= 1; i--)
+        {
+            x = Random.Range(0, lo.Count);
+            //Debug.Log(x);
+            var temp = lo[x];
+            lo[x] = lo[i];
+            lo[i] = temp;
+        }
+    }
     void Start()
     {
-  
+        MixList();
     }
 
     // Update is called once per frame
@@ -36,11 +55,11 @@ public class TouchZonesCreator : MonoBehaviour
         GameObject instance = GetNextShape();
         instance.transform.parent = transform;
         instance.transform.localScale = new Vector3(1, 1, 1);
+
+        Debug.Log(instance.name);
         x = instance.transform.position.x + instance.transform.GetComponent<RectTransform>().sizeDelta.x;
-        instance.transform.localPosition =new Vector2( x, 0);
-
-
-
+        Debug.Log("1 = " + instance.transform.position.x + " " + instance.transform.GetComponent<RectTransform>().sizeDelta.x);
+        instance.transform.localPosition =new Vector2(instance.transform.localPosition.x + instance.transform.GetComponent<RectTransform>().sizeDelta.x, 0);
 
 
 
@@ -57,14 +76,18 @@ public class TouchZonesCreator : MonoBehaviour
 
         x = instance3.transform.position.x + instance3.transform.GetComponent<RectTransform>().sizeDelta.x;
         instance3.transform.localPosition = new Vector2(-x, 0);
-
+        //Debug.Log("2 = " + x + " " + instance3.transform.GetComponent<RectTransform>().sizeDelta.x);
     }
 
     GameObject GetNextShape()
     {
-        int x = Random.Range(1, 20);
-        //Debug.Log(x);
-        return Instantiate(Resources.Load("Shapes/"+x, typeof(GameObject)), transform.position, Quaternion.identity) as GameObject;
+        int x =  Random.Range(0, lo.Count);
+        if (transform.childCount == 2)
+            MixList();
+        //int x = Random.Range(0, lo.Count);
+
+        // return Instantiate(Resources.Load("Shapes/"+x, typeof(GameObject)), transform.position, Quaternion.identity) as GameObject;
+        return Instantiate(lo[x], transform.position, Quaternion.identity) as GameObject;
     }
 
     public static void DestroyAllZones(Transform touchZonesParent)
