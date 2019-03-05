@@ -113,7 +113,7 @@ public class FieldManager : MonoBehaviour
 
         if (targetIndex == -1 || numBoxWithColl == -1)
         {
-            Debug.Log(targetIndex + " " + numBoxWithColl);
+            //Debug.Log(targetIndex + " " + numBoxWithColl);
             return false; 
         }
 

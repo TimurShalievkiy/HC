@@ -20,7 +20,7 @@ public class GameProcess : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    //{
+    {
     //    if (currentTime >= 0)
     //    {
     //        currentTime -= Time.deltaTime;
