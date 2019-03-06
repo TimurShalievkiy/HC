@@ -63,6 +63,7 @@
     <Compile Include="Assets\Scripts\BlockInShape.cs" />
     <Compile Include="Assets\Scripts\Cell.cs" />
     <Compile Include="Assets\Scripts\ColorManager.cs" />
+    <Compile Include="Assets\Scripts\DaylyBonusManager.cs" />
     <Compile Include="Assets\Scripts\FieldManager.cs" />
     <Compile Include="Assets\Scripts\GameProcessManager.cs" />
     <Compile Include="Assets\Scripts\LevelLoad.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="Assets\Scripts\TimerForRevive.cs" />
     <Compile Include="Assets\Scripts\TouchZone.cs" />
     <Compile Include="Assets\Scripts\TouchZonesCreator.cs" />
+    <Compile Include="Assets\Sprites\test.cs" />
     <None Include="Assets\blure.shader" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>D:/MyProjects/Proj/Blocks/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>

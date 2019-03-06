@@ -7,7 +7,7 @@ public class LevelLoad : MonoBehaviour
 {
 
     int currentSceneIndex;
-    float timeToWait = 3f;
+    float timeToWait = 5f;
     // Start is called before the first frame update
     void Start()
     {
