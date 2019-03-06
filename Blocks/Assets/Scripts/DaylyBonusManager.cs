@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class DaylyBonusManager : MonoBehaviour
 {
+
+    //обькты обозначающие текущий дейлик
     public GameObject firstDay;
     public GameObject secondDay;
     public GameObject thirdDay;
@@ -13,18 +15,26 @@ public class DaylyBonusManager : MonoBehaviour
     public GameObject sixDay;
     public GameObject sevenDay;
 
+    //в старте делаем проверку на текущий дейлик
     private void Start()
     {
         ChechDaylyBonus();                      
     }
+
+    //сбор награды дейлика по клику на кнопку
     public void CollectButtonClick()
     {
-        Debug.Log("revard = " + GetRevardForBonus(GetCurrentDayDailyBonus()));
+        //Debug.Log("revard = " + GetRevardForBonus(GetCurrentDayDailyBonus()));
         IncrementDay();
     }
+
+    //визуальное отображение какие дейлики задействованы 
     public  void ChechDaylyBonus()
     {
+        //получаем текущий номер дня 
         int x = GetCurrentDayDailyBonus();
+
+        //подсвечиваем зеленым уже открытые
         for (int i = 1; i < x+1; i++)
         {
             switch (i)
@@ -55,7 +65,7 @@ public class DaylyBonusManager : MonoBehaviour
         }
        
     }
-
+    //получить текущий день дейли бонуса
     public  int GetCurrentDayDailyBonus()
     {
         int x = 1;
@@ -75,7 +85,7 @@ public class DaylyBonusManager : MonoBehaviour
         }
         return x;
     }
-
+    //инкрементируем значение дня дейли бонуса
     void IncrementDay()
     {
         if (PlayerPrefs.HasKey("dayNum"))
@@ -85,6 +95,8 @@ public class DaylyBonusManager : MonoBehaviour
         else
             PlayerPrefs.SetInt("dayNum", 1);
     }
+
+    //получить значение награды по номеру текущего дня
     public  int GetRevardForBonus(int numDay)
     {
 

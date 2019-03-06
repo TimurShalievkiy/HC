@@ -56,7 +56,7 @@ public class TouchZonesCreator : MonoBehaviour
         instance.transform.parent = transform;
         instance.transform.localScale = new Vector3(1, 1, 1);
 
-        Debug.Log(instance.name);
+
         x = instance.transform.position.x + instance.transform.GetComponent<RectTransform>().sizeDelta.x;
         Debug.Log("1 = " + instance.transform.position.x + " " + instance.transform.GetComponent<RectTransform>().sizeDelta.x);
         instance.transform.localPosition =new Vector2(instance.transform.localPosition.x + instance.transform.GetComponent<RectTransform>().sizeDelta.x, 0);
@@ -76,7 +76,6 @@ public class TouchZonesCreator : MonoBehaviour
 
         x = instance3.transform.position.x + instance3.transform.GetComponent<RectTransform>().sizeDelta.x;
         instance3.transform.localPosition = new Vector2(-x, 0);
-        //Debug.Log("2 = " + x + " " + instance3.transform.GetComponent<RectTransform>().sizeDelta.x);
     }
 
     GameObject GetNextShape()
