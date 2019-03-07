@@ -7,16 +7,16 @@ public class PllayingAlong : MonoBehaviour
 
     private void Start()
     {
-        int[,] field = { { 0,0,0,0,0,0,0,0,0,0 },
-                         { 0,0,0,0,0,0,0,0,0,0 },
-                         { 0,0,0,0,0,0,0,0,0,0 },
-                         { 0,0,0,0,0,0,0,0,0,0 },
-                         { 0,0,0,0,0,0,0,0,0,0 },
-                         { 0,0,0,0,0,0,0,0,0,0 },
-                         { 0,0,0,0,0,0,0,0,0,0 },
-                         { 0,0,0,0,0,0,0,0,0,0 },
-                         { 0,0,0,0,0,0,0,0,0,0 },
-                         { 0,0,0,0,0,0,0,0,0,0 }};
+        int[,] field = { { 0,0,0,1,0,0,0,0,0,0 },
+                         { 1,1,1,1,1,1,1,1,1,1 },
+                         { 0,0,0,1,0,0,0,0,0,0 },
+                         { 0,0,0,1,0,0,0,0,0,0 },
+                         { 0,0,0,1,0,0,0,0,0,0 },
+                         { 0,0,0,1,0,0,0,0,0,0 },
+                         { 1,1,1,1,1,1,1,1,1,1 },
+                         { 0,0,0,1,0,0,0,0,0,0 },
+                         { 0,0,0,1,0,0,0,0,0,0 },
+                         { 1,1,1,1,1,1,1,1,1,1 }};
 
 
         int[,] shape = { {0,0,0,0,0},
@@ -26,7 +26,9 @@ public class PllayingAlong : MonoBehaviour
                          {0,0,0,0,0}   };
 
 
-        ChekShapeForPlacement(field, shape);
+        //ChekShapeForPlacement(field, shape);
+
+        CheckFieldForFullLines(field);
     }
 
 
@@ -105,8 +107,8 @@ public class PllayingAlong : MonoBehaviour
                     
                 }
 
-                if(flag)
-                    Debug.Log(x);
+                //if(flag)
+                //    Debug.Log(x);
             }         
         }
       
@@ -114,5 +116,34 @@ public class PllayingAlong : MonoBehaviour
         return true;
     }
 
+    public void CheckFieldForFullLines(int[,] field)
+    {
+        bool v = true;
+        bool h = true;
 
+        for (int i = 0; i < field.GetLength(0); i++)
+        {
+            v = true;
+            h = true;
+            for (int j = 0; j < field.GetLength(1); j++)
+            {
+                if (v)
+                {
+                    if (field[j, i] == 0)
+                        v = false;
+                }
+
+                if (h)
+                {
+                    if (field[i, j] == 0)
+                        h = false;
+                }
+            }
+            if (v)
+                Debug.Log("v = " + i);
+
+            if (h)
+                Debug.Log("h = " + i);
+        }
+    }
 }

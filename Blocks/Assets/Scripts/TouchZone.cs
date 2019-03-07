@@ -76,7 +76,7 @@ public class TouchZone : MonoBehaviour
 
                 //transform.position = Vector3.Lerp(transform.position, new Vector3(posOfTouch.x, GetYPos(), 0f), speed);
                 //transform.position = Camera.main.ScreenToWorldPoint(new Vector3( GetXPos(),GetYPos(),0f));
-                transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(1.4f, 1.4f), 0.4f);
+                transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(1.3f, 1.3f), 0.4f);
                 transform.position = Vector3.Lerp(transform.position, (new Vector2(GetXPos() , GetYPos() ))+ new Vector2(offset.x,0f),1f);
                 transform.parent.GetComponent<TouchZonesCreator>().slider.transform.GetChild(0).GetComponent<Text>().text = transform.parent.GetComponent<TouchZonesCreator>().slider.value.ToString();
 
