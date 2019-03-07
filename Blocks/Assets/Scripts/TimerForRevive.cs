@@ -82,4 +82,6 @@ public class TimerForRevive : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
+
+
 }

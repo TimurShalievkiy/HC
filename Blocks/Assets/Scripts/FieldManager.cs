@@ -118,11 +118,11 @@ public class FieldManager : MonoBehaviour
         }
 
         int zeroPoint = targetIndex - numBoxWithColl - (BlockInShape.matrixLength * (int)(numBoxWithColl / BlockInShape.matrixLength));
-
+       // Debug.Log(zeroPoint);
 
         int x = zeroPoint + 10 * (int)(listOfIndexs[0] / BlockInShape.matrixLength) + listOfIndexs[0] % BlockInShape.matrixLength;
 
-
+       // Debug.Log(x);
         int line = (x / 10 - listOfIndexs[0] / 5);
 
 
@@ -172,11 +172,8 @@ public class FieldManager : MonoBehaviour
 
     public bool CheckThePossibilityOfPlacement(Transform touchZone)
     {
-        // CleerFieldColor();
         int counter = 0;
-        int length = BlockInShape.matrixLength;
         int numBoxWithColl = -1;
-        //int targetIndex = -1;
 
         List<int> listOfIndexs = new List<int>();
 
@@ -198,25 +195,24 @@ public class FieldManager : MonoBehaviour
         }
 
         if (numBoxWithColl == -1)
-        {
-            //Debug.Log("numBoxWithColl = " + numBoxWithColl);
-            
+        {           
             return false;
         }
 
         int zeroPoint = -1;
         bool flag = true;
-        //Debug.Log("transform.childCount = " + transform.childCount);
+        
         for (int i = 0; i < transform.childCount; i++)
         {
             flag = true;
+
             if (transform.GetChild(i).GetComponent<Cell>().isSet)
                 continue;
+
             zeroPoint = i - numBoxWithColl - (BlockInShape.matrixLength * (int)(numBoxWithColl / BlockInShape.matrixLength));
-
+            
             int x = zeroPoint + 10 * (int)(listOfIndexs[0] / BlockInShape.matrixLength) + listOfIndexs[0] % BlockInShape.matrixLength;
-           // Debug.Log(x);
-
+            //Debug.Log(x);
             int line = (x / 10 - listOfIndexs[0] / 5);
 
 
@@ -225,27 +221,21 @@ public class FieldManager : MonoBehaviour
                 x = zeroPoint + 10 * (int)(listOfIndexs[j] / BlockInShape.matrixLength) + listOfIndexs[j] % BlockInShape.matrixLength;
                 if (x > 99 || x < 0)
                 {
-                   // Debug.Log("(x > 99 || x < 0)");
                     flag = false;
                     break;
-                    //return false;
                 }
 
                 if (field.GetChild(x).GetComponent<Cell>().isSet)
                 {
-                    //Debug.Log("field.GetChild(x).GetComponent<Cell>().isSet");
                     flag = false;
                     break;
-                    //return false;
                 }
 
 
                 if (line != (x / 10 - listOfIndexs[j] / 5))
                 {
-                    //Debug.Log("linr = " + line + " != " + (x / 10 - listOfIndexs[j] / 5));
                     flag = false;
                     break;
-                    //return false;
                 }
                 
 
@@ -256,9 +246,9 @@ public class FieldManager : MonoBehaviour
             }
             
         }
+        //Debug.Log("============================");
         if (counter == 0)
             return false;
-        //Debug.Log(counter);
 
         return true;
     }

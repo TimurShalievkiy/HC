@@ -109,7 +109,7 @@ public class TouchZone : MonoBehaviour
     {
         if (iSinglTouchZone)
         {
-            Debug.Log(name);
+            //Debug.Log(name);
            // Vector3 z = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
            if(Input.touchCount>0)
             offset = transform.position - Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
