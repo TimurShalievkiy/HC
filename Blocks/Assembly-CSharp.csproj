@@ -68,11 +68,11 @@
     <Compile Include="Assets\Scripts\GameProcessManager.cs" />
     <Compile Include="Assets\Scripts\LevelLoad.cs" />
     <Compile Include="Assets\Scripts\LoseScreen.cs" />
+    <Compile Include="Assets\Scripts\Rotator.cs" />
     <Compile Include="Assets\Scripts\ScoreManager.cs" />
     <Compile Include="Assets\Scripts\TimerForRevive.cs" />
     <Compile Include="Assets\Scripts\TouchZone.cs" />
     <Compile Include="Assets\Scripts\TouchZonesCreator.cs" />
-    <Compile Include="Assets\Sprites\test.cs" />
     <None Include="Assets\blure.shader" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>D:/MyProjects/Proj/Blocks/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
