@@ -113,16 +113,13 @@ public class FieldManager : MonoBehaviour
 
         if (targetIndex == -1 || numBoxWithColl == -1)
         {
-            //Debug.Log(targetIndex + " " + numBoxWithColl);
             return false; 
         }
 
         int zeroPoint = targetIndex - numBoxWithColl - (BlockInShape.matrixLength * (int)(numBoxWithColl / BlockInShape.matrixLength));
-       // Debug.Log(zeroPoint);
 
         int x = zeroPoint + 10 * (int)(listOfIndexs[0] / BlockInShape.matrixLength) + listOfIndexs[0] % BlockInShape.matrixLength;
 
-       // Debug.Log(x);
         int line = (x / 10 - listOfIndexs[0] / 5);
 
 
@@ -150,10 +147,8 @@ public class FieldManager : MonoBehaviour
             x = zeroPoint + 10 * (int)(listOfIndexs[i] / BlockInShape.matrixLength) + listOfIndexs[i] % BlockInShape.matrixLength;
             field.GetChild(x).GetComponent<Cell>().SetValue(true);
             field.GetChild(x).GetComponent<Image>().color = color;
-
         }
         
-        //Debug.Log(listOfIndexs.Count);
         scoreManager.IncreaseScore(listOfIndexs.Count);
         return true;
     }
@@ -210,9 +205,9 @@ public class FieldManager : MonoBehaviour
                 continue;
 
             zeroPoint = i - numBoxWithColl - (BlockInShape.matrixLength * (int)(numBoxWithColl / BlockInShape.matrixLength));
-            
+           
             int x = zeroPoint + 10 * (int)(listOfIndexs[0] / BlockInShape.matrixLength) + listOfIndexs[0] % BlockInShape.matrixLength;
-            //Debug.Log(x);
+            
             int line = (x / 10 - listOfIndexs[0] / 5);
 
 
@@ -252,6 +247,8 @@ public class FieldManager : MonoBehaviour
 
         return true;
     }
+
+
     public void CheckForLoss()
     {
         int count = 0;

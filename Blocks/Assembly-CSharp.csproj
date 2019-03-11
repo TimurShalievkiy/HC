@@ -64,6 +64,7 @@
     <Compile Include="Assets\Scripts\Cell.cs" />
     <Compile Include="Assets\Scripts\ColorManager.cs" />
     <Compile Include="Assets\Scripts\DaylyBonusManager.cs" />
+    <Compile Include="Assets\Scripts\FieldCondition.cs" />
     <Compile Include="Assets\Scripts\FieldManager.cs" />
     <Compile Include="Assets\Scripts\GameProcessManager.cs" />
     <Compile Include="Assets\Scripts\LevelLoad.cs" />

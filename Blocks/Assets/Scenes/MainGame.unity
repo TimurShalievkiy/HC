@@ -12360,7 +12360,7 @@ MonoBehaviour:
   loseScreen: {fileID: 1368983176}
   progresImage: {fileID: 1211053502}
   timerText: {fileID: 1251142058}
-  duration: 10
+  duration: 8
 --- !u!1 &1626178150
 GameObject:
   m_ObjectHideFlags: 0
