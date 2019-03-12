@@ -58,7 +58,7 @@ public class TouchZonesCreator : MonoBehaviour
 
         x = instance.transform.position.x + instance.transform.GetComponent<RectTransform>().sizeDelta.x;
         instance.transform.localPosition = new Vector2(instance.transform.localPosition.x + instance.transform.GetComponent<RectTransform>().sizeDelta.x, 0);
-
+        
 
 
 

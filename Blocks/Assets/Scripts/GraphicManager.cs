@@ -15,8 +15,6 @@ public class GraphicManager : MonoBehaviour
     void SetGraphicValues()
     {
 
-       // background.GetComponent<Image>().sprite = i;
         background.GetComponent<Image>().sprite = ScinManager.GetBackground();
-       // Debug.Log(background.GetComponent<Image>().sprite);
     }
 }

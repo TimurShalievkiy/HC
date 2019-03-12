@@ -167,7 +167,7 @@ public class FieldManager : MonoBehaviour
             {
                 //transform.GetChild(i).GetComponent<Image>().color = ColorManager.GetDefaultColour();
                 transform.GetChild(i).GetComponent<Image>().sprite = ScinManager.GetCell();
-                transform.GetChild(i).GetComponent<Image>().color = Color.white;
+                transform.GetChild(i).GetComponent<Image>().color = new Color(1,1,1,0.55f);
             }
         }
     }

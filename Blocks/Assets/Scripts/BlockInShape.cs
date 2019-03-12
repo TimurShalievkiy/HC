@@ -8,7 +8,7 @@ public class BlockInShape : MonoBehaviour
     public static int matrixLength = 5;
     public FieldManager fieldManager;
 
-    float alfaLevel = 0.7f;
+    float alphaLevel = 0.5f;
   
     Transform target;
     int targetIndex = -1;
@@ -135,7 +135,7 @@ public class BlockInShape : MonoBehaviour
         {
             x = zeroPoint + 10 * (int)(listOfIndexs[i] / BlockInShape.matrixLength) + listOfIndexs[i] % BlockInShape.matrixLength;
             //FieldManager.field.GetChild(x).GetComponent<Cell>().SetValue(true);
-            color.a = alfaLevel;
+            color.a = alphaLevel;
             FieldManager.field.GetChild(x).GetComponent<Image>().sprite = transform.GetComponent<Image>().sprite;
             FieldManager.field.GetChild(x).GetComponent<Image>().color = color;
 

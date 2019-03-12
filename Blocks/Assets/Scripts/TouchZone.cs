@@ -23,8 +23,12 @@ public class TouchZone : MonoBehaviour
 
 
     public bool isInStartPos = false;
+
+    float duration = 0.3f;
+    float currentDuration ;
     private void Start()
     {
+        currentDuration = duration;
         offset = new Vector3();
         fieldManager = FieldManager.field.transform.GetComponent<FieldManager>();
         //====
@@ -51,6 +55,7 @@ public class TouchZone : MonoBehaviour
             if (transform.GetChild(i).GetComponent<Image>().enabled)
             {
                 transform.GetChild(i).GetComponentInChildren<BoxCollider2D>().enabled = true;
+                transform.GetChild(i).GetComponentInChildren<BoxCollider2D>().size = new Vector2(2, 2);
                 break;
             }
         }
@@ -60,8 +65,7 @@ public class TouchZone : MonoBehaviour
         ScinManager.IncrementIndexOfCurrentSq();
 
     }
-
-    private void Update()
+    private void FixedUpdate()
     {
         if (flag)
         {
@@ -71,10 +75,6 @@ public class TouchZone : MonoBehaviour
 
                 posOfTouch.z = 0;
 
-                // float x = fieldManager.GetComponent<GridLayoutGroup>().cellSize.x/1.35f;
-                // float a = posOfTouch.y + fieldManager.GetComponent<GridLayoutGroup>().cellSize.x / 1.35f;
-                //posOfTouch.y += fieldManager.GetComponent<GridLayoutGroup>().cellSize.x / 1.35f;
-
                 speed = transform.parent.GetComponent<TouchZonesCreator>().slider.value;
 
 
@@ -83,8 +83,13 @@ public class TouchZone : MonoBehaviour
                 //transform.position = Camera.main.ScreenToWorldPoint(new Vector3( GetXPos(),GetYPos(),0f));
 
                 transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(1.3f, 1.3f), 1f);
-                transform.position = Vector3.Lerp(transform.position, (new Vector2(GetXPos() , GetYPos() ))+ new Vector2(offset.x,0f),1f);
-                transform.parent.GetComponent<TouchZonesCreator>().slider.transform.GetChild(0).GetComponent<Text>().text = transform.parent.GetComponent<TouchZonesCreator>().slider.value.ToString();
+                //transform.position = Vector3.Lerp(transform.position, (new Vector2(GetXPos() , GetYPos() ))+ new Vector2(offset.x,0f),1f);
+
+                posOfTouch.y = GetYPos();
+                //posOfTouch.y += fieldManager.GetComponent<GridLayoutGroup>().cellSize.x / 1.35f;
+                transform.position = posOfTouch + new Vector3(offset.x, 0f);
+
+                //transform.parent.GetComponent<TouchZonesCreator>().slider.transform.GetChild(0).GetComponent<Text>().text = transform.parent.GetComponent<TouchZonesCreator>().slider.value.ToString();
 
             }
         }
@@ -94,16 +99,23 @@ public class TouchZone : MonoBehaviour
             if (Mathf.Round(transform.position.x) == Mathf.Round(startPos.x))
             {
                 this.transform.position = startPos;
+                currentDuration = duration;
                 isInStartPos = false;
                 iSinglTouchZone = true;
             }
         }
     }
 
+
     public float GetYPos()
     {
+        if (currentDuration >= 0)
+        {
+            currentDuration -= Time.deltaTime;
+            return Mathf.Lerp(transform.position.y, posOfTouch.y + fieldManager.GetComponent<GridLayoutGroup>().cellSize.x / 1.35f, 0.5f);
+        }
         //return Mathf.Lerp( posOfTouch.y, posOfTouch.y + fieldManager.GetComponent<GridLayoutGroup>().cellSize.x / 1.35f,0.7f);
-        return  Mathf.Lerp(transform.position.y, posOfTouch.y + fieldManager.GetComponent<GridLayoutGroup>().cellSize.x / 1.35f,0.5f);
+        return posOfTouch.y + fieldManager.GetComponent<GridLayoutGroup>().cellSize.x / 1.35f; //Mathf.Lerp(transform.position.y, posOfTouch.y + fieldManager.GetComponent<GridLayoutGroup>().cellSize.x / 1.35f,0.5f);
     }
     public float GetXPos()
     {
