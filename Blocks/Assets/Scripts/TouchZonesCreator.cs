@@ -84,7 +84,7 @@ public class TouchZonesCreator : MonoBehaviour
         DestroyAllZones();
 
         float x = 0;
-        GameObject instance = Instantiate(Resources.Load("Shapes/1", typeof(GameObject)), transform.position, Quaternion.identity) as GameObject;
+        GameObject instance = Instantiate(Resources.Load("Prefs/1", typeof(GameObject)), transform.position, Quaternion.identity) as GameObject;
         instance.transform.parent = transform;
         instance.transform.localScale = new Vector3(1, 1, 1);
 
@@ -96,13 +96,13 @@ public class TouchZonesCreator : MonoBehaviour
 
 
 
-        GameObject instance2 = Instantiate(Resources.Load("Shapes/1", typeof(GameObject)), transform.position, Quaternion.identity) as GameObject;
+        GameObject instance2 = Instantiate(Resources.Load("Prefs/1", typeof(GameObject)), transform.position, Quaternion.identity) as GameObject;
         instance2.transform.parent = transform;
         instance2.transform.localScale = new Vector3(1, 1, 1);
 
 
 
-        GameObject instance3 = Instantiate(Resources.Load("Shapes/1", typeof(GameObject)), transform.position, Quaternion.identity) as GameObject;
+        GameObject instance3 = Instantiate(Resources.Load("Prefs/1", typeof(GameObject)), transform.position, Quaternion.identity) as GameObject;
         instance3.transform.parent = transform;
         instance3.transform.localScale = new Vector3(1, 1, 1);
 

@@ -54,6 +54,9 @@ public class FieldManager : MonoBehaviour
         foreach (var item in listFullCells)
         {
             item.transform.GetComponent<Image>().color = ColorManager.GetDefaultColour();
+            
+            item.transform.GetComponent<Image>().sprite = ScinManager.GetCell();
+            item.transform.GetComponent<Image>().color = Color.white;
             item.transform.GetComponent<Cell>().SetValue(false);
         }
         scoreManager.IncreaseScore(listFullCells.Count);
@@ -106,7 +109,7 @@ public class FieldManager : MonoBehaviour
             {
                 numBoxWithColl = i;
                 targetIndex = touchZone.GetChild(i).GetComponent<BoxCollider2D>().GetComponent<BlockInShape>().TargetIndex;
-                color = touchZone.GetComponent<TouchZone>().currentColor;
+               // color = touchZone.GetComponent<TouchZone>().currentColor;
                 break;
             }
         }
@@ -146,7 +149,9 @@ public class FieldManager : MonoBehaviour
         {
             x = zeroPoint + 10 * (int)(listOfIndexs[i] / BlockInShape.matrixLength) + listOfIndexs[i] % BlockInShape.matrixLength;
             field.GetChild(x).GetComponent<Cell>().SetValue(true);
-            field.GetChild(x).GetComponent<Image>().color = color;
+            field.GetChild(x).GetComponent<Image>().sprite = touchZone.GetChild(0).GetComponent<Image>().sprite;
+            
+            field.GetChild(x).GetComponent<Image>().color = Color.white;
         }
         
         scoreManager.IncreaseScore(listOfIndexs.Count);
@@ -160,7 +165,9 @@ public class FieldManager : MonoBehaviour
         {
             if (!transform.GetChild(i).GetComponent<Cell>().isSet)
             {
-                transform.GetChild(i).GetComponent<Image>().color = ColorManager.GetDefaultColour();
+                //transform.GetChild(i).GetComponent<Image>().color = ColorManager.GetDefaultColour();
+                transform.GetChild(i).GetComponent<Image>().sprite = ScinManager.GetCell();
+                transform.GetChild(i).GetComponent<Image>().color = Color.white;
             }
         }
     }
@@ -241,7 +248,7 @@ public class FieldManager : MonoBehaviour
             }
             
         }
-        //Debug.Log("============================");
+
         if (counter == 0)
             return false;
 
@@ -279,6 +286,23 @@ public class FieldManager : MonoBehaviour
         scoreManager.ResetScore();
         TouchZonesCreator.DestroyAllZones(touchZonesParent);
 
+    }
+
+    public static int[,] GetCurrentFieldState()
+    {
+        int[,] state = new int[10, 10];
+        //Debug.Log(field);
+        for (int i = 0; i < 10; i++)
+        {
+            for (int j = 0; j  < 10; j++)
+            {
+                if (field.transform.GetChild(i * 10 + j).GetComponent<Cell>().isSet)
+                    state[i, j] = 1;
+                else
+                    state[i, j] = 0;
+            }
+        }
+        return state;
     }
 }
 

@@ -100,9 +100,13 @@ public class FieldCondition : MonoBehaviour
         }
     }
 
-    public List<int> ChekShapeForPlacement(int[,] field, int[,] shape)
+    public List<List<int>> ChekShapeForPlacement(int[,] field, int[,] shape)
     {
+        List<List<int>> listREsult = new List<List<int>>();
+
         List<int> listOfIndexs = new List<int>();
+        
+
 
         int numBoxWithColl = -1;
         int length = shape.GetLength(0);
@@ -134,7 +138,9 @@ public class FieldCondition : MonoBehaviour
         for (int i = 0; i < field.GetLength(0); i++)
         {
             for (int j = 0; j < field.GetLength(1); j++)
-            {
+            { 
+              
+
                 if (field[i, j] != 0)
                     continue;
 
@@ -147,14 +153,15 @@ public class FieldCondition : MonoBehaviour
 
                 int line = (x / field.GetLength(0) - listOfIndexs[0] / shape.GetLength(0));
 
-                List<int> x2 = new List<int>();
+                
+
                 foreach (var item in listOfIndexs)
                 {
 
-
+                   // if(listREsult)
                     x = zeroPoint + 10 * (int)(item / length) + item % length;
 
-                    x2.Add(x);
+                  //  x2.Add(x);
 
 
                     if (x > 99 || x < 0)
@@ -178,8 +185,8 @@ public class FieldCondition : MonoBehaviour
                 }
                 if (flag)
                 {
-
-                    return x2;
+                   // Debug.Log(i + " " + j + " " +x2[0]);
+                   // return x2;
                 }
             }
         }

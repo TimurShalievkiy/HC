@@ -7,6 +7,8 @@ public class BlockInShape : MonoBehaviour
 {
     public static int matrixLength = 5;
     public FieldManager fieldManager;
+
+    float alfaLevel = 0.7f;
   
     Transform target;
     int targetIndex = -1;
@@ -64,7 +66,8 @@ public class BlockInShape : MonoBehaviour
     {
         if (Target != null )
         {
-            Target.transform.GetComponent<Image>().color = ColorManager.GetNextColor();
+            //Target.transform.GetComponent<Image>().color = ColorManager.GetNextColor();
+            Target.transform.GetComponent<Image>().sprite = ScinManager.GetNextSq();
 
             Target.transform.GetComponent<Cell>().SetValue(true);
         }
@@ -93,7 +96,7 @@ public class BlockInShape : MonoBehaviour
 
         numBoxWithColl = transform.GetSiblingIndex();
         targetIndex = target.GetSiblingIndex();
-        color = transform.parent.GetComponent<TouchZone>().currentColor;
+        color = transform.GetComponent<Image>().color;
 
         if (targetIndex == -1 || numBoxWithColl == -1)
         {
@@ -132,7 +135,8 @@ public class BlockInShape : MonoBehaviour
         {
             x = zeroPoint + 10 * (int)(listOfIndexs[i] / BlockInShape.matrixLength) + listOfIndexs[i] % BlockInShape.matrixLength;
             //FieldManager.field.GetChild(x).GetComponent<Cell>().SetValue(true);
-            color.a = 0.5f;
+            color.a = alfaLevel;
+            FieldManager.field.GetChild(x).GetComponent<Image>().sprite = transform.GetComponent<Image>().sprite;
             FieldManager.field.GetChild(x).GetComponent<Image>().color = color;
 
         }

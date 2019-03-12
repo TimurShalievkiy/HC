@@ -10,7 +10,7 @@ public class TouchZone : MonoBehaviour
     public FieldManager fieldManager;
 
 
-    public Color currentColor;
+    //public Color currentColor;
 
     Vector3 posOfTouch;
     Vector2 startPos;
@@ -34,7 +34,11 @@ public class TouchZone : MonoBehaviour
 
         for (int i = 0; i < transform.childCount; i++)
         {
-            transform.GetChild(i).GetComponent<Image>().color = ColorManager.GetNextColor();
+            //transform.GetChild(i).GetComponent<Image>().color = ColorManager.GetNextColor();
+            transform.GetChild(i).GetComponent<Image>().sprite = ScinManager.GetNextSq();
+
+
+
             if (transform.GetChild(i).GetComponent<BoxCollider2D>().enabled)
             {
                 transform.GetChild(i).GetComponent<BoxCollider2D>().enabled = false;
@@ -51,8 +55,9 @@ public class TouchZone : MonoBehaviour
             }
         }
         padding = Mathf.Abs( transform.GetComponent<RectTransform>().sizeDelta.y ) ;
-        currentColor = ColorManager.GetNextColor();
-        ColorManager.IncrementColor();
+        //currentColor = ColorManager.GetNextColor();
+        //ColorManager.IncrementColor();
+        ScinManager.IncrementIndexOfCurrentSq();
 
     }
 
@@ -76,7 +81,8 @@ public class TouchZone : MonoBehaviour
 
                 //transform.position = Vector3.Lerp(transform.position, new Vector3(posOfTouch.x, GetYPos(), 0f), speed);
                 //transform.position = Camera.main.ScreenToWorldPoint(new Vector3( GetXPos(),GetYPos(),0f));
-                transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(1.3f, 1.3f), 0.4f);
+
+                transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(1.3f, 1.3f), 1f);
                 transform.position = Vector3.Lerp(transform.position, (new Vector2(GetXPos() , GetYPos() ))+ new Vector2(offset.x,0f),1f);
                 transform.parent.GetComponent<TouchZonesCreator>().slider.transform.GetChild(0).GetComponent<Text>().text = transform.parent.GetComponent<TouchZonesCreator>().slider.value.ToString();
 
