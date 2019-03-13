@@ -43,6 +43,7 @@ public class PllayingAlong : MonoBehaviour
     }
     public void GetShapesAfterRevive()
     {
+        int counter = 0;
         FieldCondition fc = new FieldCondition();
         int[,] field = FieldManager.GetCurrentFieldState();
         //int[,] field = new int[,] { { 0,0,0,1,0,0,0,0,0,0 },
@@ -64,33 +65,65 @@ public class PllayingAlong : MonoBehaviour
 
         List<List<int>> li = new List<List<int>>();
         List<List<int>> li2 = new List<List<int>>();
-
-
-
+        int[,] newField;
+        int[,] newField2;
+        List<int> xList = new List<int>();
         for (int i = 0; i < ls.Count; i++)
         {
 
             li = FieldCondition.ChekShapeForPlacement(field, ls[i]);
             int x = 0;
-            int[,] newField;
 
+
+
+            
             foreach (var item in li)
             {
-
+                counter++;
                 newField = FieldCondition.PlaceShape((int[,])field.Clone(), item);
                 newField = FieldCondition.RemoveFullLines(newField, FieldCondition.CheckFieldForFullLines(newField, out x));
+
+                //+++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                //работать только с теми которые дают зачеркивание линий
+                //+++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+                //Debug.Log(x);
+                if (x>0)
+                    xList.Add(x);
                 //Debug.Log("field");
                 //FieldCondition.ShowField(field);
                 //Debug.Log("newField");
                 //FieldCondition.ShowField(newField);
+                //if(item.Count>0)
+                // Debug.Log(item.Count);
                 //for (int j = 0; j < ls.Count; j++)
                 //{
-                    
-                   
+
+                //    li2 = FieldCondition.ChekShapeForPlacement(newField, ls[j]);
+
+                //    //Debug.Log("i = " + i + " j = " + j + " count = " + li2.Count);
+                //    foreach (var item2 in li2)
+                //    {
+                //        
+                //        newField2 = FieldCondition.PlaceShape((int[,])newField.Clone(), item);
+                //         newField2 = FieldCondition.RemoveFullLines(newField, FieldCondition.CheckFieldForFullLines(newField, out x));
+
+                //    }
+
                 //}
             }
-
+            
         }
+        string s = "";
+        foreach (var item in xList)
+        {
+            s += item + " ";
+        }
+            
+
+        Debug.Log(s);
+        
+        Debug.Log("counter = " + counter);
     }
 
 

@@ -140,7 +140,7 @@ public class FieldManager : MonoBehaviour
 
             if (line != (x / 10 - listOfIndexs[i] / 5))
             {
-                Debug.Log("linr = " + line + " != " + (x / 10 - listOfIndexs[i] / 5));
+                //Debug.Log("linr = " + line + " != " + (x / 10 - listOfIndexs[i] / 5));
                 return false;
             }
 
