@@ -4,16 +4,18 @@ using UnityEngine;
 
 public class FieldCondition : MonoBehaviour
 {
-    public int[,] field;
+   // public int[,] field;
     public int numberOfFullLines;
-    public List<int> listOfIndexesInFuulLine;
+   // public List<int> listOfIndexesInFuulLine;
 
-    public int CheckFieldForFullLines(int[,] field)
+
+    
+    public static List<int> CheckFieldForFullLines(int[,] field, out int countOfFullLine)
     {
-        int numOfFullLine = 0;
+        countOfFullLine = 0;
         bool v = true;
         bool h = true;
-        listOfIndexesInFuulLine = new List<int>();
+        List<int>  listOfIndexesInFuulLine = new List<int>();
 
         for (int i = 0; i < field.GetLength(0); i++)
         {
@@ -41,7 +43,7 @@ public class FieldCondition : MonoBehaviour
                         listOfIndexesInFuulLine.Add(item);
                 }
 
-                numOfFullLine++;
+                countOfFullLine++;
             }
 
 
@@ -52,33 +54,34 @@ public class FieldCondition : MonoBehaviour
                     if (listOfIndexesInFuulLine.IndexOf(item) == -1)
                         listOfIndexesInFuulLine.Add(item);
                 }
-                numOfFullLine++;
+                countOfFullLine++;
             }
                 
         }
 
-        return numOfFullLine;
+        return listOfIndexesInFuulLine;
     }
 
-    public void RemoveFullLines(int[,] field)
+    public static int[,] RemoveFullLines(int[,] field, List<int> listOfIndexesInFuulLine)
     {
         foreach (var item in listOfIndexesInFuulLine)
         {
             field[item / field.GetLongLength(0), item - (item / field.GetLongLength(0)) * field.GetLongLength(0)] = 0;
         }
+        return field;
     }
 
-    List<int> GetListOfIndexesByVertical(int numVertical)
+    static List<int> GetListOfIndexesByVertical(int numVertical)
     {
         List<int> listFullCells = new List<int>();
         for (int i = 0; i < 10; i++)
         {
-            listFullCells.Add(i * field.GetLength(1) + numVertical);
+            listFullCells.Add(i * 10 + numVertical);
         }
         return listFullCells;
     }
 
-    List<int> GetListOfIndexesByHorizontal(int numHorizontal)
+    static List<int> GetListOfIndexesByHorizontal(int numHorizontal)
     {
         List<int> listFullCells = new List<int>();
         for (int i = 0; i < 10; i++)
@@ -88,19 +91,19 @@ public class FieldCondition : MonoBehaviour
         return listFullCells;
     }
 
-
-    public void PlaceShape(List<int> shape)
+    public static int[,] PlaceShape(int[,] field,List<int> shape)
     {
         if (shape == null)
-            return;
+            return field;
       
         foreach (var item in shape)
         {
             field[item / field.GetLongLength(0), item - (item / field.GetLongLength(0)) * field.GetLongLength(0)] = 1;
         }
+        return field;
     }
 
-    public List<List<int>> ChekShapeForPlacement(int[,] field, int[,] shape)
+    public static List<List<int>> ChekShapeForPlacement(int[,] field, int[,] shape)
     {
         List<List<int>> listREsult = new List<List<int>>();
 
@@ -125,6 +128,7 @@ public class FieldCondition : MonoBehaviour
                 }
             }
         }
+
 
         numBoxWithColl = listOfIndexs[0];
 
@@ -153,16 +157,13 @@ public class FieldCondition : MonoBehaviour
 
                 int line = (x / field.GetLength(0) - listOfIndexs[0] / shape.GetLength(0));
 
-                
+                listREsult.Add(new List<int>());
 
                 foreach (var item in listOfIndexs)
                 {
-
-                   // if(listREsult)
                     x = zeroPoint + 10 * (int)(item / length) + item % length;
 
-                  //  x2.Add(x);
-
+                    listREsult[listREsult.Count - 1].Add(x);
 
                     if (x > 99 || x < 0)
                     {
@@ -185,17 +186,20 @@ public class FieldCondition : MonoBehaviour
                 }
                 if (flag)
                 {
-                   // Debug.Log(i + " " + j + " " +x2[0]);
-                   // return x2;
+
+                }
+                else {
+                    
+                    listREsult.Remove(listREsult[listREsult.Count - 1]);
                 }
             }
         }
 
 
-        return null;
+        return listREsult;
     }
 
-    public void ShowField()
+    public static void ShowField(int [,] field)
     {
         string str = "";
         for (int i = 0; i < field.GetLength(0); i++)
