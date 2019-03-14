@@ -67,7 +67,7 @@ public class ScinManager : MonoBehaviour
 
     public static Sprite GetCell()
     {
-        Sprite s = Resources.Load<Sprite>("Skins/" + currentSkin + "/cell/cell");
+        Sprite s = Resources.Load<Sprite>("Skins/" + currentSkin + "/cell/bg_sq");
         
 
         return s;

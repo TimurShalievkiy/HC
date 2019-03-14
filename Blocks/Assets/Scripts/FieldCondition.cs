@@ -91,8 +91,9 @@ public class FieldCondition : MonoBehaviour
         return listFullCells;
     }
 
-    public static int[,] PlaceShape(int[,] field,List<int> shape)
+    public static int[,] PlaceShape(int[,] field2,List<int> shape)
     {
+        int[,] field = (int[,])field2.Clone();
         if (shape == null)
             return field;
       
@@ -212,4 +213,16 @@ public class FieldCondition : MonoBehaviour
         }
         Debug.Log(str);
     }
+
+    public static int[,] CheckAndRemoveFullLines(int[,] field)
+    {
+        int x = 0;
+        List<int> listOfIndexesInFuulLine = CheckFieldForFullLines(field, out x);
+        foreach (var item in listOfIndexesInFuulLine)
+        {
+            field[item / field.GetLongLength(0), item - (item / field.GetLongLength(0)) * field.GetLongLength(0)] = 0;
+        }
+        return field;
+    }
+
 }

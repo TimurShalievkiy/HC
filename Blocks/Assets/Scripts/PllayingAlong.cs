@@ -4,133 +4,136 @@ using UnityEngine;
 
 public class PllayingAlong : MonoBehaviour
 {
+    List<int[,]> ListAllShapes;
+
 
     private void Start()
     {
-        int[,] field = { { 0,0,0,1,0,0,0,0,0,0 },
-                         { 1,1,1,1,1,1,1,1,1,1 },
-                         { 1,1,1,1,0,0,0,1,1,1 },
-                         { 0,1,0,1,0,0,0,1,0,0 },
-                         { 0,0,0,1,0,0,0,0,1,0 },
-                         { 0,0,0,1,0,1,0,1,0,0 },
-                         { 1,1,1,1,1,1,1,1,1,1 },
-                         { 0,0,0,1,0,0,0,0,0,0 },
-                         { 0,0,0,1,0,0,0,0,0,0 },
-                         { 1,1,1,1,1,1,1,1,1,1 }};
-
-
-        int[,] shape = { {0,0,0,0,0},
-                         {0,1,1,1,0},
-                         {0,1,1,1,0},
-                         {0,1,1,1,0},
-                         {0,0,0,0,0}};
-
-
-        //ChekShapeForPlacement(field, shape);
-
-        //CheckFieldForFullLines(field);
-
-        //fc.CheckFieldForFullLines(fc.field);
-        // fc.RemoveFullLines(field);
-        //fc.ShowField();
-
-        //fc.PlaceShape(fc.ChekShapeForPlacement(field, shape));
-        //fc.ShowField();
-        //fc.CheckFieldForFullLines(fc.field);
-        //fc.RemoveFullLines(fc.field);
-        //fc.ShowField();
+        ListAllShapes = ShapesManager.GetAllShapes();
 
     }
     public void GetShapesAfterRevive()
     {
         int counter = 0;
-        FieldCondition fc = new FieldCondition();
+
         int[,] field = FieldManager.GetCurrentFieldState();
-        //int[,] field = new int[,] { { 0,0,0,1,0,0,0,0,0,0 },
-        //                            { 1,0,1,0,1,1,1,1,1,1 },
-        //                            { 1,1,1,1,0,0,0,1,1,1 },
-        //                            { 0,0,0,1,0,0,0,1,0,0 },
-        //                            { 0,0,0,1,0,0,0,0,1,0 },
-        //                            { 0,0,0,1,0,1,0,1,0,0 },
-        //                            { 1,1,1,0,1,1,1,1,1,1 },
-        //                            { 0,0,0,1,0,0,0,0,0,0 },
-        //                            { 0,0,0,1,0,0,0,0,0,0 },
-        //                            { 1,1,1,0,1,1,1,1,1,1 }
-        //};
 
-        //FieldCondition.ShowField(field);
+        List<ResultShape> listResultShapes = GetListResultShapesByField(field, ref counter);
 
-        List<int[,]> ls = ShapesManager.GetAllShapes();
 
+
+        foreach (ResultShape item in listResultShapes)
+        {
+            item.listResultShapes = GetListResultShapesByField(FieldCondition.CheckAndRemoveFullLines(FieldCondition.PlaceShape(field, item.shapePos)), ref counter);
+
+            //foreach (var item2 in item.listResultShapes)
+            //{
+            //    item2.listResultShapes = GetListResultShapesByField(FieldCondition.CheckAndRemoveFullLines(FieldCondition.PlaceShape(field, item2.shapePos)), ref counter);
+            //}
+
+            //int countOfAllLine = item.countOfFullLine;
+            //int max = countOfAllLine;
+
+            //ResultShape buff = new ResultShape(-1, 0, null);
+            //foreach (ResultShape item2 in item.listResultShapes)
+            //{
+
+            //    countOfAllLine += item.countOfFullLine;
+            //    countOfAllLine += item2.countOfFullLine;
+            //    if (countOfAllLine > max)
+            //    {
+            //        max = countOfAllLine;
+            //        buff = item2;
+            //    }
+            //    countOfAllLine = 0;
+            //}
+
+            //item.ShowResultShape();
+
+            //buff.ShowResultShape();
+
+            //FieldCondition.ShowField(field);
+
+            //int[,] q = FieldCondition.PlaceShape(field, item.shapePos);
+            //int w = 0;
+            //FieldCondition.ShowField(q);
+
+            //q = FieldCondition.RemoveFullLines(q, FieldCondition.CheckFieldForFullLines(q, out w));
+            //FieldCondition.ShowField(q);
+            //if (buff.shapePos != null)
+            //{
+            //Debug.Log("buff.shapePos = " + buff.shapePos);
+            //Debug.Log("buff.countOfFullLine = " + buff.countOfFullLine);
+            //    q = FieldCondition.PlaceShape(q, buff.shapePos);
+            //FieldCondition.ShowField(q);
+            //FieldCondition.ShowField(FieldCondition.RemoveFullLines(q, FieldCondition.CheckFieldForFullLines(q, out w)));
+
+           
+            //}
+            //Debug.Log("--------------------------------------------- ");
+            //Debug.Log("max = " + max);
+            //Debug.Log("--------------------------------------------- ");
+        }
+
+        Debug.Log("counter = " + counter);
+    }
+
+    public List<ResultShape> GetListResultShapesByField(int[,] field, ref int counter)
+    {
 
         List<List<int>> li = new List<List<int>>();
-        List<List<int>> li2 = new List<List<int>>();
+        List<ResultShape> listResultShapes = new List<ResultShape>();
+
         int[,] newField;
-        int[,] newField2;
-        List<int> xList = new List<int>();
-        for (int i = 0; i < ls.Count; i++)
+
+        for (int i = 0; i < ListAllShapes.Count; i++)
         {
 
-            li = FieldCondition.ChekShapeForPlacement(field, ls[i]);
-            int x = 0;
+            li = FieldCondition.ChekShapeForPlacement(field, ListAllShapes[i]);
+            int countOfFullLIne = 0;
 
 
 
-            
+
             foreach (var item in li)
             {
                 counter++;
                 newField = FieldCondition.PlaceShape((int[,])field.Clone(), item);
-                newField = FieldCondition.RemoveFullLines(newField, FieldCondition.CheckFieldForFullLines(newField, out x));
+                newField = FieldCondition.RemoveFullLines(newField, FieldCondition.CheckFieldForFullLines(newField, out countOfFullLIne));
 
-                //+++++++++++++++++++++++++++++++++++++++++++++++++++++++
-                //работать только с теми которые дают зачеркивание линий
-                //+++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                if (countOfFullLIne > 0)
+                {
+                    listResultShapes.Add(new ResultShape(i, countOfFullLIne, item));
+                }
 
-                //Debug.Log(x);
-                if (x>0)
-                    xList.Add(x);
-                //Debug.Log("field");
-                //FieldCondition.ShowField(field);
-                //Debug.Log("newField");
-                //FieldCondition.ShowField(newField);
-                //if(item.Count>0)
-                // Debug.Log(item.Count);
-                //for (int j = 0; j < ls.Count; j++)
-                //{
-
-                //    li2 = FieldCondition.ChekShapeForPlacement(newField, ls[j]);
-
-                //    //Debug.Log("i = " + i + " j = " + j + " count = " + li2.Count);
-                //    foreach (var item2 in li2)
-                //    {
-                //        
-                //        newField2 = FieldCondition.PlaceShape((int[,])newField.Clone(), item);
-                //         newField2 = FieldCondition.RemoveFullLines(newField, FieldCondition.CheckFieldForFullLines(newField, out x));
-
-                //    }
-
-                //}
             }
-            
-        }
-        string s = "";
-        foreach (var item in xList)
-        {
-            s += item + " ";
-        }
-            
 
-        Debug.Log(s);
-        
-        Debug.Log("counter = " + counter);
+        }
+
+        return listResultShapes;
     }
 
+}
 
+public class ResultShape
+{
+    public int id;
+    public List<int> shapePos;
+    public int countOfFullLine;
+    public List<ResultShape> listResultShapes;
 
+    public ResultShape(int id, int countOfFullLine, List<int> shapePos)
+    {
+        this.id = id;
+        this.countOfFullLine = countOfFullLine;
+        this.shapePos = shapePos;
+    }
 
-    //string s = "num = " + (i+1) + " count = " + li.Count + "\n";
-    //Debug.Log(s);
+    public void ShowResultShape()
+    {
+        if(shapePos!=null)
+        Debug.Log("id = " + id + " firstSq = " + shapePos[0] + " countOfFullLine = " + countOfFullLine);
+    }
 }
 
 

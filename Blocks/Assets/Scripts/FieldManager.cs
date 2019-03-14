@@ -56,7 +56,7 @@ public class FieldManager : MonoBehaviour
             item.transform.GetComponent<Image>().color = ColorManager.GetDefaultColour();
             
             item.transform.GetComponent<Image>().sprite = ScinManager.GetCell();
-            item.transform.GetComponent<Image>().color = Color.white;
+            //item.transform.GetComponent<Image>().color = Color.white;
             item.transform.GetComponent<Cell>().SetValue(false);
         }
         scoreManager.IncreaseScore(listFullCells.Count);
