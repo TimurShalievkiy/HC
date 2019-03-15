@@ -79,6 +79,7 @@ public class TouchZonesCreator : MonoBehaviour
     }
 
 
+    
     public void GenerateNewWaveOfShapeAfterRevive()
     {
         DestroyAllZones();
@@ -103,6 +104,45 @@ public class TouchZonesCreator : MonoBehaviour
 
 
         GameObject instance3 = Instantiate(Resources.Load("Prefs/1", typeof(GameObject)), transform.position, Quaternion.identity) as GameObject;
+        instance3.transform.parent = transform;
+        instance3.transform.localScale = new Vector3(1, 1, 1);
+
+        x = instance3.transform.position.x + instance3.transform.GetComponent<RectTransform>().sizeDelta.x;
+        instance3.transform.localPosition = new Vector2(-x, 0);
+
+
+    }
+
+    public void GenerateNewWaveOfShapeAfterRevive(int[] shapesId)
+    {
+        DestroyAllZones();
+      //  Debug.Log("Created");
+
+
+        float x = 0;
+        // GameObject instance = Instantiate(Resources.Load("Prefs/"+(shapesId[0]), typeof(GameObject)), transform.position, Quaternion.identity) as GameObject;
+
+        GameObject instance = ShapesManager.GetShapeById(shapesId[0],transform);
+        instance.transform.parent = transform;
+        instance.transform.localScale = new Vector3(1, 1, 1);
+
+
+        x = instance.transform.position.x + instance.transform.GetComponent<RectTransform>().sizeDelta.x;
+        // Debug.Log("1 = " + instance.transform.position.x + " " + instance.transform.GetComponent<RectTransform>().sizeDelta.x);
+        instance.transform.localPosition = new Vector2(instance.transform.localPosition.x + instance.transform.GetComponent<RectTransform>().sizeDelta.x, 0);
+
+
+
+
+        //GameObject instance2 = Instantiate(Resources.Load("Prefs/" + (shapesId[1]), typeof(GameObject)), transform.position, Quaternion.identity) as GameObject;
+        GameObject instance2 = ShapesManager.GetShapeById(shapesId[1], transform);
+        instance2.transform.parent = transform;
+        instance2.transform.localScale = new Vector3(1, 1, 1);
+
+
+
+        //GameObject instance3 = Instantiate(Resources.Load("Prefs/" + (shapesId[2]), typeof(GameObject)), transform.position, Quaternion.identity) as GameObject;
+        GameObject instance3 = ShapesManager.GetShapeById(shapesId[2], transform);
         instance3.transform.parent = transform;
         instance3.transform.localScale = new Vector3(1, 1, 1);
 
@@ -138,4 +178,6 @@ public class TouchZonesCreator : MonoBehaviour
             GameObject.Destroy(transform.GetChild(i).gameObject);
         }
     }
+
+    
 }

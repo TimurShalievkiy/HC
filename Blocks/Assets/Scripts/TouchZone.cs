@@ -30,39 +30,7 @@ public class TouchZone : MonoBehaviour
     {
         currentDuration = duration;
         offset = new Vector3();
-        fieldManager = FieldManager.field.transform.GetComponent<FieldManager>();
-        //====
-        float x = FieldManager.field.GetComponent<GridLayoutGroup>().cellSize.x;
-        transform.GetComponent<GridLayoutGroup>().cellSize = new Vector2(x*0.7f,x * 0.7f);
-
-
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            //transform.GetChild(i).GetComponent<Image>().color = ColorManager.GetNextColor();
-            transform.GetChild(i).GetComponent<Image>().sprite = ScinManager.GetNextSq();
-
-
-
-            if (transform.GetChild(i).GetComponent<BoxCollider2D>().enabled)
-            {
-                transform.GetChild(i).GetComponent<BoxCollider2D>().enabled = false;
-            }
-           
-        }
-
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            if (transform.GetChild(i).GetComponent<Image>().enabled)
-            {
-                transform.GetChild(i).GetComponentInChildren<BoxCollider2D>().enabled = true;
-                transform.GetChild(i).GetComponentInChildren<BoxCollider2D>().size = new Vector2(2, 2);
-                break;
-            }
-        }
-        padding = Mathf.Abs( transform.GetComponent<RectTransform>().sizeDelta.y ) ;
-        //currentColor = ColorManager.GetNextColor();
-        //ColorManager.IncrementColor();
-        ScinManager.IncrementIndexOfCurrentSq();
+        IniTShape();
 
     }
     private void FixedUpdate()
@@ -169,5 +137,36 @@ public class TouchZone : MonoBehaviour
         fieldManager.CheckForLoss();
     }
 
+
+    void IniTShape()
+    {
+        fieldManager = FieldManager.field.transform.GetComponent<FieldManager>();
+        //====
+        float x = FieldManager.field.GetComponent<GridLayoutGroup>().cellSize.x;
+        transform.GetComponent<GridLayoutGroup>().cellSize = new Vector2(x * 0.7f, x * 0.7f);
+
+        for (int i = 0; i < transform.childCount; i++)
+        {
+  
+            transform.GetChild(i).GetComponent<Image>().sprite = ScinManager.GetNextSq();
+
+            if (transform.GetChild(i).GetComponent<BoxCollider2D>().enabled)
+            {
+                transform.GetChild(i).GetComponent<BoxCollider2D>().enabled = false;
+            }
+        }
+
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            if (transform.GetChild(i).GetComponent<Image>().enabled)
+            {
+                transform.GetChild(i).GetComponentInChildren<BoxCollider2D>().enabled = true;
+                transform.GetChild(i).GetComponentInChildren<BoxCollider2D>().size = new Vector2(2, 2);
+                break;
+            }
+        }
+        padding = Mathf.Abs(transform.GetComponent<RectTransform>().sizeDelta.y);
+        ScinManager.IncrementIndexOfCurrentSq();
+    }
 
 }

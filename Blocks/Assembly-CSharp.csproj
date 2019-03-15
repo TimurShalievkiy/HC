@@ -79,6 +79,7 @@
     <Compile Include="Assets\Scripts\TouchZone.cs" />
     <Compile Include="Assets\Scripts\TouchZonesCreator.cs" />
     <None Include="Assets\blure.shader" />
+    <None Include="Assets\Resources\test.txt" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>D:/MyProjects/Proj/Blocks/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>

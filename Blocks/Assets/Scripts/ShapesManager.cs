@@ -1,11 +1,34 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ShapesManager : MonoBehaviour
 {
 
+    public static GameObject GetShapeById(int id,Transform parent)
+    {
+        GameObject instance = Instantiate(Resources.Load("FullShape", typeof(GameObject)), parent.position, Quaternion.identity) as GameObject;
+        instance.transform.parent = parent;
+        instance.transform.localScale = new Vector3(1, 1, 1);
 
+        int[,] shape = GetAllShapes()[id];
+        for (int i = 0; i < shape.GetLength(0); i++)
+        {
+            for (int j = 0; j < shape.GetLength(1); j++)
+            {
+                if (shape[i, j] == 1)
+                {
+                    instance.transform.GetChild(i * shape.GetLength(0) + j).GetComponent<Image>().enabled = true;
+                }
+                else
+                    instance.transform.GetChild(i * shape.GetLength(0) + j).GetComponent<Image>().enabled = false;
+            }
+           
+        }
+        return instance;
+
+    }
     public static List<int[,]> GetAllShapes()
     {
         List<int[,]> lsh = new List<int[,]>();
