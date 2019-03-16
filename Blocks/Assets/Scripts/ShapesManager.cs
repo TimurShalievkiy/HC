@@ -5,14 +5,20 @@ using UnityEngine.UI;
 
 public class ShapesManager : MonoBehaviour
 {
-
+    //получить фигуру по Id с заданием родительского обьекта
     public static GameObject GetShapeById(int id,Transform parent)
     {
+        //получаем заготовку фигуры
         GameObject instance = Instantiate(Resources.Load("FullShape", typeof(GameObject)), parent.position, Quaternion.identity) as GameObject;
+        //назначаем родительский обьект
         instance.transform.parent = parent;
+        //выставляем скейл в базовое значение
         instance.transform.localScale = new Vector3(1, 1, 1);
 
+        //получаем фигуру из списка по айди
         int[,] shape = GetAllShapes()[id];
+
+        //убираем лишние блоки в зависимости от значенией фигуры
         for (int i = 0; i < shape.GetLength(0); i++)
         {
             for (int j = 0; j < shape.GetLength(1); j++)
@@ -26,9 +32,12 @@ public class ShapesManager : MonoBehaviour
             }
            
         }
+        //возвращаем готовую фигуру
         return instance;
 
     }
+
+    //получение списка всех фигур в виде двумерных масивов
     public static List<int[,]> GetAllShapes()
     {
         List<int[,]> lsh = new List<int[,]>();

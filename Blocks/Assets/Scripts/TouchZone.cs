@@ -10,8 +10,6 @@ public class TouchZone : MonoBehaviour
     public FieldManager fieldManager;
 
 
-    //public Color currentColor;
-
     Vector3 posOfTouch;
     Vector2 startPos;
     public Vector3 offset;
@@ -138,11 +136,15 @@ public class TouchZone : MonoBehaviour
     }
 
 
+
     void IniTShape()
     {
+        
         fieldManager = FieldManager.field.transform.GetComponent<FieldManager>();
-        //====
+        startPos = this.transform.position;
         float x = FieldManager.field.GetComponent<GridLayoutGroup>().cellSize.x;
+        isInStartPos = true;
+
         transform.GetComponent<GridLayoutGroup>().cellSize = new Vector2(x * 0.7f, x * 0.7f);
 
         for (int i = 0; i < transform.childCount; i++)

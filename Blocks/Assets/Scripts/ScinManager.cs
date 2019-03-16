@@ -10,6 +10,8 @@ public class ScinManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        //если значение скина не было сохранено назначаем базовый дефолтный
         if (PlayerPrefs.HasKey("currentSkin"))
         {
             currentSkin = PlayerPrefs.GetString("currentSkin");
@@ -20,7 +22,7 @@ public class ScinManager : MonoBehaviour
         }
     }
 
-
+    //получение бекграунда текущего скина
     public static Sprite GetBackground()
     {
         if (PlayerPrefs.HasKey("currentSkin"))
@@ -32,19 +34,13 @@ public class ScinManager : MonoBehaviour
             currentSkin = "default";
         }
 
-        Sprite s = Resources.Load<Sprite>("Skins/" + currentSkin + "/bg/bg");
-
-        //if (s == null)
-        //{
-        //    s = Resources.Load<Sprite>("Skins/default/bg/bg");
-        //    Debug.Log("null = " + s);
-        //    return s;
-        //}
-        //Debug.Log("no null = " + s.name);
+        Sprite s = Resources.LoadAll<Sprite>("Skins/" + currentSkin + "/bg/bg")[0];
 
         return s;
 
     }
+
+    //Получение блоков в зависимости от текущего значение индекса блока и названия скина
     public static Sprite GetNextSq()
     {
         if (PlayerPrefs.HasKey("currentSkin"))
@@ -65,17 +61,20 @@ public class ScinManager : MonoBehaviour
         return ls[indexOfCurrentSq];
     }
 
+    //получение ячейки с папки текущего скина
     public static Sprite GetCell()
     {
-        Sprite s = Resources.Load<Sprite>("Skins/" + currentSkin + "/cell/bg_sq");
-        
-
+        Sprite s = Resources.LoadAll<Sprite>("Skins/" + currentSkin + "/cell")[0];
         return s;
     }
+
+    //увеличение значение текущего блока
     public static void IncrementIndexOfCurrentSq()
     {
         indexOfCurrentSq++;
     }
+
+    //задание значение текущего скина
     public void SetCurrentScinValue(string s)
     {
         currentSkin = s;

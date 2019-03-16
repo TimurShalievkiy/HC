@@ -15,6 +15,7 @@ public class FieldManager : MonoBehaviour
         field = this.transform;
         ResetGameField();
     }
+
     public void CheckFieldForFullLines()
     {
         List<GameObject> listFullCells = new List<GameObject>();
@@ -158,20 +159,21 @@ public class FieldManager : MonoBehaviour
         return true;
     }
 
-
+    //востановить базовый цвет и спрайт не занятых ячеек поля
     public void CleerFieldColor()
     {
         for (int i = 0; i < transform.childCount; i++)
         {
             if (!transform.GetChild(i).GetComponent<Cell>().isSet)
             {
-                //transform.GetChild(i).GetComponent<Image>().color = ColorManager.GetDefaultColour();
                 transform.GetChild(i).GetComponent<Image>().sprite = ScinManager.GetCell();
                 transform.GetChild(i).GetComponent<Image>().color = new Color(1,1,1,0.55f);
             }
         }
     }
 
+
+    //проверяем возможность размещения текущей фигуры на игровом поле
     public bool CheckThePossibilityOfPlacement(Transform touchZone)
     {
         int counter = 0;
@@ -255,19 +257,24 @@ public class FieldManager : MonoBehaviour
         return true;
     }
 
-
+    //проверка на проиграш
     public void CheckForLoss()
     {
+        //количество вариантов размещения фигур которые есть в волне
         int count = 0;
+
+        //если количество
         if (touchZonesParent.childCount > 1)
         {
             for (int i = 0; i < touchZonesParent.childCount; i++)
             {
+                //проверка на возможность размещения фигуры
                 if (CheckThePossibilityOfPlacement(touchZonesParent.GetChild(i)))
                 {
                     count++;
                 }
             }
+            //если вариантов размещения нет то активируем 
             if (count == 0)
             {
                 RevivePanel.GetComponent<TimerForRevive>().ResetTimer();
@@ -276,6 +283,8 @@ public class FieldManager : MonoBehaviour
         }
     }
 
+
+    //сброс игрового поля до базового состояния
     public void ResetGameField()
     {
         for (int i = 0; i < field.childCount; i++)
@@ -288,10 +297,11 @@ public class FieldManager : MonoBehaviour
 
     }
 
+
+    //получить текущее состояние игрового поля в виде двумерного массива
     public static int[,] GetCurrentFieldState()
     {
         int[,] state = new int[10, 10];
-        //Debug.Log(field);
         for (int i = 0; i < 10; i++)
         {
             for (int j = 0; j  < 10; j++)
