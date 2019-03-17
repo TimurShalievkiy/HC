@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class FieldCondition : MonoBehaviour
 {
-   // public int[,] field;
-    public int numberOfFullLines;
-   // public List<int> listOfIndexesInFuulLine;
 
+   // public int numberOfFullLines;
 
     
     public static List<int> CheckFieldForFullLines(int[,] field, out int countOfFullLine)

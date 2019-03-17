@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class TouchZone : MonoBehaviour
 {
-    public float padding;
+
 
     public FieldManager fieldManager;
 
@@ -15,7 +15,7 @@ public class TouchZone : MonoBehaviour
     public Vector3 offset;
 
 
-    public float speed;
+
     bool flag = false;
     public static bool iSinglTouchZone = true;
 
@@ -40,11 +40,7 @@ public class TouchZone : MonoBehaviour
                 posOfTouch = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
 
                 posOfTouch.z = 0;
-
-                speed = transform.parent.GetComponent<TouchZonesCreator>().slider.value;
-
-
-
+        
                 //transform.position = Vector3.Lerp(transform.position, new Vector3(posOfTouch.x, GetYPos(), 0f), speed);
                 //transform.position = Camera.main.ScreenToWorldPoint(new Vector3( GetXPos(),GetYPos(),0f));
 
@@ -59,11 +55,16 @@ public class TouchZone : MonoBehaviour
 
             }
         }
+        //если не в стартовой позиции
         if (isInStartPos)
         {
+            //возвращаем фигуру в стартовую позицию
             transform.position = Vector3.Lerp(transform.position, startPos, 0.3f);
+
+            //если достигли стартовой позиции
             if (Mathf.Round(transform.position.x) == Mathf.Round(startPos.x))
             {
+                //выставляем параметры в базовое значение
                 this.transform.position = startPos;
                 currentDuration = duration;
                 isInStartPos = false;
@@ -72,7 +73,7 @@ public class TouchZone : MonoBehaviour
         }
     }
 
-
+    //получить Y позицию с поднятием фигуры по таймеру на высоту **********высоту сделать настраиваемой после оптимизации скорости
     public float GetYPos()
     {
         if (currentDuration >= 0)
@@ -83,6 +84,8 @@ public class TouchZone : MonoBehaviour
         //return Mathf.Lerp( posOfTouch.y, posOfTouch.y + fieldManager.GetComponent<GridLayoutGroup>().cellSize.x / 1.35f,0.7f);
         return posOfTouch.y + fieldManager.GetComponent<GridLayoutGroup>().cellSize.x / 1.35f; //Mathf.Lerp(transform.position.y, posOfTouch.y + fieldManager.GetComponent<GridLayoutGroup>().cellSize.x / 1.35f,0.5f);
     }
+
+    //получить х позицию тача
     public float GetXPos()
     {
         //return Mathf.Lerp( posOfTouch.y, posOfTouch.y + fieldManager.GetComponent<GridLayoutGroup>().cellSize.x / 1.35f,0.7f);
@@ -91,17 +94,16 @@ public class TouchZone : MonoBehaviour
 
     public void PointerDown()
     {
+        //если больше не задействовано других зон
         if (iSinglTouchZone)
         {
-            //Debug.Log(name);
-           // Vector3 z = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
+            //назначаем офсет для просчета разницы между тачем и центром фигуры
            if(Input.touchCount>0)
-            offset = transform.position - Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
-            //Debug.Log(transform.position + " - " + z + " = " + offset);
+                offset = transform.position - Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
+
             flag = true;
             startPos = this.transform.position;
             
-            //transform.localScale = new Vector3( 1.4f, 1.4f);
             iSinglTouchZone = false;
         }
         
@@ -114,12 +116,12 @@ public class TouchZone : MonoBehaviour
             CheckZones();
             flag = false;
             isInStartPos = true;
-            //this.transform.position = startPos;
             transform.localScale = new Vector3( 1, 1);
            
         }
     }
 
+    //проверка на возможность разместить фигуру
     void CheckZones()
     {
 
@@ -139,25 +141,37 @@ public class TouchZone : MonoBehaviour
 
     void IniTShape()
     {
-        
+        //получаем ссылку на FieldManager
         fieldManager = FieldManager.field.transform.GetComponent<FieldManager>();
+
+        //задаем стартовую позицию
         startPos = this.transform.position;
+
+        //назначаем размер ячейки
         float x = FieldManager.field.GetComponent<GridLayoutGroup>().cellSize.x;
+
+        //высталяем параметр нахождения в стартовой позиции в тру для избежания богов с невозвратом фигуры 
         isInStartPos = true;
 
+        //задаем размер блоков фигуры
         transform.GetComponent<GridLayoutGroup>().cellSize = new Vector2(x * 0.7f, x * 0.7f);
 
+
+        //проводим базовую инициализацию фигуры
         for (int i = 0; i < transform.childCount; i++)
         {
-  
+            //задаем спрайт
             transform.GetChild(i).GetComponent<Image>().sprite = ScinManager.GetNextSq();
 
+            //деактивируем ненужные BoxCollider2D
             if (transform.GetChild(i).GetComponent<BoxCollider2D>().enabled)
             {
                 transform.GetChild(i).GetComponent<BoxCollider2D>().enabled = false;
             }
         }
 
+
+        //активируем нужный BoxCollider2D в обьекте где активен Image
         for (int i = 0; i < transform.childCount; i++)
         {
             if (transform.GetChild(i).GetComponent<Image>().enabled)
@@ -167,7 +181,8 @@ public class TouchZone : MonoBehaviour
                 break;
             }
         }
-        padding = Mathf.Abs(transform.GetComponent<RectTransform>().sizeDelta.y);
+
+
         ScinManager.IncrementIndexOfCurrentSq();
     }
 

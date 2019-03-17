@@ -258,4 +258,34 @@ public class ShapesManager : MonoBehaviour
         return lsh;
 
     }
+
+
+
+    public void GetRandomShapeWave()
+    {
+        float x = 0;
+        int counterX = 7;
+        int sum = 0;
+
+
+        for (int i = 0; i < 1000; i++)
+        {
+            counterX++;
+            if (counterX == 7)
+            {
+                counterX = 0;
+                x += 9;
+                sum = Random.Range(2, 11);
+                Debug.Log(sum + 9);
+            }
+            else
+            {
+                sum = Random.Range(4, 16);
+                Debug.Log(sum);
+            }
+
+
+            x += sum;
+        }
+    }
 }

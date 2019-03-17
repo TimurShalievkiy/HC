@@ -13,103 +13,12 @@ public class PllayingAlong : MonoBehaviour
     private void Start()
     {
         ListAllShapes = ShapesManager.GetAllShapes();
-        shapesId = new int[] { 0, 0, 0 };
+        //shapesId = new int[] { 0, 0, 0 };
     }
     public void GetShapesAfterRevive()
     {
-        shapesId = new int[] { 0, 0, 0 };
-
-
-
-
-
-        //=================================================
-       
-
-        string s = "";
-        float x = 0;
-        for (int i = 0; i < 1000; i++)
-        {
-            //s +=Random.Range(4, 23).ToString() + "\n";
-            x += Random.Range(4, 24);
-        }
-
-        Debug.Log(x / 1000);
-
-        //string path = "Assets/Resources/test.txt";
-
-        ////Write some text to the test.txt file
-        //StreamWriter writer = new StreamWriter(path, true);
-        //writer.WriteLine(s);
-        //writer.Close();
-
-
-
-
-
-        //=================================================
-
-
-
-        // int[,] field = FieldManager.GetCurrentFieldState();
-
-        // List<ResultShape> listResultShapes = GetListResultShapesByField(field, ref counter);
-
-
-        //if (listResultShapes != null && listResultShapes.Count > 0)
-        //{
-        //    foreach (ResultShape item in listResultShapes)
-        //    {
-        //        item.listResultShapes = GetListResultShapesByField(FieldCondition.CheckAndRemoveFullLines(FieldCondition.PlaceShape(field, item.shapePos)), ref counter);
-        //    }
-
-        //    foreach (ResultShape item in listResultShapes)
-        //    {
-        //        item.InitAllValue();
-        //    }
-
-
-        //    int max = listResultShapes.Max(x => x.countOfAllFullLine);
-
-        //    List<ResultShape> listResult = listResultShapes.FindAll(x => x.countOfAllFullLine == max);
-
-
-
-
-        //    //разобраться в получении фигур количества 
-
-        //    if (listResult != null && listResult.Count > 0)
-        //    {
-
-        //        max = listResult.Max(x => x.countOfBlockWithMaxSHape);
-        //        listResult = listResult.FindAll(x => x.countOfBlockWithMaxSHape == max);
-
-
-
-        //        ResultShape res;
-        //        if (listResult.Count > 1)
-        //        {
-        //            res = listResult[Random.Range(0, listResult.Count)];
-        //        }
-        //        else
-        //            res = listResult[0];
-
-        //        shapesId[0] = res.id;
-        //        res.ShowResultShape();
-        //        if (res.ShapeWithMaxBlock != null)
-        //        {
-        //            shapesId[1] = res.ShapeWithMaxBlock.id;
-        //            res.ShapeWithMaxBlock.ShowResultShape();
-        //        }
-
-
-
-        //    }
-        //}
-
-
+        //shapesId = new int[] { 0, 0, 0 };
         zonesCreator.GenerateNewWaveOfShapeAfterRevive(shapesId);
-
 
     }
 
@@ -248,3 +157,97 @@ public class ResultShape
 
 
 
+
+
+//public void GetShapesAfterRevive()
+//{
+//    shapesId = new int[] { 0, 0, 0 };
+
+
+
+
+
+//    //=================================================
+
+
+
+
+//    //Debug.Log("countMin = "+ countMin + " countMax = " + countMax);
+//    //Debug.Log(x / 1000);
+
+//    //string path = "Assets/Resources/test.txt";
+
+//    ////Write some text to the test.txt file
+//    //StreamWriter writer = new StreamWriter(path, true);
+//    //writer.WriteLine(s);
+//    //writer.Close();
+
+
+
+
+
+//    //=================================================
+
+
+
+//    // int[,] field = FieldManager.GetCurrentFieldState();
+
+//    // List<ResultShape> listResultShapes = GetListResultShapesByField(field, ref counter);
+
+
+//    //if (listResultShapes != null && listResultShapes.Count > 0)
+//    //{
+//    //    foreach (ResultShape item in listResultShapes)
+//    //    {
+//    //        item.listResultShapes = GetListResultShapesByField(FieldCondition.CheckAndRemoveFullLines(FieldCondition.PlaceShape(field, item.shapePos)), ref counter);
+//    //    }
+
+//    //    foreach (ResultShape item in listResultShapes)
+//    //    {
+//    //        item.InitAllValue();
+//    //    }
+
+
+//    //    int max = listResultShapes.Max(x => x.countOfAllFullLine);
+
+//    //    List<ResultShape> listResult = listResultShapes.FindAll(x => x.countOfAllFullLine == max);
+
+
+
+
+//    //    //разобраться в получении фигур количества 
+
+//    //    if (listResult != null && listResult.Count > 0)
+//    //    {
+
+//    //        max = listResult.Max(x => x.countOfBlockWithMaxSHape);
+//    //        listResult = listResult.FindAll(x => x.countOfBlockWithMaxSHape == max);
+
+
+
+//    //        ResultShape res;
+//    //        if (listResult.Count > 1)
+//    //        {
+//    //            res = listResult[Random.Range(0, listResult.Count)];
+//    //        }
+//    //        else
+//    //            res = listResult[0];
+
+//    //        shapesId[0] = res.id;
+//    //        res.ShowResultShape();
+//    //        if (res.ShapeWithMaxBlock != null)
+//    //        {
+//    //            shapesId[1] = res.ShapeWithMaxBlock.id;
+//    //            res.ShapeWithMaxBlock.ShowResultShape();
+//    //        }
+
+
+
+//    //    }
+//    //}
+
+
+//    zonesCreator.GenerateNewWaveOfShapeAfterRevive(shapesId);
+
+
+//}
