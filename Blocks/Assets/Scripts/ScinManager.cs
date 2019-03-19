@@ -34,7 +34,7 @@ public class ScinManager : MonoBehaviour
             currentSkin = "default";
         }
 
-        Sprite s = Resources.LoadAll<Sprite>("Skins/" + currentSkin + "/bg/bg")[0];
+        Sprite s = Resources.LoadAll<Sprite>("Skins/" + currentSkin + "/bg")[0];
 
         return s;
 

@@ -71,6 +71,7 @@
     <Compile Include="Assets\Scripts\LevelLoad.cs" />
     <Compile Include="Assets\Scripts\LoseScreen.cs" />
     <Compile Include="Assets\Scripts\PllayingAlong.cs" />
+    <Compile Include="Assets\Scripts\Randomizer.cs" />
     <Compile Include="Assets\Scripts\Rotator.cs" />
     <Compile Include="Assets\Scripts\ScinManager.cs" />
     <Compile Include="Assets\Scripts\ScoreManager.cs" />
@@ -79,7 +80,6 @@
     <Compile Include="Assets\Scripts\TouchZone.cs" />
     <Compile Include="Assets\Scripts\TouchZonesCreator.cs" />
     <None Include="Assets\blure.shader" />
-    <None Include="Assets\Resources\test.txt" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>D:/MyProjects/Proj/Blocks/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>

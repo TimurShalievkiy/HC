@@ -55,43 +55,82 @@ public class TouchZonesCreator : MonoBehaviour
     //временный метод генерации новой волны фигур
     void GenerateNewWaveOfShape()
     {
-        //смещение фигур относительно центра и ширины обьекта фигуры
-        float x = 0;
+        int[] shapesId = ShapesManager.GetRandomShapeWave();
+        DestroyAllZones();
 
-        //получаем фигуру
-        GameObject instance = GetNextShape();
-        //назначаем родителем текущий обьект
+
+
+        float x = 0;
+        GameObject instance = ShapesManager.GetShapeById(shapesId[0], transform);
         instance.transform.parent = transform;
-        //выставляем скейл в базовое значение
         instance.transform.localScale = new Vector3(1, 1, 1);
 
-        //получаем смещение
+
         x = instance.transform.position.x + instance.transform.GetComponent<RectTransform>().sizeDelta.x;
-        //задаем новую позиции с учетом смещения
-        instance.transform.localPosition = new Vector2(x, 0);
-        
+        instance.transform.localPosition = new Vector2(instance.transform.localPosition.x + instance.transform.GetComponent<RectTransform>().sizeDelta.x, 0);
 
 
-        //получаем вторую фигуру
-        GameObject instance2 = GetNextShape();
-        //назначаем ей родительским обьектом текущий
+
+
+        GameObject instance2 = ShapesManager.GetShapeById(shapesId[1], transform);
         instance2.transform.parent = transform;
-        //выставляем скейл в базовое значение
         instance2.transform.localScale = new Vector3(1, 1, 1);
 
 
-        //получаем третью фигуру
-        GameObject instance3 = GetNextShape();
-        //назначаем ей родительским обьектом текущий
+
+        GameObject instance3 = ShapesManager.GetShapeById(shapesId[2], transform);
         instance3.transform.parent = transform;
-        //выставляем скейл в базовое значение
         instance3.transform.localScale = new Vector3(1, 1, 1);
 
-        //получаем смещение
         x = instance3.transform.position.x + instance3.transform.GetComponent<RectTransform>().sizeDelta.x;
-        //задаем новую позиции с учетом смещения
         instance3.transform.localPosition = new Vector2(-x, 0);
-       
+
+
+
+
+
+
+
+
+
+
+        ////смещение фигур относительно центра и ширины обьекта фигуры
+        //float x = 0;
+
+        ////получаем фигуру
+        //GameObject instance = GetNextShape();
+        ////назначаем родителем текущий обьект
+        //instance.transform.parent = transform;
+        ////выставляем скейл в базовое значение
+        //instance.transform.localScale = new Vector3(1, 1, 1);
+
+        ////получаем смещение
+        //x = instance.transform.position.x + instance.transform.GetComponent<RectTransform>().sizeDelta.x;
+        ////задаем новую позиции с учетом смещения
+        //instance.transform.localPosition = new Vector2(x, 0);
+
+
+
+        ////получаем вторую фигуру
+        //GameObject instance2 = GetNextShape();
+        ////назначаем ей родительским обьектом текущий
+        //instance2.transform.parent = transform;
+        ////выставляем скейл в базовое значение
+        //instance2.transform.localScale = new Vector3(1, 1, 1);
+
+
+        ////получаем третью фигуру
+        //GameObject instance3 = GetNextShape();
+        ////назначаем ей родительским обьектом текущий
+        //instance3.transform.parent = transform;
+        ////выставляем скейл в базовое значение
+        //instance3.transform.localScale = new Vector3(1, 1, 1);
+
+        ////получаем смещение
+        //x = instance3.transform.position.x + instance3.transform.GetComponent<RectTransform>().sizeDelta.x;
+        ////задаем новую позиции с учетом смещения
+        //instance3.transform.localPosition = new Vector2(-x, 0);
+
     }
 
 
@@ -133,7 +172,7 @@ public class TouchZonesCreator : MonoBehaviour
     public void GenerateNewWaveOfShapeAfterRevive(int[] shapesId)
     {
         DestroyAllZones();
-      //  Debug.Log("Created");
+
 
 
         float x = 0;

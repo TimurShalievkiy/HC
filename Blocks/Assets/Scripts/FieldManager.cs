@@ -15,7 +15,7 @@ public class FieldManager : MonoBehaviour
         field = this.transform;
         ResetGameField();
     }
-
+     
     public void CheckFieldForFullLines()
     {
         //список с ячейками находящимися в полных линиях

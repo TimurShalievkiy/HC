@@ -15,7 +15,7 @@ public class TouchZone : MonoBehaviour
     public Vector3 offset;
 
 
-
+     
     bool flag = false;
     public static bool iSinglTouchZone = true;
 

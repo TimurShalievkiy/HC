@@ -6,7 +6,7 @@ using System.IO;
 
 public class PllayingAlong : MonoBehaviour
 {
-    List<int[,]> ListAllShapes;
+    List<Shape> ListAllShapes;
     public TouchZonesCreator zonesCreator;
     int[] shapesId = new int[] { 0, 0, 0 };
 
@@ -18,6 +18,7 @@ public class PllayingAlong : MonoBehaviour
     public void GetShapesAfterRevive()
     {
         //shapesId = new int[] { 0, 0, 0 };
+        ShapesManager.GetRandomShapeWave();
         zonesCreator.GenerateNewWaveOfShapeAfterRevive(shapesId);
 
     }
@@ -33,7 +34,7 @@ public class PllayingAlong : MonoBehaviour
         for (int i = 0; i < ListAllShapes.Count; i++)
         {
 
-            li = FieldCondition.ChekShapeForPlacement(field, ListAllShapes[i]);
+            li = FieldCondition.ChekShapeForPlacement(field, ListAllShapes[i].array);
             int countOfFullLIne = 0;
 
 
