@@ -5,11 +5,15 @@ using UnityEngine.UI;
 
 public class ShapesManager : MonoBehaviour
 {
-   
+    static List<int> beg = new List<int>();
+    static int begSize = 5;
+    static int countWaveFor3x3Shape = 8;
+    static int currentCountWaveAfterPrevius3x3Shape = Random.Range(countWaveFor3x3Shape-Random.Range(1,4), countWaveFor3x3Shape+1);
+
     public static List<Shape> listOfShapes = new List<Shape>();
 
     //получить фигуру по Id с заданием родительского обьекта
-    public static GameObject GetShapeById(int id,Transform parent)
+    public static GameObject GetShapeById(int id, Transform parent)
     {
         //получаем заготовку фигуры
         GameObject instance = Instantiate(Resources.Load("FullShape", typeof(GameObject)), parent.position, Quaternion.identity) as GameObject;
@@ -33,7 +37,7 @@ public class ShapesManager : MonoBehaviour
                 else
                     instance.transform.GetChild(i * shape.GetLength(0) + j).GetComponent<Image>().enabled = false;
             }
-           
+
         }
         //возвращаем готовую фигуру
         return instance;
@@ -45,7 +49,7 @@ public class ShapesManager : MonoBehaviour
     {
 
 
-       
+
 
 
 
@@ -75,7 +79,7 @@ public class ShapesManager : MonoBehaviour
                              { 0,0,0,0,0} }));
 
             //4
-            listOfShapes.Add(new Shape(5f,new int[,] {
+            listOfShapes.Add(new Shape(5f, new int[,] {
                              { 0,0,0,0,0},
                              { 0,0,0,0,0},
                              { 0,1,1,0,0},
@@ -83,7 +87,7 @@ public class ShapesManager : MonoBehaviour
                              { 0,0,0,0,0} }));
 
             //5
-            listOfShapes.Add(new Shape(5f,new int[,] {
+            listOfShapes.Add(new Shape(5f, new int[,] {
                              { 0,0,0,0,0},
                              { 0,0,0,0,0},
                              { 0,1,1,1,0},
@@ -92,7 +96,7 @@ public class ShapesManager : MonoBehaviour
 
 
             //6
-            listOfShapes.Add(new Shape(5f,new int[,] {
+            listOfShapes.Add(new Shape(5f, new int[,] {
                              { 0,0,0,0,0},
                              { 0,0,0,0,0},
                              { 0,1,1,1,1},
@@ -101,14 +105,14 @@ public class ShapesManager : MonoBehaviour
 
 
             //7
-            listOfShapes.Add(new Shape(5f,new int[,] {
+            listOfShapes.Add(new Shape(5f, new int[,] {
                              { 0,0,0,0,0},
                              { 0,0,0,0,0},
                              { 1,1,1,1,1},
                              { 0,0,0,0,0},
                              { 0,0,0,0,0} }));
             //8
-            listOfShapes.Add(new Shape(5f,new int[,] {
+            listOfShapes.Add(new Shape(5f, new int[,] {
                              { 0,0,0,0,0},
                              { 0,0,1,0,0},
                              { 0,0,1,0,0},
@@ -116,7 +120,7 @@ public class ShapesManager : MonoBehaviour
                              { 0,0,0,0,0} }));
 
             //9
-            listOfShapes.Add(new Shape(5f,new int[,] {
+            listOfShapes.Add(new Shape(5f, new int[,] {
                              { 0,0,0,0,0},
                              { 0,0,1,0,0},
                              { 0,0,1,0,0},
@@ -124,7 +128,7 @@ public class ShapesManager : MonoBehaviour
                              { 0,0,0,0,0} }));
 
             //10
-            listOfShapes.Add(new Shape(5f,new int[,] {
+            listOfShapes.Add(new Shape(5f, new int[,] {
                              { 0,0,0,0,0},
                              { 0,0,1,0,0},
                              { 0,0,1,0,0},
@@ -132,7 +136,7 @@ public class ShapesManager : MonoBehaviour
                              { 0,0,1,0,0} }));
 
             //11
-            listOfShapes.Add(new Shape(5f,new int[,] {
+            listOfShapes.Add(new Shape(5f, new int[,] {
                              { 0,0,1,0,0},
                              { 0,0,1,0,0},
                              { 0,0,1,0,0},
@@ -141,7 +145,7 @@ public class ShapesManager : MonoBehaviour
 
 
             //12
-            listOfShapes.Add(new Shape(5f,new int[,] {
+            listOfShapes.Add(new Shape(5f, new int[,] {
                              { 0,0,0,0,0},
                              { 0,0,0,0,0},
                              { 0,0,1,1,0},
@@ -150,7 +154,7 @@ public class ShapesManager : MonoBehaviour
 
 
             //13
-            listOfShapes.Add(new Shape(5f,new int[,] {
+            listOfShapes.Add(new Shape(5f, new int[,] {
                              { 0,0,0,0,0},
                              { 0,0,0,0,0},
                              { 0,1,1,0,0},
@@ -159,7 +163,7 @@ public class ShapesManager : MonoBehaviour
 
 
             //14
-            listOfShapes.Add(new Shape(5f,new int[,] {
+            listOfShapes.Add(new Shape(5f, new int[,] {
                              { 0,0,0,0,0},
                              { 0,0,1,0,0},
                              { 0,0,1,1,0},
@@ -168,7 +172,7 @@ public class ShapesManager : MonoBehaviour
 
 
             //15
-            listOfShapes.Add(new Shape(5f,new int[,] {
+            listOfShapes.Add(new Shape(5f, new int[,] {
                              { 0,0,0,0,0},
                              { 0,0,1,0,0},
                              { 0,1,1,0,0},
@@ -177,7 +181,7 @@ public class ShapesManager : MonoBehaviour
 
 
             //16
-            listOfShapes.Add(new Shape(5f,new int[,] {
+            listOfShapes.Add(new Shape(5f, new int[,] {
                              { 0,0,0,0,0},
                              { 0,1,0,0,0},
                              { 0,1,0,0,0},
@@ -185,7 +189,7 @@ public class ShapesManager : MonoBehaviour
                              { 0,0,0,0,0} }));
 
             //17
-            listOfShapes.Add(new Shape(5f,new int[,] {
+            listOfShapes.Add(new Shape(5f, new int[,] {
                              { 0,0,0,0,0},
                              { 0,0,0,1,0},
                              { 0,0,0,1,0},
@@ -193,7 +197,7 @@ public class ShapesManager : MonoBehaviour
                              { 0,0,0,0,0} }));
 
             //18
-            listOfShapes.Add(new Shape(5f,new int[,] {
+            listOfShapes.Add(new Shape(5f, new int[,] {
                              { 0,0,0,0,0},
                              { 0,1,1,1,0},
                              { 0,1,0,0,0},
@@ -201,7 +205,7 @@ public class ShapesManager : MonoBehaviour
                              { 0,0,0,0,0} }));
 
             //19
-            listOfShapes.Add(new Shape(5f,new int[,] {
+            listOfShapes.Add(new Shape(5f, new int[,] {
                              { 0,0,0,0,0},
                              { 0,1,1,1,0},
                              { 0,0,0,1,0},
@@ -333,32 +337,123 @@ public class ShapesManager : MonoBehaviour
 
         List<int> listShapesForNewWave = new List<int>();
 
-        string s = "";
-        for (int i = 0; i < 1000; i++)
-        {
+        //string s = "";
+        //int[] arr;
+        //for (int i = 0; i < 5000; i++)
+        //{
+        //    arr = GetShapeAfterКequirements();
+        //    shape1 = arr[0];
+        //    shape2 = arr[1];
+        //    shape3 = arr[2];
 
+
+        //    s += shape1 + "\n";
+        //    s += shape2 + "\n";
+        //    s += shape3 + "\n";
+
+        //    x += GetCountOfBlockByShaprID(shape1) + GetCountOfBlockByShaprID(shape2) + GetCountOfBlockByShaprID(shape3);
+
+
+        //}
+
+
+
+        //Debug.Log(s);
+        //Debug.Log(x / 5000);
+
+
+        //return new int[] { shape1, shape2, shape3 };
+        return GetShapeAfterКequirements();
+    }
+
+    static int[] GetShapeAfterКequirements()
+    {
+        int shape1 = 0;
+        int shape2 = 0;
+        int shape3 = 0;
+
+        bool flag = true;
+        while (flag)
+        {
             shape1 = Randomizer.GetNextShapeId();
             shape2 = Randomizer.GetNextShapeId();
             shape3 = Randomizer.GetNextShapeId();
 
+            int summ = GetCountOfBlockByShaprID(shape1) + GetCountOfBlockByShaprID(shape2) + GetCountOfBlockByShaprID(shape3);
 
-            s += shape1 + "\n";
-            s += shape2 + "\n";
-            s += shape3 + "\n";
 
-            x += GetCountOfBlockByShaprID(shape1) + GetCountOfBlockByShaprID(shape2) + GetCountOfBlockByShaprID(shape3);
+
+            if (!(shape1 == shape2 || shape2 == shape3 || shape1 == shape3))
+            {
+
+                if (shape1 == 2 || shape2 == 2 || shape3 == 2)
+                    if (currentCountWaveAfterPrevius3x3Shape < countWaveFor3x3Shape)
+                    {
+                        //Debug.Log(1111111);
+                        continue;
+                    }
+
+
+
+                if (GetCountOfBlockByShaprID(shape1) == 9 && !FieldCondition.ChekShapeForPlacement(ShapesManager.GetAllShapes()[shape1].array))
+                {
+                    //Debug.Log(GetCountOfBlockByShaprID(shape1));
+                    continue;
+                }
+
+                if (GetCountOfBlockByShaprID(shape2) == 9 && !FieldCondition.ChekShapeForPlacement(ShapesManager.GetAllShapes()[shape2].array))
+                {
+                    //Debug.Log(GetCountOfBlockByShaprID(shape2));
+                    continue;
+                }
+                if (GetCountOfBlockByShaprID(shape3) == 9 && !FieldCondition.ChekShapeForPlacement(ShapesManager.GetAllShapes()[shape3].array))
+                {
+                    //Debug.Log(GetCountOfBlockByShaprID(shape3));
+                    continue;
+                }
+                if (!(ExistAtBeg(shape1)))
+                    if (!(ExistAtBeg(shape2)))
+                        if (!(ExistAtBeg(shape3)))
+                        {
+                            //Debug.Log(shape1 + " " + shape2 + " " + shape3);
+                            if (summ >= 4 && summ <= 19)
+                                flag = false;
+                        }
+            }
 
 
         }
-        shape1 = Randomizer.GetNextShapeId();
-        shape2 = Randomizer.GetNextShapeId();
-        shape3 = Randomizer.GetNextShapeId();
+        currentCountWaveAfterPrevius3x3Shape++;
 
-        Debug.Log(s);
-        Debug.Log(x/1000);
+        if (shape1 == 2 || shape2 == 2 || shape3 == 2)
+            if (currentCountWaveAfterPrevius3x3Shape >= countWaveFor3x3Shape)
+                currentCountWaveAfterPrevius3x3Shape = 0;
+
+        AddInBeg(shape1);
+        AddInBeg(shape2);
+        AddInBeg(shape3);
         return new int[] { shape1, shape2, shape3 };
     }
-    
+
+    static bool ExistAtBeg(int id)
+    {
+        //string s = "";
+        //foreach (var item in beg)
+        //{
+        //    s += item + " ";
+        //}
+        //Debug.Log(s);
+        //Debug.Log(beg.Exists(x => x == id));
+        return beg.Exists(x => x == id);
+    }
+    static void AddInBeg(int id)
+    {
+        beg.Add(id);
+        //Debug.Log(id);
+        if (beg.Count == begSize)
+            beg.Remove(beg[0]);
+    }
+
     //static int GetIdRandShapeByCountOfBlock(int countOfBlock, int firstShapeId = -1, int secondShapeId = -1)
     //{
 
@@ -372,7 +467,7 @@ public class ShapesManager : MonoBehaviour
     //        if(firstShapeId == 0 || secondShapeId == 0)
     //            countOfBlock = Random.Range(2, 6);
     //    }      
-        
+
     //    if (countOfBlock == 2 && GetCountOfBlockByShaprID(firstShapeId) == 2 || GetCountOfBlockByShaprID(secondShapeId) == 2)
     //        countOfBlock = Random.Range(3,6);
 
@@ -405,7 +500,7 @@ public class ShapesManager : MonoBehaviour
 
     //    }
 
-        
+
     //    return id;
     //}
 
@@ -417,14 +512,15 @@ public class ShapesManager : MonoBehaviour
         foreach (int item in GetAllShapes()[id].array)
         {
 
-                if (item == 1)
-                    countOfBlockInCurrentShape++;
-         
+            if (item == 1)
+                countOfBlockInCurrentShape++;
+
         }
 
         return countOfBlockInCurrentShape;
     }
-    
+
+
 }
 
 
@@ -435,7 +531,7 @@ public class Shape
     public float chanse;
     public string str;
 
-    public Shape(float chanse , int[,] array)
+    public Shape(float chanse, int[,] array)
     {
         this.chanse = chanse;
         this.array = array;

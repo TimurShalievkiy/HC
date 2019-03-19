@@ -39,6 +39,16 @@ public class Randomizer : MonoBehaviour
             index++;
         }
 
+
+        //for (int t = 0; t < listShapesInRandom.Count; t++)
+        //{
+        //    ShapeInRandom tmp = listShapesInRandom[t];
+        //    int r = Random.Range(t, listShapesInRandom.Count);
+        //    listShapesInRandom[t] = listShapesInRandom[r];
+        //    listShapesInRandom[r] = tmp;
+        //}
+
+
         float value = Random.Range(0f,1001f);
         float currentSumm = 0;
         int id = -1;
@@ -56,9 +66,13 @@ public class Randomizer : MonoBehaviour
             }
             //Debug.Log(minVal + " " + value + " " + currentSumm);
         }
-       
 
 
+
+
+
+        if (id == -1)
+            return GetNextShapeId();
        // Debug.Log(value);
         return id;
     }
