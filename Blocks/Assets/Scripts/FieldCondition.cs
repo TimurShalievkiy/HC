@@ -314,8 +314,8 @@ public class FieldCondition : MonoBehaviour
     public static List<List<int>> GetAllFreeZones()
     {
         currentFieldState = FieldManager.GetCurrentFieldState();
-
-        
+        listFreeZonesOfCell = new List<List<int>>();
+        rankOfListFreeZones = 0;
 
         for (int i = 0; i < currentFieldState.GetLength(0); i++)
         {
@@ -335,19 +335,18 @@ public class FieldCondition : MonoBehaviour
             }
         }
 
-        string s = "";
-        Debug.Log(listFreeZonesOfCell.Count);
-        //Debug.Log(IsInListFreeZonesOfCell(9, 9));
-        for (int i = 0; i < listFreeZonesOfCell.Count; i++)
-        {
-            for (int j = 0; j < listFreeZonesOfCell[i].Count; j++)
-            {
-                s += listFreeZonesOfCell[i][j] + " ";
-            }
-            s += "\n";
-        }
-        Debug.Log(s);
-        return null;
+        //string s = "";
+        //Debug.Log(listFreeZonesOfCell.Count);
+        //for (int i = 0; i < listFreeZonesOfCell.Count; i++)
+        //{
+        //    for (int j = 0; j < listFreeZonesOfCell[i].Count; j++)
+        //    {
+        //        s += listFreeZonesOfCell[i][j] + " ";
+        //    }
+        //    s += "\n";
+        //}
+        //Debug.Log(s);
+        return listFreeZonesOfCell;
     }
 
 

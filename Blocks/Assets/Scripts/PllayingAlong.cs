@@ -27,18 +27,80 @@ public class PllayingAlong : MonoBehaviour
     public void GetShapesWithHelp()
     {
 
-        FieldCondition.GetAllFreeZones();
-        //GetShapesAfterRevive2();
-        //int x = 0;
-        //int summ = 0;
-        //foreach (var item in ShapesManager.GetAllShapes())
-        //{
-        //    List<List<int>> listREsult = FieldCondition.ChekShapeForPlacement(FieldManager.GetCurrentFieldState(), item.array);
-        //    Debug.Log(listREsult.Count);
-        //    summ += listREsult.Count;
-        //}
-        //Debug.Log("summ = " + summ);
+        List<List<int>> freeZones = FieldCondition.GetAllFreeZones();
+        //List < List<int>> equalsZero = new List<List<int>>();
+        List<int> equalsZero = new List<int>();
+        //List<List<int>> moreThanZero = new List<List<int>>();
+        List<int> moreThanZero = new List<int>();
 
+
+
+        bool allIn = true;
+        int id = 0;
+ 
+        foreach (var item in ShapesManager.GetAllShapes())
+        {
+            List<List<int>> listREsult = FieldCondition.ChekShapeForPlacement(FieldManager.GetCurrentFieldState(), item.array);
+           // Debug.Log(listREsult.Count);
+    
+            for (int n = 0; n < freeZones.Count; n++)
+            {
+                for (int i = 0; i < listREsult.Count; i++)
+                {
+                    allIn = true;
+                    for (int j = 0; j < listREsult[i].Count; j++)
+                    {
+                        
+                        if (!freeZones[n].Exists(x => x == listREsult[i][j]))
+                        {
+                            allIn = false;
+                            break;
+                        }                       
+                    }
+                    if (allIn)
+                    {
+                        if (listREsult[i].Count - freeZones[n].Count == 0)
+                            equalsZero.Add(id);
+                        else if (freeZones[n].Count - listREsult[i].Count > 0)
+                            moreThanZero.Add(id);
+                    }
+                }
+            }
+
+
+            id++;
+        }
+
+        Debug.Log("equalsZero.Count = " + equalsZero.Count);
+        equalsZero = equalsZero.Distinct().ToList();
+        Debug.Log("equalsZero.Count = " + equalsZero.Count);
+        string s = "";
+        for (int i = 0; i < equalsZero.Count; i++)
+        {
+            s += equalsZero[i] + " ";
+        }
+        Debug.Log(s);
+
+        
+        Debug.Log("moreThanZero.Count = " + moreThanZero.Count);
+        moreThanZero = moreThanZero.Distinct().ToList();
+        Debug.Log("moreThanZero.Count = " + moreThanZero.Count);
+        s = "";
+        for (int i = 0; i < moreThanZero.Count; i++)
+        {
+            s += moreThanZero[i] + " ";
+        }
+        Debug.Log(s);
+
+        if (equalsZero.Count >= 3)
+        {
+            int x1 = equalsZero[Random.Range(0, equalsZero.Count)];
+            equalsZero.Remove(x1);
+            int x2 = equalsZero[Random.Range(0, equalsZero.Count)];
+            equalsZero.Remove(x2);
+            int x3 = equalsZero[Random.Range(0, equalsZero.Count)];
+            zonesCreator.GenerateNewWaveOfShapeAfterRevive(new int[] { x1,x2,x3});
+        }
     }
 
 
