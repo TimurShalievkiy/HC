@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class ShapesManager : MonoBehaviour
 {
     static List<int> beg = new List<int>();
-    static int begSize = 5;
+    static int begSize = 3;
     static int countWaveFor3x3Shape = 8;
     static int currentCountWaveAfterPrevius3x3Shape = Random.Range(countWaveFor3x3Shape-Random.Range(1,4), countWaveFor3x3Shape+1);
 
@@ -47,10 +47,6 @@ public class ShapesManager : MonoBehaviour
     //получение списка всех фигур в виде двумерных масивов
     public static List<Shape> GetAllShapes()
     {
-
-
-
-
 
 
         if (listOfShapes.Count == 0)
@@ -328,14 +324,14 @@ public class ShapesManager : MonoBehaviour
 
     public static int[] GetRandomShapeWave()
     {
-        float x = 0;
+        //float x = 0;
 
-        int shape1 = 0;
-        int shape2 = 0;
-        int shape3 = 0;
+        //int shape1 = 0;
+        //int shape2 = 0;
+        //int shape3 = 0;
 
 
-        List<int> listShapesForNewWave = new List<int>();
+       // List<int> listShapesForNewWave = new List<int>();
 
         //string s = "";
         //int[] arr;
@@ -385,11 +381,9 @@ public class ShapesManager : MonoBehaviour
 
             if (!(shape1 == shape2 || shape2 == shape3 || shape1 == shape3))
             {
-
                 if (shape1 == 2 || shape2 == 2 || shape3 == 2)
                     if (currentCountWaveAfterPrevius3x3Shape < countWaveFor3x3Shape)
                     {
-                        //Debug.Log(1111111);
                         continue;
                     }
 
@@ -397,18 +391,15 @@ public class ShapesManager : MonoBehaviour
 
                 if (GetCountOfBlockByShaprID(shape1) == 9 && !FieldCondition.ChekShapeForPlacement(ShapesManager.GetAllShapes()[shape1].array))
                 {
-                    //Debug.Log(GetCountOfBlockByShaprID(shape1));
                     continue;
                 }
 
                 if (GetCountOfBlockByShaprID(shape2) == 9 && !FieldCondition.ChekShapeForPlacement(ShapesManager.GetAllShapes()[shape2].array))
                 {
-                    //Debug.Log(GetCountOfBlockByShaprID(shape2));
                     continue;
                 }
                 if (GetCountOfBlockByShaprID(shape3) == 9 && !FieldCondition.ChekShapeForPlacement(ShapesManager.GetAllShapes()[shape3].array))
                 {
-                    //Debug.Log(GetCountOfBlockByShaprID(shape3));
                     continue;
                 }
                 if (!(ExistAtBeg(shape1)))
@@ -437,19 +428,11 @@ public class ShapesManager : MonoBehaviour
 
     static bool ExistAtBeg(int id)
     {
-        //string s = "";
-        //foreach (var item in beg)
-        //{
-        //    s += item + " ";
-        //}
-        //Debug.Log(s);
-        //Debug.Log(beg.Exists(x => x == id));
         return beg.Exists(x => x == id);
     }
     static void AddInBeg(int id)
     {
         beg.Add(id);
-        //Debug.Log(id);
         if (beg.Count == begSize)
             beg.Remove(beg[0]);
     }

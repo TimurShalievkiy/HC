@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class FieldCondition : MonoBehaviour
 {
-
+   static List<List<int>> listFreeZonesOfCell = new List<List<int>>();
+    static int rankOfListFreeZones = 0;
+    static int[,] currentFieldState;
    // public int numberOfFullLines;
 
     
@@ -309,4 +311,119 @@ public class FieldCondition : MonoBehaviour
         return field;
     }
 
+    public static List<List<int>> GetAllFreeZones()
+    {
+        currentFieldState = FieldManager.GetCurrentFieldState();
+
+        
+
+        for (int i = 0; i < currentFieldState.GetLength(0); i++)
+        {
+            for (int j = 0; j < currentFieldState.GetLength(1); j++)
+            {
+                if (currentFieldState[i, j] == 0)
+                {
+                    if (!IsInListFreeZonesOfCell(i, j))
+                    {
+                        listFreeZonesOfCell.Add(new List<int>());
+                        listFreeZonesOfCell[rankOfListFreeZones].Add(i * currentFieldState.GetLength(0) + j);
+                        CheckNearestCell(i, j);
+                        rankOfListFreeZones++;
+                    }
+                }
+                
+            }
+        }
+
+        string s = "";
+        Debug.Log(listFreeZonesOfCell.Count);
+        //Debug.Log(IsInListFreeZonesOfCell(9, 9));
+        for (int i = 0; i < listFreeZonesOfCell.Count; i++)
+        {
+            for (int j = 0; j < listFreeZonesOfCell[i].Count; j++)
+            {
+                s += listFreeZonesOfCell[i][j] + " ";
+            }
+            s += "\n";
+        }
+        Debug.Log(s);
+        return null;
+    }
+
+
+    public static void CheckNearestCell(int i, int j)
+    {
+        //проверка вурхней ячейки на пустоту и запись
+        if (i - 1 >= 0)
+        {
+            int up = (currentFieldState.GetLength(0) * (i - 1)) + j;
+            
+            if (currentFieldState[i-1,j] == 0 && !IsInListFreeZonesOfCell( i-1, j))
+            {
+
+                listFreeZonesOfCell[rankOfListFreeZones].Add(up);
+                CheckNearestCell(i-1,j);
+                //Debug.Log("Added in CheckNearest " + up);
+            }
+        }
+
+        //проверка нижней ячейки на пустоту и запись
+        if (i + 1 < currentFieldState.GetLength(0))
+        {
+            int down = (currentFieldState.GetLength(0) * (i + 1)) + j;
+            //int down = GetNumberByPosInArray(i + 1, j);
+           // Debug.Log((FieldManager.GetCurrentFieldState()[i + 1, j] == 0) +  " " + !IsInListFreeZonesOfCell(i + 1, j));
+            if (currentFieldState[i+1, j] == 0 && !IsInListFreeZonesOfCell(i + 1, j))
+            {
+               // Debug.Log("add = " + i + " " + j);
+                listFreeZonesOfCell[rankOfListFreeZones].Add(down);
+                CheckNearestCell(i+1 , j);
+                //Debug.Log("Added in CheckNearest " + down);
+            }
+        }
+
+        //проверка левой ячейки на пустоту и запись
+        if (j - 1 >= 0)
+        {
+             int left = (currentFieldState.GetLength(0) * i) + j - 1;
+
+            if (currentFieldState[i, j -1] == 0 && !IsInListFreeZonesOfCell(i, j-1))
+            {
+                listFreeZonesOfCell[rankOfListFreeZones].Add(left);
+                CheckNearestCell(i , j-1);
+            }
+        }
+
+
+        //проверка правой ячейки на пустоту и запись
+        if (j + 1 < currentFieldState.GetLength(1))
+        {
+            int right = (currentFieldState.GetLength(0) * i) + j + 1;
+         
+
+            if (currentFieldState[i, j + 1] == 0 && !IsInListFreeZonesOfCell(i, j + 1))
+            {
+                listFreeZonesOfCell[rankOfListFreeZones].Add(right);
+                CheckNearestCell(i, j + 1);
+                //Debug.Log("Added in CheckNearest " + right);
+            }
+        }
+
+    }
+
+    static bool IsInListFreeZonesOfCell(int i, int j)
+    {
+        int num = i * currentFieldState.GetLength(0) + j;
+        for (int n = 0; n < listFreeZonesOfCell.Count; n++)
+        {
+            for (int m = 0; m < listFreeZonesOfCell[n].Count; m++)
+            {
+                if (listFreeZonesOfCell[n][m] == num)
+                    return true;
+            }
+        }
+
+
+        return false;
+    }
 }
