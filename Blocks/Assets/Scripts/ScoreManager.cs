@@ -49,25 +49,25 @@ public class ScoreManager : MonoBehaviour
         if (value == 20)
         {
             currentScore += 30;
-            Debug.Log("+30");
+            //Debug.Log("+30");
             currentScoreText.text = currentScore.ToString();
         }
         else if (value == 30)
         {
             currentScore += 50;
-            Debug.Log("+50");
+           // Debug.Log("+50");
             currentScoreText.text = currentScore.ToString();
         }
         else if (value == 40)
         {
             currentScore += 80;
-            Debug.Log("+80");
+           // Debug.Log("+80");
             currentScoreText.text = currentScore.ToString();
         }
         else if (value == 50)
         {
             currentScore += 120;
-            Debug.Log("+120");
+            //Debug.Log("+120");
             currentScoreText.text = currentScore.ToString();
         }
         //else if (FieldCondition.GetCountOfFreeCell(FieldManager.GetCurrentFieldState())  == 100 && value >=20)
@@ -78,7 +78,7 @@ public class ScoreManager : MonoBehaviour
         //}
         else
         {
-            Debug.Log("+" + value);
+            //Debug.Log("+" + value);
 
             currentScore += value;
             currentScoreText.text = currentScore.ToString();

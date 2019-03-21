@@ -18,7 +18,7 @@ public class PllayingAlong : MonoBehaviour
     public void GetShapesAfterRevive()
     {
         ShapesManager.GetRandomShapeWave();
-        zonesCreator.GenerateNewWaveOfShapeAfterRevive(shapesId);
+        zonesCreator.GenerateNewWaveOfShape(shapesId);
     }
 
 
@@ -77,7 +77,7 @@ public class PllayingAlong : MonoBehaviour
             equalsZero.Remove(x2);
 
             ResultShape x3 = equalsZero[Random.Range(0, equalsZero.Count)];
-            zonesCreator.GenerateNewWaveOfShapeAfterRevive(new int[] { x1.id, x2.id, x3.id });
+            zonesCreator.GenerateNewWaveOfShape(new int[] { x1.id, x2.id, x3.id });
         }
         else
         {
@@ -119,7 +119,7 @@ public class PllayingAlong : MonoBehaviour
                 listResult.Add(shape);
 
 
-                zonesCreator.GenerateNewWaveOfShapeAfterRevive(new int[] { listResult[0].id, listResult[1].id, listResult[2].id });
+                zonesCreator.GenerateNewWaveOfShape(new int[] { listResult[0].id, listResult[1].id, listResult[2].id });
                 return;
             }
             else if (listResult.Count == 1) 
@@ -161,7 +161,7 @@ public class PllayingAlong : MonoBehaviour
                             flag = false;
                             listResult.Add(shape);
                             listResult.Add(shape2);
-                            Debug.Log(shape2.id + " " + shape2.shapePos[0] + " " + shape.id + " " + shape.shapePos[0]);
+                           // Debug.Log(shape2.id + " " + shape2.shapePos[0] + " " + shape.id + " " + shape.shapePos[0]);
                             break;
                         }
                     }
@@ -174,7 +174,7 @@ public class PllayingAlong : MonoBehaviour
                     listResult.Add(shape2);             
                 }
 
-                zonesCreator.GenerateNewWaveOfShapeAfterRevive(new int[] { listResult[0].id, listResult[1].id, listResult[2].id });
+                zonesCreator.GenerateNewWaveOfShape(new int[] { listResult[0].id, listResult[1].id, listResult[2].id });
 
             }
             else
@@ -219,12 +219,12 @@ public class PllayingAlong : MonoBehaviour
 
                     ResultShape x3 =res[Random.Range(0, res.Count)];
                     res.Remove(x3);
-                    zonesCreator.GenerateNewWaveOfShapeAfterRevive(new int[] { x1.id, x2.id, x3.id });
+                    zonesCreator.GenerateNewWaveOfShape(new int[] { x1.id, x2.id, x3.id });
                     return;
 
                 }
 
-                zonesCreator.GenerateNewWaveOfShapeAfterRevive(new int[] { listResult[0].id, listResult[1].id, listResult[2].id });
+                zonesCreator.GenerateNewWaveOfShape(new int[] { listResult[0].id, listResult[1].id, listResult[2].id });
                 return;
             }
 

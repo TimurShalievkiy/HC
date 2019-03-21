@@ -1206,8 +1206,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 519420035}
-          m_MethodName: GetShapesWithHelp
+        - m_Target: {fileID: 519420036}
+          m_MethodName: GenerateWaveWithPlayingAlong
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -3440,8 +3440,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 519420035}
-          m_MethodName: GetShapesAfterRevive
+        - m_Target: {fileID: 519420036}
+          m_MethodName: GenerateWaveAfterRevive
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -3893,6 +3893,7 @@ GameObject:
   - component: {fileID: 519420033}
   - component: {fileID: 519420034}
   - component: {fileID: 519420035}
+  - component: {fileID: 519420036}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -4016,6 +4017,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zonesCreator: {fileID: 800047193}
+--- !u!114 &519420036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 028e3bb24d19d6242b1a9f753d2a227e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  creator: {fileID: 800047193}
+  pllayingAlong: {fileID: 519420035}
 --- !u!1 &522449272
 GameObject:
   m_ObjectHideFlags: 0
@@ -10410,8 +10425,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 800047193}
-          m_MethodName: DestroyAllZones
+        - m_Target: {fileID: 519420036}
+          m_MethodName: GenerateRandomWave
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}

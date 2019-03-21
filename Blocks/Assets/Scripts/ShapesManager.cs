@@ -358,11 +358,13 @@ public class ShapesManager : MonoBehaviour
         //Debug.Log(x / 5000);
 
 
+
+
         //return new int[] { shape1, shape2, shape3 };
-        return GetShapeAfterКequirements();
+        return GetShapeAfterRequirements();
     }
 
-    static int[] GetShapeAfterКequirements()
+    static int[] GetShapeAfterRequirements()
     {
         int shape1 = 0;
         int shape2 = 0;
@@ -412,7 +414,6 @@ public class ShapesManager : MonoBehaviour
                     if (!(ExistAtBeg(shape2)))
                         if (!(ExistAtBeg(shape3)))
                         {
-                            //Debug.Log(shape1 + " " + shape2 + " " + shape3);
                             if (summ >= 4 && summ <= 19)
                                 flag = false;
                         }
@@ -436,6 +437,7 @@ public class ShapesManager : MonoBehaviour
     {
         return beg.Exists(x => x == id);
     }
+
     static void AddInBeg(int id)
     {
         beg.Add(id);

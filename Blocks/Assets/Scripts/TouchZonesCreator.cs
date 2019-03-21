@@ -11,7 +11,7 @@ public class TouchZonesCreator : MonoBehaviour
     Transform thirdTouchZone;
 
     List<GameObject> lo;
-
+    public static bool needCreateWave = false;
 
     public Slider slider;
     // Start is called before the first frame update
@@ -44,16 +44,19 @@ public class TouchZonesCreator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //если на поле нет ни одной фигуры
-        if (transform.childCount == 0)
-        {
-            //генерируем новую волну
-            GenerateNewWaveOfShape();
-        }
+        ////если на поле нет ни одной фигуры
+        //if (transform.childCount == 0)
+        //{
+        //    needCreateWave = true;
+        //    //генерируем новую волну
+        //   // GenerateNewWaveOfShape();
+        //}
+        //else
+        //    needCreateWave = false;
     }
 
     //временный метод генерации новой волны фигур
-    void GenerateNewWaveOfShape()
+    public void GenerateNewWaveOfShape()
     {
         int[] shapesId = ShapesManager.GetRandomShapeWave();
         DestroyAllZones();
@@ -169,7 +172,7 @@ public class TouchZonesCreator : MonoBehaviour
 
 
     //создание волны после возрождени. Создание по Id фигуры
-    public void GenerateNewWaveOfShapeAfterRevive(int[] shapesId)
+    public void GenerateNewWaveOfShape(int[] shapesId)
     {
         DestroyAllZones();
 
