@@ -17,10 +17,8 @@ public class PllayingAlong : MonoBehaviour
     }
     public void GetShapesAfterRevive()
     {
-        //shapesId = new int[] { 0, 0, 0 };
         ShapesManager.GetRandomShapeWave();
         zonesCreator.GenerateNewWaveOfShapeAfterRevive(shapesId);
-
     }
 
 
@@ -28,10 +26,8 @@ public class PllayingAlong : MonoBehaviour
     {
 
         List<List<int>> freeZones = FieldCondition.GetAllFreeZones();
-        //List < List<int>> equalsZero = new List<List<int>>();
-        List<int> equalsZero = new List<int>();
-        //List<List<int>> moreThanZero = new List<List<int>>();
-        List<int> moreThanZero = new List<int>();
+        List<ResultShape> equalsZero = new List<ResultShape>();
+        List<ResultShape> moreThanZero = new List<ResultShape>();
 
 
 
@@ -41,7 +37,6 @@ public class PllayingAlong : MonoBehaviour
         foreach (var item in ShapesManager.GetAllShapes())
         {
             List<List<int>> listREsult = FieldCondition.ChekShapeForPlacement(FieldManager.GetCurrentFieldState(), item.array);
-           // Debug.Log(listREsult.Count);
     
             for (int n = 0; n < freeZones.Count; n++)
             {
@@ -60,49 +55,214 @@ public class PllayingAlong : MonoBehaviour
                     if (allIn)
                     {
                         if (listREsult[i].Count - freeZones[n].Count == 0)
-                            equalsZero.Add(id);
+                            equalsZero.Add(new ResultShape(id, 0, listREsult[i]));
                         else if (freeZones[n].Count - listREsult[i].Count > 0)
-                            moreThanZero.Add(id);
+                            moreThanZero.Add(new ResultShape(id,0, listREsult[i]));
                     }
                 }
             }
 
-
             id++;
         }
 
-        Debug.Log("equalsZero.Count = " + equalsZero.Count);
-        equalsZero = equalsZero.Distinct().ToList();
-        Debug.Log("equalsZero.Count = " + equalsZero.Count);
-        string s = "";
-        for (int i = 0; i < equalsZero.Count; i++)
-        {
-            s += equalsZero[i] + " ";
-        }
-        Debug.Log(s);
+        equalsZero = equalsZero.Distinct(new ItemEqualityComparer()).ToList();
 
-        
-        Debug.Log("moreThanZero.Count = " + moreThanZero.Count);
-        moreThanZero = moreThanZero.Distinct().ToList();
-        Debug.Log("moreThanZero.Count = " + moreThanZero.Count);
-        s = "";
-        for (int i = 0; i < moreThanZero.Count; i++)
-        {
-            s += moreThanZero[i] + " ";
-        }
-        Debug.Log(s);
 
         if (equalsZero.Count >= 3)
         {
-            int x1 = equalsZero[Random.Range(0, equalsZero.Count)];
+            ResultShape x1 = equalsZero[Random.Range(0, equalsZero.Count)];
             equalsZero.Remove(x1);
-            int x2 = equalsZero[Random.Range(0, equalsZero.Count)];
+
+            ResultShape x2 = equalsZero[Random.Range(0, equalsZero.Count)];
             equalsZero.Remove(x2);
-            int x3 = equalsZero[Random.Range(0, equalsZero.Count)];
-            zonesCreator.GenerateNewWaveOfShapeAfterRevive(new int[] { x1,x2,x3});
+
+            ResultShape x3 = equalsZero[Random.Range(0, equalsZero.Count)];
+            zonesCreator.GenerateNewWaveOfShapeAfterRevive(new int[] { x1.id, x2.id, x3.id });
+        }
+        else
+        {
+            moreThanZero.Reverse();
+
+            List<ResultShape> listResult = new List<ResultShape>();
+            List<ResultShape> listForRemuve = new List<ResultShape>();
+
+            for (int i = 0; i < equalsZero.Count; i++)
+            {
+                listResult.Add(equalsZero[i]);
+            }
+
+            if (listResult.Count == 2)
+            {
+                for (int i = 0; i < moreThanZero.Count; i++)
+                {
+                    if (IsCrossing(listResult, moreThanZero[i]))
+                    {
+                        listForRemuve.Add(moreThanZero[i]);
+                    }
+
+                }
+                for (int i = 0; i < listForRemuve.Count; i++)
+                {
+                    moreThanZero.Remove(listForRemuve[i]);
+                }
+                List<ResultShape> shapes = moreThanZero.FindAll(x => x.id != listResult[0].id && x.id != listResult[1].id);
+
+                ResultShape shape;
+                if (shapes == null || shapes.Count == 0)
+                {
+                    shape = moreThanZero[Random.Range(0, moreThanZero.Count)];
+                }
+                else
+                {
+                    shape = shapes[Random.Range(0, shapes.Count)];
+                }
+                listResult.Add(shape);
+
+
+                zonesCreator.GenerateNewWaveOfShapeAfterRevive(new int[] { listResult[0].id, listResult[1].id, listResult[2].id });
+                return;
+            }
+            else if (listResult.Count == 1) 
+            {
+                for (int i = 0; i < moreThanZero.Count; i++)
+                {
+                    if (IsCrossing(listResult, moreThanZero[i]))
+                    {
+                        listForRemuve.Add(moreThanZero[i]);
+                    }
+
+                }
+
+                for (int i = 0; i < listForRemuve.Count; i++)
+                {
+                    moreThanZero.Remove(listForRemuve[i]);
+                }
+
+                List<ResultShape> shapes = moreThanZero.FindAll(x => x.id != listResult[0].id);
+                shapes.Reverse();
+
+                ResultShape shape;
+                ResultShape shape2;
+
+                bool flag = true;
+
+                if (shapes.Distinct(new ItemEqualityComparer()).ToList().Count > 2)
+                {
+                    while (flag)
+                    {
+                        shape = shapes[Random.Range(0, shapes.Count)];
+                        shape2 = shapes[Random.Range(0, shapes.Count)];
+
+                        if (shape.id == shape2.id)
+                            continue;
+
+                        if (!IsCrossing(shape2, shape))
+                        {
+                            flag = false;
+                            listResult.Add(shape);
+                            listResult.Add(shape2);
+                            Debug.Log(shape2.id + " " + shape2.shapePos[0] + " " + shape.id + " " + shape.shapePos[0]);
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    shape = shapes[Random.Range(0, shapes.Count)];
+                    shape2 = shapes[Random.Range(0, shapes.Count)];
+                    listResult.Add(shape);
+                    listResult.Add(shape2);             
+                }
+
+                zonesCreator.GenerateNewWaveOfShapeAfterRevive(new int[] { listResult[0].id, listResult[1].id, listResult[2].id });
+
+            }
+            else
+            {            
+                List<ResultShape> shapes = moreThanZero;
+                shapes.Reverse();
+ 
+                ResultShape shape;
+                ResultShape shape2;
+                ResultShape shape3;
+                bool flag = true;
+
+                if (shapes.Distinct(new ItemEqualityComparer()).ToList().Count > 3)
+                {
+                    while (flag)
+                    {
+                        shape = shapes[Random.Range(0, shapes.Count)];
+                        shape2 = shapes[Random.Range(0, shapes.Count)];
+                        shape3 = shapes[Random.Range(0, shapes.Count)];
+
+                        if (shape.id == shape2.id || shape3.id == shape2.id || shape3.id == shape.id)
+                            continue;
+
+                        if (!IsCrossing(shape2, shape) && !IsCrossing(shape3, shape) && !IsCrossing(shape2, shape3))
+                        {
+                            flag = false;
+                            listResult.Add(shape);
+                            listResult.Add(shape2);
+                            listResult.Add(shape3);
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    List<ResultShape> res = shapes.Distinct(new ItemEqualityComparer()).ToList();
+                    ResultShape x1 = res[Random.Range(0, res.Count)];
+                    res.Remove(x1);
+
+                    ResultShape x2 =res[Random.Range(0, res.Count)];
+                    res.Remove(x2);
+
+                    ResultShape x3 =res[Random.Range(0, res.Count)];
+                    res.Remove(x3);
+                    zonesCreator.GenerateNewWaveOfShapeAfterRevive(new int[] { x1.id, x2.id, x3.id });
+                    return;
+
+                }
+
+                zonesCreator.GenerateNewWaveOfShapeAfterRevive(new int[] { listResult[0].id, listResult[1].id, listResult[2].id });
+                return;
+            }
+
         }
     }
 
+    bool IsCrossing(List<ResultShape> listResult, ResultShape resultShape)
+    {
+        foreach (ResultShape item in listResult)
+        {
+            for (int i = 0; i < item.shapePos.Count; i++)
+            {
+                for (int j = 0; j < resultShape.shapePos.Count; j++)
+                {
+                    if (item.shapePos.Exists(x => x == resultShape.shapePos[j]))
+                        return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    bool IsCrossing(ResultShape firstShape, ResultShape seconShaoe)
+    {
+
+            for (int i = 0; i < firstShape.shapePos.Count; i++)
+            {
+                for (int j = 0; j < seconShaoe.shapePos.Count; j++)
+                {
+                    if (firstShape.shapePos.Exists(x => x == seconShaoe.shapePos[j]))
+                        return true;
+                }
+            }
+        
+
+        return false;
+    }
 
     public List<ResultShape> GetListResultShapesByField(int[,] field, ref int counter)
     {
@@ -140,74 +300,74 @@ public class PllayingAlong : MonoBehaviour
     }
 
 
-    public void GetShapesAfterRevive2()
-    {
-        shapesId = new int[] { 0, 0, 0 };
-        int counter = 0;
+    //public void GetShapesAfterRevive2()
+    //{
+    //    shapesId = new int[] { 0, 0, 0 };
+    //    int counter = 0;
 
 
-        int[,] field = FieldManager.GetCurrentFieldState();
+    //    int[,] field = FieldManager.GetCurrentFieldState();
 
-        List<ResultShape> listResultShapes = GetListResultShapesByField(field, ref counter);
-
-
-        if (listResultShapes != null && listResultShapes.Count > 0)
-        {
-            foreach (ResultShape item in listResultShapes)
-            {
-                item.listResultShapes = GetListResultShapesByField(FieldCondition.CheckAndRemoveFullLines(FieldCondition.PlaceShape(field, item.shapePos)), ref counter);
-            }
-
-            foreach (ResultShape item in listResultShapes)
-            {
-                item.InitAllValue();
-            }
+    //    List<ResultShape> listResultShapes = GetListResultShapesByField(field, ref counter);
 
 
-            int max = listResultShapes.Max(x => x.countOfAllFullLine);
+    //    if (listResultShapes != null && listResultShapes.Count > 0)
+    //    {
+    //        foreach (ResultShape item in listResultShapes)
+    //        {
+    //            item.listResultShapes = GetListResultShapesByField(FieldCondition.CheckAndRemoveFullLines(FieldCondition.PlaceShape(field, item.shapePos)), ref counter);
+    //        }
 
-            List<ResultShape> listResult = listResultShapes.FindAll(x => x.countOfAllFullLine == max);
+    //        foreach (ResultShape item in listResultShapes)
+    //        {
+    //            item.InitAllValue();
+    //        }
+
+
+    //        int max = listResultShapes.Max(x => x.countOfAllFullLine);
+
+    //        List<ResultShape> listResult = listResultShapes.FindAll(x => x.countOfAllFullLine == max);
 
 
 
 
             
 
-            if (listResult != null && listResult.Count > 0)
-            {
+    //        if (listResult != null && listResult.Count > 0)
+    //        {
 
-                max = listResult.Max(x => x.countOfBlockWithMaxSHape);
-                listResult = listResult.FindAll(x => x.countOfBlockWithMaxSHape == max);
-
-
-
-                ResultShape res;
-                if (listResult.Count > 1)
-                {
-                    res = listResult[Random.Range(0, listResult.Count)];
-                }
-                else
-                    res = listResult[0];
-
-                shapesId[0] = res.id;
-                res.ShowResultShape();
-                if (res.ShapeWithMaxBlock != null)
-                {
-                    shapesId[1] = res.ShapeWithMaxBlock.id;
-                    res.ShapeWithMaxBlock.ShowResultShape();
-                }
+    //            max = listResult.Max(x => x.countOfBlockWithMaxSHape);
+    //            listResult = listResult.FindAll(x => x.countOfBlockWithMaxSHape == max);
 
 
 
-            }
-        }
+    //            ResultShape res;
+    //            if (listResult.Count > 1)
+    //            {
+    //                res = listResult[Random.Range(0, listResult.Count)];
+    //            }
+    //            else
+    //                res = listResult[0];
+
+    //            shapesId[0] = res.id;
+    //            res.ShowResultShape();
+    //            if (res.ShapeWithMaxBlock != null)
+    //            {
+    //                shapesId[1] = res.ShapeWithMaxBlock.id;
+    //                res.ShapeWithMaxBlock.ShowResultShape();
+    //            }
 
 
-        //zonesCreator.GenerateNewWaveOfShapeAfterRevive(shapesId);
-      //  Debug.Log(counter);
-      //  Debug.Log(shapesId[0] + " " + shapesId[1] + " " + shapesId[2]);
 
-    }
+    //        }
+    //    }
+
+
+    //    //zonesCreator.GenerateNewWaveOfShapeAfterRevive(shapesId);
+    //  //  Debug.Log(counter);
+    //  //  Debug.Log(shapesId[0] + " " + shapesId[1] + " " + shapesId[2]);
+
+    //}
 }
 
 public class ResultShape
@@ -308,5 +468,17 @@ public class ResultShape
 
 
 
+class ItemEqualityComparer : IEqualityComparer<ResultShape>
+{
+    public bool Equals(ResultShape x, ResultShape y)
+    {
+        // Two items are equal if their keys are equal.
+        return x.id == y.id;
+    }
 
+    public int GetHashCode(ResultShape obj)
+    {
+        return obj.id.GetHashCode();
+    }
+}
 

@@ -413,6 +413,7 @@ public class FieldCondition : MonoBehaviour
     static bool IsInListFreeZonesOfCell(int i, int j)
     {
         int num = i * currentFieldState.GetLength(0) + j;
+
         for (int n = 0; n < listFreeZonesOfCell.Count; n++)
         {
             for (int m = 0; m < listFreeZonesOfCell[n].Count; m++)
@@ -424,5 +425,22 @@ public class FieldCondition : MonoBehaviour
 
 
         return false;
+    }
+
+    public static int GetCountOfFreeCell(int[,] field)
+    {
+        int x = 0;
+
+        for (int i = 0; i < field.GetLength(0); i++)
+        {
+            for (int j = 0; j < field.GetLength(1); j++)
+            {
+                if (field[i, j] == 0)
+                    x++;
+            }
+        
+        }
+
+        return x;
     }
 }

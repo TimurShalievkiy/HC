@@ -387,7 +387,13 @@ public class ShapesManager : MonoBehaviour
                         continue;
                     }
 
-
+                if (!(FieldCondition.ChekShapeForPlacement(ShapesManager.GetAllShapes()[shape1].array) ||
+                    FieldCondition.ChekShapeForPlacement(ShapesManager.GetAllShapes()[shape1].array) ||
+                    FieldCondition.ChekShapeForPlacement(ShapesManager.GetAllShapes()[shape1].array)))
+                {
+                    //Debug.Log(1231321231);
+                    continue;
+                }
 
                 if (GetCountOfBlockByShaprID(shape1) == 9 && !FieldCondition.ChekShapeForPlacement(ShapesManager.GetAllShapes()[shape1].array))
                 {
