@@ -79,6 +79,8 @@
     <Compile Include="Assets\Scripts\TimerForRevive.cs" />
     <Compile Include="Assets\Scripts\TouchZone.cs" />
     <Compile Include="Assets\Scripts\TouchZonesCreator.cs" />
+    <Compile Include="Assets\Scripts\WithDragandDrop\FieldManagerDandD.cs" />
+    <Compile Include="Assets\Scripts\WithDragandDrop\TouchZoneWithDragAndDrop.cs" />
     <None Include="Assets\blure.shader" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>D:/MyProjects/Proj/Blocks/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>

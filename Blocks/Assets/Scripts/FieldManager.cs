@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class FieldManager : MonoBehaviour
 {
+
+
+
     public static Transform field;
     public Transform touchZonesParent;
     public GameObject RevivePanel;
@@ -13,7 +16,7 @@ public class FieldManager : MonoBehaviour
     public void Start()
     {
         field = this.transform;
-        ResetGameField();
+        //ResetGameField();
     }
      
     public void CheckFieldForFullLines()

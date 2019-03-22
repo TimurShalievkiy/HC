@@ -6,6 +6,8 @@ using System.Linq;
 
 public class PllayingAlong : MonoBehaviour
 {
+
+
     List<Shape> listAllShapes;
     public TouchZonesCreator zonesCreator;
     int[] shapesId = new int[] { 0, 0, 0 };
@@ -13,12 +15,12 @@ public class PllayingAlong : MonoBehaviour
     private void Start()
     {
         listAllShapes = ShapesManager.GetAllShapes();
-        //shapesId = new int[] { 0, 0, 0 };
+
     }
     public void GetShapesAfterRevive()
     {
         ShapesManager.GetRandomShapeWave();
-        zonesCreator.GenerateNewWaveOfShape(shapesId);
+        zonesCreator.GenerateNewWaveOfShape(new int[] { 0, 0, 0 });
     }
 
 
@@ -28,8 +30,6 @@ public class PllayingAlong : MonoBehaviour
         List<List<int>> freeZones = FieldCondition.GetAllFreeZones();
         List<ResultShape> equalsZero = new List<ResultShape>();
         List<ResultShape> moreThanZero = new List<ResultShape>();
-
-
 
         bool allIn = true;
         int id = 0;
@@ -161,7 +161,6 @@ public class PllayingAlong : MonoBehaviour
                             flag = false;
                             listResult.Add(shape);
                             listResult.Add(shape2);
-                           // Debug.Log(shape2.id + " " + shape2.shapePos[0] + " " + shape.id + " " + shape.shapePos[0]);
                             break;
                         }
                     }
@@ -300,74 +299,6 @@ public class PllayingAlong : MonoBehaviour
     }
 
 
-    //public void GetShapesAfterRevive2()
-    //{
-    //    shapesId = new int[] { 0, 0, 0 };
-    //    int counter = 0;
-
-
-    //    int[,] field = FieldManager.GetCurrentFieldState();
-
-    //    List<ResultShape> listResultShapes = GetListResultShapesByField(field, ref counter);
-
-
-    //    if (listResultShapes != null && listResultShapes.Count > 0)
-    //    {
-    //        foreach (ResultShape item in listResultShapes)
-    //        {
-    //            item.listResultShapes = GetListResultShapesByField(FieldCondition.CheckAndRemoveFullLines(FieldCondition.PlaceShape(field, item.shapePos)), ref counter);
-    //        }
-
-    //        foreach (ResultShape item in listResultShapes)
-    //        {
-    //            item.InitAllValue();
-    //        }
-
-
-    //        int max = listResultShapes.Max(x => x.countOfAllFullLine);
-
-    //        List<ResultShape> listResult = listResultShapes.FindAll(x => x.countOfAllFullLine == max);
-
-
-
-
-            
-
-    //        if (listResult != null && listResult.Count > 0)
-    //        {
-
-    //            max = listResult.Max(x => x.countOfBlockWithMaxSHape);
-    //            listResult = listResult.FindAll(x => x.countOfBlockWithMaxSHape == max);
-
-
-
-    //            ResultShape res;
-    //            if (listResult.Count > 1)
-    //            {
-    //                res = listResult[Random.Range(0, listResult.Count)];
-    //            }
-    //            else
-    //                res = listResult[0];
-
-    //            shapesId[0] = res.id;
-    //            res.ShowResultShape();
-    //            if (res.ShapeWithMaxBlock != null)
-    //            {
-    //                shapesId[1] = res.ShapeWithMaxBlock.id;
-    //                res.ShapeWithMaxBlock.ShowResultShape();
-    //            }
-
-
-
-    //        }
-    //    }
-
-
-    //    //zonesCreator.GenerateNewWaveOfShapeAfterRevive(shapesId);
-    //  //  Debug.Log(counter);
-    //  //  Debug.Log(shapesId[0] + " " + shapesId[1] + " " + shapesId[2]);
-
-    //}
 }
 
 public class ResultShape
@@ -466,8 +397,7 @@ public class ResultShape
     }
 }
 
-
-
+//компаратор для сортировки фигур по id
 class ItemEqualityComparer : IEqualityComparer<ResultShape>
 {
     public bool Equals(ResultShape x, ResultShape y)

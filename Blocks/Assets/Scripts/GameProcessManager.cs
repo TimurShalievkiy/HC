@@ -10,13 +10,13 @@ public class GameProcessManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (creator.transform.childCount == 0)
-        {
-            if (FieldCondition.GetCountOfFreeCell(FieldManager.GetCurrentFieldState()) <= 45)
-                GenerateWaveWithPlayingAlong();
-            else
-                GenerateRandomWave();
-        }
+        //if (creator.transform.childCount == 0)
+        //{
+        //    if (FieldCondition.GetCountOfFreeCell(FieldManager.GetCurrentFieldState()) <= 45)
+        //        GenerateWaveWithPlayingAlong();
+        //    else
+        //        GenerateRandomWave();
+        //}
     }
     public void GenerateWaveAfterRevive()
     {

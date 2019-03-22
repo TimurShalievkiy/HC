@@ -2720,7 +2720,6 @@ GameObject:
   - component: {fileID: 283296982}
   - component: {fileID: 283296981}
   - component: {fileID: 283296980}
-  - component: {fileID: 283296983}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -2787,7 +2786,29 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 283296981}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 593329454}
+        m_MethodName: SetCurrentScinValue
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: forest
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 108816657}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &283296981
@@ -2827,48 +2848,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 283296978}
   m_CullTransparentMesh: 0
---- !u!114 &283296983
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 283296978}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 4
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 0}
-          m_MethodName: SetCurrentScinValue
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: forest
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 108816657}
-          m_MethodName: SetActive
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
-        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  delegates: []
 --- !u!1 &293424467
 GameObject:
   m_ObjectHideFlags: 0
@@ -4294,7 +4273,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
+        - m_Target: {fileID: 593329454}
           m_MethodName: SetCurrentScinValue
           m_Mode: 5
           m_Arguments:
@@ -4950,7 +4929,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -2.275, y: 191.2}
+  m_AnchoredPosition: {x: -2.275, y: 324}
   m_SizeDelta: {x: 802.05, y: 1075.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &531555383
@@ -4974,7 +4953,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300000, guid: af64e9b2438c8b64aa2c9f8205f69bd0, type: 3}
-  m_Type: 2
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -5270,7 +5249,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300000, guid: 670aafee5af78e540b834f6fb277d095, type: 3}
-  m_Type: 2
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -5823,7 +5802,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
+        - m_Target: {fileID: 593329454}
           m_MethodName: SetCurrentScinValue
           m_Mode: 5
           m_Arguments:
@@ -6053,7 +6032,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 593329448}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 028e3bb24d19d6242b1a9f753d2a227e, type: 3}
+  m_Script: {fileID: 11500000, guid: bdabd1bb99d433b40a3c6efd704ee71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &594122385
@@ -6553,7 +6532,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
+        - m_Target: {fileID: 593329454}
           m_MethodName: SetCurrentScinValue
           m_Mode: 5
           m_Arguments:
@@ -8885,7 +8864,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
+        - m_Target: {fileID: 593329454}
           m_MethodName: SetCurrentScinValue
           m_Mode: 5
           m_Arguments:
@@ -10933,7 +10912,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: -23.600098}
-  m_SizeDelta: {x: -72.4, y: -157.16675}
+  m_SizeDelta: {x: -72.4, y: -512.72235}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1068368346
 MonoBehaviour:
@@ -14305,7 +14284,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
+        - m_Target: {fileID: 593329454}
           m_MethodName: SetCurrentScinValue
           m_Mode: 5
           m_Arguments:
@@ -15384,7 +15363,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
+        - m_Target: {fileID: 593329454}
           m_MethodName: SetCurrentScinValue
           m_Mode: 5
           m_Arguments:
@@ -16606,7 +16585,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 1.25, y: -1854.6925}
+  m_AnchoredPosition: {x: 1.25, y: -1471}
   m_SizeDelta: {x: 797.5, y: 3718.75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1563043596
@@ -18410,7 +18389,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
+        - m_Target: {fileID: 593329454}
           m_MethodName: SetCurrentScinValue
           m_Mode: 5
           m_Arguments:
@@ -20071,7 +20050,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
+        - m_Target: {fileID: 593329454}
           m_MethodName: SetCurrentScinValue
           m_Mode: 5
           m_Arguments:
@@ -20153,7 +20132,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
+        - m_Target: {fileID: 593329454}
           m_MethodName: SetCurrentScinValue
           m_Mode: 5
           m_Arguments:
@@ -20665,7 +20644,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -2.275, y: -235.5}
+  m_AnchoredPosition: {x: -2.275, y: 349}
   m_SizeDelta: {x: 802.05, y: 1075.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2030099957
@@ -20689,7 +20668,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300000, guid: 02210fe747e1a1e4d91263a56f76baa2, type: 3}
-  m_Type: 2
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4

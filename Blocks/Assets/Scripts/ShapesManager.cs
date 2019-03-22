@@ -48,7 +48,6 @@ public class ShapesManager : MonoBehaviour
     public static List<Shape> GetAllShapes()
     {
 
-
         if (listOfShapes.Count == 0)
         {
             //1

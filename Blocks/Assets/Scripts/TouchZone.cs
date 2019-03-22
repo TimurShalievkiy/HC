@@ -14,21 +14,26 @@ public class TouchZone : MonoBehaviour
     Vector2 startPos;
     public Vector3 offset;
 
+    Camera camera;
 
-     
+
+
     bool flag = false;
     public static bool iSinglTouchZone = true;
 
 
     public bool isInStartPos = false;
 
+    float distansToShape;
     float duration = 0.3f;
     float currentDuration ;
     private void Start()
     {
         currentDuration = duration;
         offset = new Vector3();
-        IniTShape();
+        InitShape();
+        camera = Camera.main;
+        distansToShape = fieldManager.GetComponent<GridLayoutGroup>().cellSize.x / 1.35f;
 
     }
     private void FixedUpdate()
@@ -37,7 +42,7 @@ public class TouchZone : MonoBehaviour
         {
             if (Input.touchCount > 0)
             {
-                posOfTouch = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
+                posOfTouch = camera.ScreenToWorldPoint(Input.GetTouch(0).position);
 
                 posOfTouch.z = 0;
         
@@ -79,10 +84,10 @@ public class TouchZone : MonoBehaviour
         if (currentDuration >= 0)
         {
             currentDuration -= Time.deltaTime;
-            return Mathf.Lerp(transform.position.y, posOfTouch.y + fieldManager.GetComponent<GridLayoutGroup>().cellSize.x / 1.35f, 0.5f);
+            return Mathf.Lerp(transform.position.y, posOfTouch.y + distansToShape, 0.5f);
         }
         //return Mathf.Lerp( posOfTouch.y, posOfTouch.y + fieldManager.GetComponent<GridLayoutGroup>().cellSize.x / 1.35f,0.7f);
-        return posOfTouch.y + fieldManager.GetComponent<GridLayoutGroup>().cellSize.x / 1.35f; //Mathf.Lerp(transform.position.y, posOfTouch.y + fieldManager.GetComponent<GridLayoutGroup>().cellSize.x / 1.35f,0.5f);
+        return posOfTouch.y + distansToShape; //Mathf.Lerp(transform.position.y, posOfTouch.y + fieldManager.GetComponent<GridLayoutGroup>().cellSize.x / 1.35f,0.5f);
     }
 
     //получить х позицию тача
@@ -116,8 +121,7 @@ public class TouchZone : MonoBehaviour
             CheckZones();
             flag = false;
             isInStartPos = true;
-            transform.localScale = new Vector3( 1, 1);
-           
+            transform.localScale = new Vector3( 1, 1);         
         }
     }
 
@@ -139,7 +143,7 @@ public class TouchZone : MonoBehaviour
 
 
 
-    void IniTShape()
+    void InitShape()
     {
         //получаем ссылку на FieldManager
         fieldManager = FieldManager.field.transform.GetComponent<FieldManager>();

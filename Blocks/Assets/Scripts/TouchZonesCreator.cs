@@ -42,22 +42,12 @@ public class TouchZonesCreator : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        ////если на поле нет ни одной фигуры
-        //if (transform.childCount == 0)
-        //{
-        //    needCreateWave = true;
-        //    //генерируем новую волну
-        //   // GenerateNewWaveOfShape();
-        //}
-        //else
-        //    needCreateWave = false;
-    }
 
-    //временный метод генерации новой волны фигур
+
+    //Генерация волны с рандомными фигурами
     public void GenerateNewWaveOfShape()
     {
+        //получение id трехфигур для рандомной волны там же проверка на все требования 
         int[] shapesId = ShapesManager.GetRandomShapeWave();
         DestroyAllZones();
 

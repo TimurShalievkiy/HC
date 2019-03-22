@@ -9,12 +9,15 @@ EditorBuildSettings:
     path: 
     guid: 00000000000000000000000000000000
   - enabled: 1
+    path: Assets/Scenes/MainGame 2.unity
+    guid: 6e6681a3262524a409fa0da2e13a872a
+  - enabled: 0
     path: Assets/Scenes/Preloader.unity
     guid: e8a0ef03b914b744285f601c4f56c60d
   - enabled: 1
     path: Assets/Scenes/Lobbi.unity
     guid: 9d46d6f5c6bba574695efd7e4616fb87
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MainGame.unity
     guid: dfd67ed98c7f30c428e645f3d3ebd85b
   m_configObjects: {}

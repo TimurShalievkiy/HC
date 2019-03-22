@@ -45,6 +45,7 @@ public class ScinManager : MonoBehaviour
     {
         if (PlayerPrefs.HasKey("currentSkin"))
         {
+
             currentSkin = PlayerPrefs.GetString("currentSkin");
         }
         else
