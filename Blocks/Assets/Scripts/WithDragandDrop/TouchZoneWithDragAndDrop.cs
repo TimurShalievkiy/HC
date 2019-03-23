@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 public class TouchZoneWithDragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler,IInitializePotentialDragHandler
 {
     public static Vector3 currentShapePos;
-
+    [SerializeField] FieldManagerDandD fieldManager;
 
     Vector2 startPos;
     Vector3 position;
@@ -27,11 +27,12 @@ public class TouchZoneWithDragAndDrop : MonoBehaviour, IBeginDragHandler, IDragH
 
     public void OnDrag(PointerEventData eventData)
     {
-       // position = new Vector3(eventData.delta.x,eventData.delta.y);
+        
         transform.position += (Vector3)eventData.delta;
         transform.position = new Vector3(transform.position.x, eventData.position.y + currentDistance);
         currentShapePos = transform.position;
-        //transform.position.y = transform.position.y + offset.y;
+        fieldManager.CheckForInstance();
+
     }
 
     public void OnEndDrag(PointerEventData eventData)
@@ -41,6 +42,7 @@ public class TouchZoneWithDragAndDrop : MonoBehaviour, IBeginDragHandler, IDragH
 
     public void OnInitializePotentialDrag(PointerEventData eventData)
     {
+        fieldManager.CheckFieldState();
         startPos = transform.position;
     }
     //public FieldManager fieldManager;
