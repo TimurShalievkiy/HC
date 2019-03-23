@@ -45,7 +45,7 @@ public class TouchZone : MonoBehaviour
                 posOfTouch = camera.ScreenToWorldPoint(Input.GetTouch(0).position);
 
                 posOfTouch.z = 0;
-        
+
                 //transform.position = Vector3.Lerp(transform.position, new Vector3(posOfTouch.x, GetYPos(), 0f), speed);
                 //transform.position = Camera.main.ScreenToWorldPoint(new Vector3( GetXPos(),GetYPos(),0f));
 

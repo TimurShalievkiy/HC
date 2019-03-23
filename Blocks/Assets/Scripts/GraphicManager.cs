@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class GraphicManager : MonoBehaviour
 {
+    
     //ссылка на бекграунд игрового окна
     public GameObject background;
     // Start is called before the first frame update

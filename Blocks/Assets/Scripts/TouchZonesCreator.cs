@@ -82,48 +82,6 @@ public class TouchZonesCreator : MonoBehaviour
 
 
 
-
-
-
-
-
-        ////смещение фигур относительно центра и ширины обьекта фигуры
-        //float x = 0;
-
-        ////получаем фигуру
-        //GameObject instance = GetNextShape();
-        ////назначаем родителем текущий обьект
-        //instance.transform.parent = transform;
-        ////выставляем скейл в базовое значение
-        //instance.transform.localScale = new Vector3(1, 1, 1);
-
-        ////получаем смещение
-        //x = instance.transform.position.x + instance.transform.GetComponent<RectTransform>().sizeDelta.x;
-        ////задаем новую позиции с учетом смещения
-        //instance.transform.localPosition = new Vector2(x, 0);
-
-
-
-        ////получаем вторую фигуру
-        //GameObject instance2 = GetNextShape();
-        ////назначаем ей родительским обьектом текущий
-        //instance2.transform.parent = transform;
-        ////выставляем скейл в базовое значение
-        //instance2.transform.localScale = new Vector3(1, 1, 1);
-
-
-        ////получаем третью фигуру
-        //GameObject instance3 = GetNextShape();
-        ////назначаем ей родительским обьектом текущий
-        //instance3.transform.parent = transform;
-        ////выставляем скейл в базовое значение
-        //instance3.transform.localScale = new Vector3(1, 1, 1);
-
-        ////получаем смещение
-        //x = instance3.transform.position.x + instance3.transform.GetComponent<RectTransform>().sizeDelta.x;
-        ////задаем новую позиции с учетом смещения
-        //instance3.transform.localPosition = new Vector2(-x, 0);
-
     }
 
 
