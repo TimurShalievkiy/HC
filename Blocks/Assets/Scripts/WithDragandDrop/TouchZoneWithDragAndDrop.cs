@@ -3,9 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using System;
+
 
 public class TouchZoneWithDragAndDrop : MonoBehaviour, IDragHandler, IEndDragHandler,IInitializePotentialDragHandler
 {
+    public Action OnButtonPressed;
+
+    List<int> posActivBlockInShape = new List<int>();
     Vector3 currentShapePos;
     [SerializeField] FieldManagerDandD fieldManager;
 
@@ -17,45 +22,44 @@ public class TouchZoneWithDragAndDrop : MonoBehaviour, IDragHandler, IEndDragHan
 
     public static Transform firsBlock;
 
-    List<int> posActivBlockInShape = new List<int>();
 
     private void Start()
     {
-        offset =Screen.width/10;
-        currentDistance = offset * DistanceInCountOfCells;
-        startPos = transform.position;
+        //offset =Screen.width/10;
+        //currentDistance = offset * DistanceInCountOfCells;
+        //startPos = transform.position;
 
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            if (transform.GetChild(i).GetComponent<Image>().enabled)
-            {
-                firsBlock = transform.GetChild(i).transform;
-                break;
-            }
-        }
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            if (transform.GetChild(i).GetComponent<Image>().enabled)
-            {
-                posActivBlockInShape.Add(i);
-            }
-        }
-      // Debug.Log(firsBlock.position);
+        //for (int i = 0; i < transform.childCount; i++)
+        //{
+        //    if (transform.GetChild(i).GetComponent<Image>().enabled)
+        //    {
+        //        firsBlock = transform.GetChild(i).transform;
+        //        break;
+        //    }
+        //}
+        //for (int i = 0; i < transform.childCount; i++)
+        //{
+        //    if (transform.GetChild(i).GetComponent<Image>().enabled)
+        //    {
+        //        posActivBlockInShape.Add(i);
+        //    }
+        //}
+        //firsBlock = transform.GetChild(posActivBlockInShape[0]).transform;
+        //// Debug.Log(firsBlock.position);
     }
 
-
+    
     public void OnDrag(PointerEventData eventData)
     {
 
 #if UNITY_EDITOR
-
         if (eventData.clickCount == 1)
         {
-            //Debug.Log(1);
+
             transform.position += (Vector3)eventData.delta;
             transform.position = new Vector3(transform.position.x, eventData.position.y + currentDistance);
             currentShapePos = transform.position;
-            //Debug.Log(fieldManager.CheckForInstance(posActivBlockInShape));
+
             if (fieldManager.CheckForInstance(posActivBlockInShape))
                 fieldManager.CreateShadow();
             else
@@ -95,22 +99,7 @@ public class TouchZoneWithDragAndDrop : MonoBehaviour, IDragHandler, IEndDragHan
 
     public void OnInitializePotentialDrag(PointerEventData eventData)
     {
-
-#if UNITY_EDITOR
-  
-        if (eventData.clickCount == 1 && (eventData.pointerId <= 0))
-        {
-            //Debug.Log("in2 = " + Input.touchCount);
-            fieldManager.CheckFieldState();
-        }
-
-#endif
-
-        if (eventData.pointerId == 0)
-        {
-           // Debug.Log("in = " + Input.touchCount);
-            fieldManager.CheckFieldState();
-        }
+        OnButtonPressed?.Invoke();
 
     }
 

@@ -11,11 +11,12 @@ public class FieldManagerDandD : MonoBehaviour
 
     List<int> listIndexForShadow = new List<int>();
     List<int> listIndexWithShadow = new List<int>();
-    // Start is called before the first frame update
-    void Start()
-    {
 
-    }
+
+
+
+
+
     public void CheckFieldState()
     {
         for (int i = 0; i < cellsStatePosArray.Length; i++)
@@ -23,7 +24,7 @@ public class FieldManagerDandD : MonoBehaviour
             cellsStatePosArray[i].InitializeCellPositionValue();
         }
     }
-
+    
     public bool CheckForInstance(List<int> posActivBlockInArr)
     {
         for (int i = 0; i < cellsStatePosArray.Length; i++)
