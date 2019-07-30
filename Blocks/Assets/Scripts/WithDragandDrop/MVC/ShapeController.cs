@@ -5,15 +5,20 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System;
 
-public class ShapeController : MonoBehaviour, IDragHandler, IEndDragHandler, IInitializePotentialDragHandler
+public class ShapeController : MonoBehaviour, IDragHandler, IEndDragHandler, IInitializePotentialDragHandler, IBeginDragHandler
 {
 
     public Action<PointerEventData> OnInitializePotentialBeforeDrag;
     public Action<PointerEventData> OnDragShape;
     public Action<PointerEventData> OnEndDragShape;
-    public bool isOn;
+ 
     public Action<List<int>> OnInitializeShape;
 
+   // public Action OnSetShapesPositionAfterCreating;
+
+    public bool isOn;
+
+    public float currenShapeSize;
 
 
 
@@ -24,24 +29,30 @@ public class ShapeController : MonoBehaviour, IDragHandler, IEndDragHandler, IIn
 
     [SerializeField] float DistanceInCountOfCells = 4f;
 
-    public float currentDistance;
+    [SerializeField] public float currentDistance;
 
-    public static Transform firsBlock;
+    public  Transform firsBlock;
 
     public List<int> listPosActivBlockInShape = new List<int>();
 
-    public List<GameObject> listBlockInShape;
+    public List<RawImage> listBlockInShape;
+
 
     private void Start()
     {
-        currentDistance = Screen.width / 10 * DistanceInCountOfCells;
+
+        currenShapeSize = transform.GetComponent<RectTransform>().rect.width;
+        //currentDistance = Screen.width / 10 * DistanceInCountOfCells;
+        currentDistance = currenShapeSize ;
+
+
 
         for (int i = 0; i < transform.childCount; i++)
         {
-            listBlockInShape.Add(transform.GetChild(i).gameObject);
+            listBlockInShape.Add(transform.GetChild(i).GetComponent<RawImage>());
         }
 
-        OnInitializeNewShape(new List<int>() { 1,2,3});
+        OnInitializeNewShape(ShapesManager.GetListIndexBlockByShapeId(UnityEngine.Random.Range(0,19)));
     }
 
 
@@ -57,13 +68,13 @@ public class ShapeController : MonoBehaviour, IDragHandler, IEndDragHandler, IIn
 
     public void OnInitializePotentialDrag(PointerEventData eventData)
     {
-        
-        OnInitializePotentialBeforeDrag?.Invoke(eventData);
+            OnInitializePotentialBeforeDrag?.Invoke(eventData);        
     }
 
     public void OnInitializeNewShape(List<int> listIndexOfBlox)
     {
         OnInitializeShape?.Invoke(listIndexOfBlox);
     }
-    
+
+    public void OnBeginDrag(PointerEventData eventData) {  }
 }

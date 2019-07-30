@@ -17,19 +17,19 @@ public class FieldManagerDandD : MonoBehaviour
 
 
 
-    public void CheckFieldState()
-    {
-        for (int i = 0; i < cellsStatePosArray.Length; i++)
-        {
-            cellsStatePosArray[i].InitializeCellPositionValue();
-        }
-    }
+    //public void CheckFieldState()
+    //{
+    //    for (int i = 0; i < cellsStatePosArray.Length; i++)
+    //    {
+    //        cellsStatePosArray[i].InitializeCellPositionValue();
+    //    }
+    //}
     
     public bool CheckForInstance(List<int> posActivBlockInArr)
     {
         for (int i = 0; i < cellsStatePosArray.Length; i++)
         {
-            if (Vector3.Distance(cellsStatePosArray[i].cellPosition, TouchZoneWithDragAndDrop.firsBlock.position) < 30)
+            if (Vector3.Distance(cellsStatePosArray[i].GetCerrentPosition(), TouchZoneWithDragAndDrop.firsBlock.position) < 30)
             {
                 listIndexForShadow.Clear();
                 if (posActivBlockInArr.Count == 1)

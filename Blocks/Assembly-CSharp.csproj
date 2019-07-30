@@ -82,7 +82,10 @@
     <Compile Include="Assets\Scripts\TouchZonesCreator.cs" />
     <Compile Include="Assets\Scripts\WithDragandDrop\BlockInShapeDandD.cs" />
     <Compile Include="Assets\Scripts\WithDragandDrop\FieldManagerDandD.cs" />
+    <Compile Include="Assets\Scripts\WithDragandDrop\MVC\FieldController.cs" />
     <Compile Include="Assets\Scripts\WithDragandDrop\MVC\GameController.cs" />
+    <Compile Include="Assets\Scripts\WithDragandDrop\MVC\Listener\StringListener.cs" />
+    <Compile Include="Assets\Scripts\WithDragandDrop\MVC\Listener\StringScriptable.cs" />
     <Compile Include="Assets\Scripts\WithDragandDrop\MVC\ShapeController.cs" />
     <Compile Include="Assets\Scripts\WithDragandDrop\MVC\ShapeView.cs" />
     <Compile Include="Assets\Scripts\WithDragandDrop\TouchZoneWithDragAndDrop.cs" />

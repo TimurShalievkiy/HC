@@ -6,53 +6,65 @@ using System.IO;
 
 public class GameController : MonoBehaviour
 {
+ 
+
     [SerializeField] List<ShapeController> activeElements = new List<ShapeController>();
 
 
-    [SerializeField] private StringScriptableTest currentStyle;
+    [SerializeField] private StringScriptable currentStyle;
 
-    GameObject shapeParent;
+    [SerializeField] GameObject shapeParent;
 
-    private void Update()
-    {
-        Debug.Log(ActiveCount);
-    }
+
+    int indexOfShapePrefub = 0;
 
     public int ActiveCount => activeElements.Count(entry => entry.isOn);
 
-    public void Init(int elementsAmount)
+    public void CreateShapes(int elementsAmount)
     {
 
         var path = "Shapes";
-
         List< ShapeController> shapePrefab = null;
 
-        if (!string.IsNullOrEmpty(currentStyle.Value)) {
-             shapePrefab = Resources.LoadAll<ShapeController>(Path.Combine(path, currentStyle.Value)).ToList();
+        Debug.Log(currentStyle.Value);
+
+        if (!string.IsNullOrEmpty(currentStyle.Value))
+        {
+            shapePrefab = Resources.LoadAll<ShapeController>(Path.Combine(path, currentStyle.Value)).ToList();
+
             if (shapePrefab == null)
             {
                 Debug.LogWarning($"Block prefab for style {currentStyle} is absent");
             }
         }
+
         if (shapePrefab == null)
         {
             shapePrefab = Resources.LoadAll<ShapeController>(Path.Combine(path, "dafault")).ToList();
         }
+
         if (shapePrefab == null)
         {
             Debug.LogError("default Block prefab is absent");
             return;
         }
-        activeElements.ForEach(entry => Destroy(entry.gameObject));
 
-        int index = 0;
+
+        activeElements.ForEach(entry =>  Destroy( entry.gameObject));
+
+        activeElements.Clear();
 
 
         while (activeElements.Count < elementsAmount)
         {
-            var go = Instantiate(shapePrefab[index++], shapeParent.transform);
-            activeElements.Add(go);
+            if (indexOfShapePrefub >= shapePrefab.Count)
+                indexOfShapePrefub = 0;
+            var go = Instantiate(shapePrefab[indexOfShapePrefub], shapeParent.transform);
+            indexOfShapePrefub++;
+            activeElements.Add(go);        
         }
 
     }
+
+    
 }

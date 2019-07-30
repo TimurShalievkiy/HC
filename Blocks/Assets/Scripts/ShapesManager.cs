@@ -44,6 +44,20 @@ public class ShapesManager : MonoBehaviour
 
     }
 
+    public static List<int> GetListIndexBlockByShapeId(int id)
+    {
+        List<int> res = new List<int>();
+        int index = 0;
+        foreach (var item in GetAllShapes()[id].array)
+        {
+
+            if (item == 1)
+                res.Add(index);
+                    index++;
+        }
+        return res;
+    }
+
     //получение списка всех фигур в виде двумерных масивов
     public static List<Shape> GetAllShapes()
     {

@@ -9,7 +9,10 @@ public class ShapeView : MonoBehaviour
 
     [SerializeField] private ShapeController controller;
 
-    bool IsFree = true;
+
+    static bool isSingleShape = true;
+
+    bool IsCurrentShape = false;
 
     private void OnEnable()
     {
@@ -28,6 +31,8 @@ public class ShapeView : MonoBehaviour
         controller.OnEndDragShape += OnEndDragShape;
 
         controller.OnInitializeShape += OnInitializedShape;
+
+        //controller.OnSetShapesPositionAfterCreating += SetShapesPosAfterCreating;
     }
 
     private void OnDisable()
@@ -40,31 +45,32 @@ public class ShapeView : MonoBehaviour
         controller.OnInitializePotentialBeforeDrag -= InitializeShapeBeforeDrag;
         controller.OnDragShape -= OnDragShape;
         controller.OnEndDragShape -= OnEndDragShape;
+
+        controller.OnInitializeShape -= OnInitializedShape;
     }
 
 
     private void InitializeShapeBeforeDrag(PointerEventData eventData)
     {
         //ностроить не восприимчевость к мультитачу
-
-        controller.startPos = transform.position;
-
+        if (isSingleShape)
+        {
+            controller.startPos = transform.position;
+           
+            isSingleShape = false;
+            IsCurrentShape = true;
+        }
     }
 
 
 
     public void OnDragShape(PointerEventData eventData)
     {
-        if (eventData.pointerId == 0)
-        {
-            transform.position = Input.GetTouch(eventData.pointerId).position;
-            transform.position = new Vector3(transform.position.x, transform.position.y + controller.currentDistance);
-        }
 
-        if (Input.GetMouseButton(0))
+        if (IsCurrentShape && eventData.pointerId <= 0)
         {
-            transform.position = Input.mousePosition;
-            transform.position = new Vector3(transform.position.x, transform.position.y + controller.currentDistance);
+                transform.position += (Vector3)eventData.delta;
+                transform.position = new Vector3(eventData.position.x, eventData.position.y + controller.currentDistance);
         }
 
         //            if (fieldManager.CheckForInstance(posActivBlockInShape))
@@ -74,20 +80,42 @@ public class ShapeView : MonoBehaviour
         //                fieldManager.ClearFieldFromShadow();
         //            }
         //        }
+
     }
 
     public void OnEndDragShape(PointerEventData eventData)
     {
-        transform.position = controller.startPos;
-        IsFree = true;
+        if (IsCurrentShape && eventData.pointerId <=0)
+        {
+            transform.position = controller.startPos;
+            isSingleShape = true;
+            IsCurrentShape = false;
+        }
     }
 
     public void OnInitializedShape(List<int> listIndexOfBlox)
     {
+        controller.firsBlock = controller.listBlockInShape[0].transform;
+        bool hasBorder = false; // тут гет с скин менеджера есть ли у данного скина рамка
         foreach (var item in listIndexOfBlox)
         {
-            controller.listBlockInShape[item].transform.GetChild(0).gameObject.SetActive(true);
+            if (hasBorder)
+            {
+                controller.listBlockInShape[item].enabled = true;
+
+                controller.listBlockInShape[item].transform.GetChild(0).GetComponent<RawImage>().enabled = true;
+            }
+            else
+            {
+                controller.listBlockInShape[item].enabled = false;
+
+                controller.listBlockInShape[item].transform.GetChild(0).GetComponent<RawImage>().enabled = true;
+                controller.listBlockInShape[item].transform.localScale = new Vector3(1, 1);
+            }
+            
         }
     }
+
+
 
 }

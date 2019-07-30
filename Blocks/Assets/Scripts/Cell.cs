@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Cell : MonoBehaviour
 {
-    public Vector3 cellPosition;
+
     //заполнена ли ячейка
     public bool isSet = false;
 
@@ -14,8 +14,5 @@ public class Cell : MonoBehaviour
         isSet = value;
     }
 
-    public void InitializeCellPositionValue()
-    {
-        cellPosition = transform.position;
-    }
+    public Vector3 GetCerrentPosition() { return transform.position; }
 }
