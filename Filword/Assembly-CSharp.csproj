@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="Assets\scripts\FieldGenerator.cs" />
     <Compile Include="Assets\scripts\FieldOperations.cs" />
+    <Compile Include="Assets\scripts\Matrix.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>D:/MyProjects/Proj/Filword/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
