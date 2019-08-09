@@ -21,15 +21,38 @@ public static class FieldOperations
         //-------------------получение стартовой ячейки-----------------------------
         if (FieldGenerator.freeCeelsZones.Count > 0)
         {
+            
             if (FieldGenerator.deadEndCell.Count > 0)
             {
-                startCell = FieldGenerator.deadEndCell[Random.Range(0, FieldGenerator.deadEndCell.Count)];
+                int indexOfZone = Random.Range(0, FieldGenerator.deadEndCell.Count);
+                startCell = FieldGenerator.deadEndCell[indexOfZone];
             }
             else
             {
-                int i = Random.Range(0, FieldGenerator.freeCeelsZones.Count);
-                int count = FieldGenerator.freeCeelsZones[i].Count;
-                startCell = FieldGenerator.freeCeelsZones[i][Random.Range(0, count)];
+
+                List<int> indexOfCells = new List<int>();
+                for (int i = 0; i < FieldGenerator.freeCeelsZones.Count; i++)
+                {
+                   
+                    if (FieldGenerator.freeCeelsZones[i].Count >= numOfLetters)
+                        indexOfCells.Add(i);
+                }
+
+                if (indexOfCells.Count <= 0)
+                {
+                    Debug.Log("Break indexOfCells.Count <= 0 " + indexOfCells.Count);
+                    return;
+                }
+
+                int index = indexOfCells[Random.Range(0, indexOfCells.Count)];
+                int count = FieldGenerator.freeCeelsZones[index].Count;
+                startCell = FieldGenerator.freeCeelsZones[index][Random.Range(0, count)];
+
+                if (count < numOfLetters)
+                {
+                    Debug.Log("BREAK free cells count les then numbers of letters");
+                    return;
+                }
 
             }
         }
@@ -346,23 +369,7 @@ public static class FieldOperations
         int i = number / FieldGenerator.field.GetLength(1);
         int j = number - i * FieldGenerator.field.GetLength(1);
         FieldGenerator.field[i, j] = value;
-        //if (GameProcess.cellNumbers.Count == 0)
-        //{
-        //    GameProcess.cellNumbers.Add(new List<int>());
-        //    GameProcess.cellNumbers[0].Add(GetNumberByPosInArray(i, j));
-        //}
-        //else
-        //{
-        //    if (GetValueByNubber(GameProcess.cellNumbers[GameProcess.cellNumbers.Count - 1][0]) != GetValueByNubber(number))
-        //    {
-        //        GameProcess.cellNumbers.Add(new List<int>());
-        //        GameProcess.cellNumbers[GameProcess.cellNumbers.Count - 1].Add(GetNumberByPosInArray(i, j));
-        //    }
-        //    else
-        //    {
-        //        GameProcess.cellNumbers[GameProcess.cellNumbers.Count - 1].Add(GetNumberByPosInArray(i, j));
-        //    }
-        //}
+
     }
 
     static void ReturnToPreMass(int[,] x, ref int[,] y)
@@ -429,64 +436,9 @@ public static class FieldOperations
             {
                 //if(FieldGenerator.field[i, j]!=0)
                 //Debug.Log(FieldGenerator.field[i, j]);
-                switch (FieldGenerator.field[i,j])
-                {
-                    case 1:
-                        c = new Color(0.25f, 0, 0.4f);
-                        break;
-                    case 2:
-                        c = Color.red;
-                        break;
-                    case 3:
-                        c = Color.magenta;
-                        break;
-                    case 4:
-                        c = Color.grey;
-                        break;
-                    case 5:
-                        c = Color.green;
-                        break;
-                    case 6:
-                        c = Color.blue;
-                        break;
-                    case 7:
-                        c = Color.cyan;
-                        break;
-                    case 8:
-                        c = Color.yellow;
-                        break;
-                    case 9:
-                        c = new Color(115, 115, 115);
-                        break;
-                    case 10:
-
-                        c = new Color(72f, 61f, 139f);
-                        break;
-                    case 11:
-                        c = new Color(30f, 144f, 255f);
-                        break;
-                    case 12:
-                        c = new Color(72f, 209f, 204f);
-                        break;
-                    case 13:
-                        c = new Color(0f, 128f, 128f);
-                        break;
-                    case 14:
-                        c = new Color(0f, 100f, 0f);
-                        break;
-                    case 15:
-                        c = new Color(0f, 250f, 154f);
-                        break;
-                    case 0:
-                        
-                        
-                        c = Color.white;
-                        break;
-                    default:
-                        c = Color.white;
-                        break;
-                }
-                g.transform.GetChild(i * 10 + j).GetComponent<Image>().color = c;
+                if(FieldGenerator.field[i, j]!=0)
+                g.transform.GetChild(i * 10 + j).GetChild(0).transform.GetComponent<Text>().text = FieldGenerator.field[i, j].ToString();
+                //g.transform.GetChild(i * 10 + j).GetComponent<Image>().color = c;
             }
             
         }
