@@ -42,7 +42,7 @@ public class FieldGenerator : MonoBehaviour
             started = false;
         }
 
-
+        //получение всех пустых зон
         FieldOperations.GetAllFreeCellsZones();
 
 
@@ -51,6 +51,8 @@ public class FieldGenerator : MonoBehaviour
 
         int x = Random.Range(3, 11);
         Debug.Log("length of word = " + x);
+
+        //добавляем слово в поле
         FieldOperations.AddWordToField(x);
 
 
