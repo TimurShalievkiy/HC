@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class Matrix : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    int[,] matrixArray;
+    int[,] CountsAndWordsLength;
+    int minLength;
+    int maxLength;
+
+    int[,] RoteteMatrix()
     {
-        
+        return new int[1,1];
     }
 
-    // Update is called once per frame
-    void Update()
+    int[,] MirrorMatrix()
     {
-        
+        return new int[1,1];
     }
+
 }
