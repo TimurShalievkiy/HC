@@ -5,18 +5,18 @@ using UnityEngine;
 public class Box : MonoBehaviour
 {
 
-    [SerializeField] Vector3[] pos;
-    [SerializeField]Transform startPoint;
-    [SerializeField] Transform endPoint;
-    bool isStartPointPassed = false;
-    bool isEndPointPassed = false;
+    //[SerializeField] Vector3[] pos;
+    //[SerializeField]Transform startPoint;
+    //[SerializeField] Transform endPoint;
+    //bool isStartPointPassed = false;
+    //bool isEndPointPassed = false;
 
-    public Transform StartPoint { get => startPoint; set => startPoint = value; }
-    public Transform EndPoint { get => endPoint; set => endPoint = value; }
-    public bool IsStartPointPassed { get => isStartPointPassed; set => isStartPointPassed = value; }
-    public bool IsEndPointPassed { get => isEndPointPassed; set => isEndPointPassed = value; }
+    //public Transform StartPoint { get => startPoint; set => startPoint = value; }
+    //public Transform EndPoint { get => endPoint; set => endPoint = value; }
+    //public bool IsStartPointPassed { get => isStartPointPassed; set => isStartPointPassed = value; }
+    //public bool IsEndPointPassed { get => isEndPointPassed; set => isEndPointPassed = value; }
 
-    public Vector3[] Pos { get => pos;  }
+    //public Vector3[] Pos { get => pos;  }
 
     // Start is called before the first frame update
     //void Awake()

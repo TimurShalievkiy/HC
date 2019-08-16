@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MoveController : MonoBehaviour
 {
@@ -8,11 +9,14 @@ public class MoveController : MonoBehaviour
     [SerializeField] Rigidbody thisRigidbody;
     [SerializeField] Transform[] points;
     [SerializeField] float speed = 2;
-    float currentSpeed = 2;
+
+
+    [SerializeField] GameObject brick;
+    public static float currentSpeed = 2;
 
     int indexWayPoint = 0;
 
-    bool isPush = false;
+    public static bool isPush = false;
     bool doMove = false;
     bool isStart = false;
 
@@ -26,9 +30,10 @@ public class MoveController : MonoBehaviour
         {
             if (!isPush)
             {
+                Handheld.Vibrate();
                 isPush = true;
+                Jelly.endOfShadow.gameObject.SetActive(false);
 
- 
 
                 doMove = false;
                 Vector3 forseVector = GetForceDirection();
@@ -39,6 +44,20 @@ public class MoveController : MonoBehaviour
                 StartCoroutine(WaitAndGo());
                 
             }
+
+            GameObject g = Instantiate(brick, collision.transform.position, Quaternion.identity);
+            GameObject g2 = Instantiate(brick, collision.transform.position, Quaternion.identity);
+            g.SetActive(true);
+            g2.SetActive(true);
+
+            float impuls = 25;
+
+            g.GetComponent<Rigidbody>().AddForce(new Vector3(Random.Range(-impuls, impuls), Random.Range(impuls, impuls), Random.Range(-impuls, impuls)),ForceMode.Impulse);
+            g2.GetComponent<Rigidbody>().AddForce(new Vector3(Random.Range(-impuls, impuls), Random.Range(impuls, impuls), Random.Range(-impuls, impuls)), ForceMode.Impulse);
+
+            Destroy(g, Random.Range(5, 10));
+            Destroy(g2, Random.Range(5, 10));
+            collision.transform.gameObject.SetActive(false);
         }
     }
 
@@ -57,32 +76,63 @@ public class MoveController : MonoBehaviour
 
     void MoveToPoint()
     {
-        if (Vector3.Distance(transform.position, points[indexWayPoint].position) <= 0.01f )
+
+ 
+        if (indexWayPoint < points.Length &&Vector3.Distance(transform.position, points[indexWayPoint].position) < 5f)
         {
-            if (indexWayPoint <= points.Length - 1)
+            //Debug.Log("point count = " +  points.Length  + " index = " + indexWayPoint);
+            if (indexWayPoint < points.Length )
             {
                 indexWayPoint++;
-            }           
+          ;
+            }
+            else
+            {
+                doMove = false;
+        
+            }
+
         }
- 
-        if (currentSpeed <= speed)
+
+
+            if (currentSpeed <= speed)
+            {
+                currentSpeed += 0.2f;
+            }
+        if (indexWayPoint < points.Length)
         {
-            currentSpeed += 0.2f;
+            Vector3 a = Vector3.MoveTowards(transform.position, points[indexWayPoint].position, 10 * currentSpeed * Time.deltaTime);
+            a.y = transform.position.y;
+
+            Vector3 dir = GetForceDirection();
+
+            if (dir.x != 0)
+            {
+                a.z = points[indexWayPoint].position.z;
+
+            }
+                
+
+            if (dir.z != 0)
+            {
+                a.x = points[indexWayPoint].position.x;
+        
+            }
+
+            transform.position = a;
+
+
+            TransformExtensions.LookAtXZ(transform, points[indexWayPoint].position);
         }
-
-        Vector3 a = Vector3.MoveTowards(transform.position, points[indexWayPoint].position, 10 * currentSpeed * Time.deltaTime);
-        a.y = transform.position.y;
-
-        Vector3 dir = GetForceDirection();
-        if (dir.x != 0)
-            a.z = points[indexWayPoint].position.z;
-
-        if (dir.z != 0)
-            a.x = points[indexWayPoint].position.x;
-
-        transform.position = a;
+        else {
+            
+            if (SceneManager.GetActiveScene().name == "1")
+                SceneManager.LoadScene("2");
+            else if (SceneManager.GetActiveScene().name == "2")
+                SceneManager.LoadScene("3");
+        }
     }
-
+    
     Vector3 GetForceDirection()
     {
 
@@ -121,9 +171,9 @@ public class MoveController : MonoBehaviour
         }
         else
         {
-            if (points[indexWayPoint-1].position.x == points[indexWayPoint].position.x)
+            if (points[indexWayPoint - 1].position.x == points[indexWayPoint].position.x)
             {
-                if (points[indexWayPoint-1].position.x > points[indexWayPoint].position.x)
+                if (points[indexWayPoint - 1].position.x > points[indexWayPoint].position.x)
                 {
                     z = force;
                 }
@@ -133,9 +183,9 @@ public class MoveController : MonoBehaviour
 
                 }
             }
-            if (points[indexWayPoint-1].position.z == points[indexWayPoint].position.z)
+            if (points[indexWayPoint - 1].position.z == points[indexWayPoint].position.z)
             {
-                if (points[indexWayPoint-1].position.z > points[indexWayPoint].position.z)
+                if (points[indexWayPoint - 1].position.z > points[indexWayPoint].position.z)
                 {
                     x = force;
                 }
@@ -157,9 +207,25 @@ public class MoveController : MonoBehaviour
         doMove = true;
         StopCoroutine(WaitAndGo());
         isPush = false;
-        //thisRigidbody.velocity = Vector3.zero;
+
     }
 
     
 
+}
+public static class TransformExtensions
+{
+    public static void LookAtXZ(this Transform transform, Vector3 point)
+    {
+        var direction = (point - transform.position).normalized;
+        direction.y = 0f;
+        transform.rotation = Quaternion.LookRotation(direction);
+    }
+
+    public static void LookAtXZ(this Transform transform, Vector3 point, float speed)
+    {
+        var direction = (point - transform.position).normalized;
+        direction.y = 0f;
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(direction), speed);
+    }
 }
