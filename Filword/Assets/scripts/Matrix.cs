@@ -8,15 +8,23 @@ public class Matrix
 
     List<List<int>> wordsCellsPosition;
 
+    public int xRange;
+    public int yRange;
+
     int minLength;
     int maxLength;
 
-    public Matrix(int[,] matrixArray)
+    public Matrix(int[,] matrixArray, List<List<int>> wordsCellsPosition)
     {
         this.matrixArray = matrixArray;
+        xRange = matrixArray.GetLength(0);
+        yRange = matrixArray.GetLength(1);
+
+        this.wordsCellsPosition = wordsCellsPosition;
     }
 
     #region operations
+
     public void Func()
     {
         // RoteteMatrixLeft();
@@ -82,6 +90,7 @@ public class Matrix
 
         return buff;
     }
+
     int[,] MirrorMatrixVertical()
     {
         int length1 = matrixArray.GetLength(0);
@@ -101,6 +110,7 @@ public class Matrix
 
         return buff;
     }
+
     public void ShowMatrix(int[,] arr)
     {
         int length1 = arr.GetLength(0);
@@ -116,5 +126,6 @@ public class Matrix
         }
         Debug.Log(s);
     }
+
     #endregion operations
 }

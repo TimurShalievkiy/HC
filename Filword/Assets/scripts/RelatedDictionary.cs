@@ -21,10 +21,9 @@ public class RelatedDictionary : MonoBehaviour
         InitPassedWords(name);
         InitListCounter();
 
-        for (int i = 0; i < listCounter.Count; i++)
-        {
-            Debug.Log(listCounter[i].countOfLetters + " = " + listCounter[i].countOfWords);
-        }
+
+        Debug.Log(name + " - " + listWords.Count);
+
        
     }
 
