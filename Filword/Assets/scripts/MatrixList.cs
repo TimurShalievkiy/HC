@@ -24,6 +24,10 @@ public class MatrixList : MonoBehaviour
         }, new List<List<int>>() { new List<int>() { 0,3,4,7,6},
                                    new List<int>(){ 1,2,5,8} }));
 
-        
+
+
+
+        list[1].RandRotationAndMirror();
+        list[1].ShowMatrix(list[1].matrixArray);
     }
 }

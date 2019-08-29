@@ -20,10 +20,6 @@ public class RelatedDictionary : MonoBehaviour
         InitListWords(ls);
         InitPassedWords(name);
         InitListCounter();
-
-
-        Debug.Log(name + " - " + listWords.Count);
-
        
     }
 
