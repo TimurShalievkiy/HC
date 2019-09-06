@@ -35,7 +35,7 @@ public class Crane : MonoBehaviour
 
         currentAngle = maxAngle;
         buffAngl = currentAngle;
-        bufForPersrnt = currentAngle;
+        bufForPersrnt = currentAngle+ buffAngl;
 
         currentHeight = (maxDistanseTop + maxDistanseDown) / 2;
         buffHeight = currentHeight;
@@ -87,10 +87,10 @@ public class Crane : MonoBehaviour
             else
             {
                 isMoveRight = true;
-                float x = Random.Range(minAngle, maxAngle);
-                currentAngle = x + buffAngl;
+                // float x = Random.Range(minAngle, maxAngle);
+                currentAngle = buffAngl + buffAngl;
                 bufForPersrnt = currentAngle;
-                buffAngl = x;
+
             }
 
         }
@@ -99,33 +99,74 @@ public class Crane : MonoBehaviour
     float GetSpeedRotation()
     {
         float t = 0;
+        float quadOfWay = bufForPersrnt / 4;
 
-        if (currentAngle <= bufForPersrnt / 4)
+        float percentOfQuad = (bufForPersrnt - currentAngle - (bufForPersrnt - quadOfWay)) / quadOfWay;
+
+
+        if (currentAngle < bufForPersrnt / 4)
         {
 
-            if (currentSpeed >= 0.3f)
-                currentSpeed -= Time.deltaTime;
+
+            if (percentOfQuad >= 0.8f)
+                percentOfQuad = 0.8f;
+            if (percentOfQuad <= 0.2)
+            {
+                t = rotationSpeed;
+            }
             else
-                currentSpeed = 0.3f;
-            t = rotationSpeed* currentSpeed;
-            
+            {
+                t = rotationSpeed - (rotationSpeed * percentOfQuad);
+                // Debug.Log("(" + (bufForPersrnt - currentAngle) + " - (" + (bufForPersrnt - quadOfWay) + "))/" + quadOfWay + " = " + percentOfQuad);
+
+            }
         }
-        else if (currentAngle >= bufForPersrnt - bufForPersrnt / 4)
+        else if (currentAngle > bufForPersrnt - quadOfWay)
         {
-            if (currentSpeed >= 0.3f)
-                currentSpeed += Time.deltaTime;
-            else
-                currentSpeed = 0.3f;
-            t = rotationSpeed * currentSpeed;
-            Debug.Log(t);
+            percentOfQuad = (bufForPersrnt - currentAngle) / quadOfWay;
+            if (percentOfQuad <= 0.3f)
+                percentOfQuad = 0.3f;
+
+            Debug.Log(percentOfQuad);
+            t = rotationSpeed * percentOfQuad;
         }
         else
         {
-            currentSpeed = speed;
+           
             t = rotationSpeed;
-
         }
+        //if (currentAngle <= bufForPersrnt / 4)
+        //{
+        //    Debug.Log((currentAngle/ bufForPersrnt*100)+"%");
 
+        //    if (currentSpeed >= 0.3f)
+        //        currentSpeed -= 1* Time.deltaTime;
+
+        //    t = rotationSpeed * currentSpeed;
+
+        //}
+        ////else if (currentAngle >= bufForPersrnt - bufForPersrnt /4)
+        ////{
+        ////    if (currentSpeed >= 0.3f)
+        ////        currentSpeed += Time.deltaTime;
+        ////    else
+        ////        currentSpeed = 0.3f;
+
+        ////    t = rotationSpeed * currentSpeed;
+
+        ////}
+        //else
+        //{
+        //    currentSpeed = speed;
+        //    t = rotationSpeed;
+
+        //}
+
+
+
+
+
+        // Debug.Log(t);
         //if (currentAngle - buffAngl <= 0)
         //{
         //    t = rotationSpeed * Mathf.Abs(currentAngle / bufForPersrnt) ;
