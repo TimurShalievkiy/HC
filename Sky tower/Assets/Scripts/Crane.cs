@@ -21,11 +21,18 @@ public class Crane : MonoBehaviour
     [SerializeField] float buffAngl = 0;
 
 
+
+
+    [SerializeField] float speed = 0.55f;
+    [SerializeField] float currentSpeed = 0;
+
     bool isMoveRight = true;
     bool isMoveup = true;
     // Start is called before the first frame update
     void Start()
     {
+        currentSpeed = speed;
+
         currentAngle = maxAngle;
         buffAngl = currentAngle;
         bufForPersrnt = currentAngle;
@@ -54,16 +61,15 @@ public class Crane : MonoBehaviour
 
             if (currentAngle >= 2)
             {
-               float t =rotationSpeed * Mathf.Abs(currentAngle / bufForPersrnt);
-         
-               transform.eulerAngles += new Vector3(0, 0, Time.deltaTime * t);
-                currentAngle -= Time.deltaTime *t;
+                float t = GetSpeedRotation();
+                transform.eulerAngles += new Vector3(0, 0, Time.deltaTime * t);
+                currentAngle -= Time.deltaTime * t;
             }
             else
             {
                 isMoveRight = false;
                 float x = Random.Range(minAngle, maxAngle);
-                currentAngle = x+ buffAngl ;
+                currentAngle = x + buffAngl;
                 bufForPersrnt = currentAngle;
                 buffAngl = x;
             }
@@ -73,7 +79,8 @@ public class Crane : MonoBehaviour
 
             if (currentAngle >= 2)
             {
-                float t = rotationSpeed * Mathf.Abs(currentAngle / bufForPersrnt);
+                float t = GetSpeedRotation();
+
                 transform.eulerAngles += new Vector3(0, 0, Time.deltaTime * -t);
                 currentAngle -= Time.deltaTime * t;
             }
@@ -85,8 +92,56 @@ public class Crane : MonoBehaviour
                 bufForPersrnt = currentAngle;
                 buffAngl = x;
             }
-               
+
         }
+    }
+
+    float GetSpeedRotation()
+    {
+        float t = 0;
+
+        if (currentAngle <= bufForPersrnt / 4)
+        {
+
+            if (currentSpeed >= 0.3f)
+                currentSpeed -= Time.deltaTime;
+            else
+                currentSpeed = 0.3f;
+            t = rotationSpeed* currentSpeed;
+            
+        }
+        else if (currentAngle >= bufForPersrnt - bufForPersrnt / 4)
+        {
+            if (currentSpeed >= 0.3f)
+                currentSpeed += Time.deltaTime;
+            else
+                currentSpeed = 0.3f;
+            t = rotationSpeed * currentSpeed;
+            Debug.Log(t);
+        }
+        else
+        {
+            currentSpeed = speed;
+            t = rotationSpeed;
+
+        }
+
+        //if (currentAngle - buffAngl <= 0)
+        //{
+        //    t = rotationSpeed * Mathf.Abs(currentAngle / bufForPersrnt) ;
+        //    Debug.Log(Mathf.Abs(currentAngle / bufForPersrnt));
+        //    currentSpeed = speed;
+        //}
+
+        //else
+        //{
+        //    if(currentSpeed>=0)
+        //    currentSpeed -= Time.deltaTime; ;
+        //    t = rotationSpeed - (rotationSpeed * Mathf.Abs(currentAngle) / (bufForPersrnt) * currentSpeed);
+
+        //        t = rotationSpeed - (rotationSpeed * (Mathf.Abs(currentAngle) / (bufForPersrnt) * 0.1f));          
+        //}
+        return t;
     }
 
     private void MoveUpDownCrane()
