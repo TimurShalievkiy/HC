@@ -44,13 +44,13 @@ public class Crane : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        MoveCrane();
+       // MoveCrane();
     }
 
 
     void MoveCrane()
     {
-        RotateCrane();
+        //RotateCrane();
        // MoveUpDownCrane();
     }
     private void RotateCrane()
@@ -182,4 +182,13 @@ public class Crane : MonoBehaviour
 
         }
     }
+
+
+    private void Function()
+    {
+
+
+    }
 }
+
+
