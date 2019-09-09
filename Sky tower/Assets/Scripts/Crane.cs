@@ -51,7 +51,7 @@ public class Crane : MonoBehaviour
     void MoveCrane()
     {
         RotateCrane();
-        //MoveUpDownCrane();
+       // MoveUpDownCrane();
     }
     private void RotateCrane()
     {
@@ -117,71 +117,31 @@ public class Crane : MonoBehaviour
             else
             {
                 t = rotationSpeed - (rotationSpeed * percentOfQuad);
-                // Debug.Log("(" + (bufForPersrnt - currentAngle) + " - (" + (bufForPersrnt - quadOfWay) + "))/" + quadOfWay + " = " + percentOfQuad);
-
             }
         }
         else if (currentAngle > bufForPersrnt - quadOfWay)
         {
-            percentOfQuad = (bufForPersrnt - currentAngle) / quadOfWay;
-            if (percentOfQuad <= 0.3f)
-                percentOfQuad = 0.3f;
+            percentOfQuad = (currentAngle- (  bufForPersrnt - quadOfWay)) /(quadOfWay);
+            if (percentOfQuad >= 0.8f)
+                percentOfQuad = 0.8f;
 
-            Debug.Log(percentOfQuad);
-            t = rotationSpeed * percentOfQuad;
+            if (percentOfQuad <= 0.2f)
+            {
+                t = rotationSpeed;
+            }
+            else
+            {
+                
+                t = rotationSpeed - (rotationSpeed * percentOfQuad)/1.5f;
+
+            }
         }
         else
         {
            
             t = rotationSpeed;
         }
-        //if (currentAngle <= bufForPersrnt / 4)
-        //{
-        //    Debug.Log((currentAngle/ bufForPersrnt*100)+"%");
 
-        //    if (currentSpeed >= 0.3f)
-        //        currentSpeed -= 1* Time.deltaTime;
-
-        //    t = rotationSpeed * currentSpeed;
-
-        //}
-        ////else if (currentAngle >= bufForPersrnt - bufForPersrnt /4)
-        ////{
-        ////    if (currentSpeed >= 0.3f)
-        ////        currentSpeed += Time.deltaTime;
-        ////    else
-        ////        currentSpeed = 0.3f;
-
-        ////    t = rotationSpeed * currentSpeed;
-
-        ////}
-        //else
-        //{
-        //    currentSpeed = speed;
-        //    t = rotationSpeed;
-
-        //}
-
-
-
-
-
-        // Debug.Log(t);
-        //if (currentAngle - buffAngl <= 0)
-        //{
-        //    t = rotationSpeed * Mathf.Abs(currentAngle / bufForPersrnt) ;
-        //    Debug.Log(Mathf.Abs(currentAngle / bufForPersrnt));
-        //    currentSpeed = speed;
-        //}
-
-        //else
-        //{
-        //    if(currentSpeed>=0)
-        //    currentSpeed -= Time.deltaTime; ;
-        //    t = rotationSpeed - (rotationSpeed * Mathf.Abs(currentAngle) / (bufForPersrnt) * currentSpeed);
-
-        //        t = rotationSpeed - (rotationSpeed * (Mathf.Abs(currentAngle) / (bufForPersrnt) * 0.1f));          
-        //}
         return t;
     }
 
@@ -193,7 +153,7 @@ public class Crane : MonoBehaviour
 
             if (currentHeight >= 0)
             {
-                transform.position += new Vector3(0, Time.deltaTime * upDownSpeed , 0);
+                transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x + currentHeight, transform.position.y ) ,Time.deltaTime);
                 currentHeight -= Time.deltaTime * upDownSpeed;
             }
             else
@@ -207,18 +167,18 @@ public class Crane : MonoBehaviour
         else
         {
 
-            if (currentHeight >= 0)
-            {
-                transform.position += new Vector3(0, Time.deltaTime * -upDownSpeed, 0);
-                currentHeight -= Time.deltaTime * upDownSpeed;
-            }
-            else
-            {
-                isMoveup = true;
-                float x = Random.Range(maxDistanseDown, maxDistanseTop);
-                currentHeight = x + buffHeight;
-                buffHeight = x;
-            }
+            //if (currentHeight >= 0)
+            //{
+            //    transform.position += new Vector3(0, Time.deltaTime * -upDownSpeed, 0);
+            //    currentHeight -= Time.deltaTime * upDownSpeed;
+            //}
+            //else
+            //{
+            //    isMoveup = true;
+            //    float x = Random.Range(maxDistanseDown, maxDistanseTop);
+            //    currentHeight = x + buffHeight;
+            //    buffHeight = x;
+            //}
 
         }
     }
