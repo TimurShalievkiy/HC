@@ -6,7 +6,7 @@ public class CraneMove : MonoBehaviour
 {
 
     [SerializeField] float maxDistanseTop = 1;
-    [SerializeField] float maxDistanseDown = 1;
+
     [SerializeField] float upDownSpeed = 1f;
     float currentHeight = 0;
     float buffHeight = 0;
