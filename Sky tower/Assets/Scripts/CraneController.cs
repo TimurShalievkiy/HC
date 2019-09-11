@@ -23,6 +23,7 @@ public class CraneController : MonoBehaviour
         GameObject g = Resources.Load<GameObject>("Block");
         Instantiate(g, boxCreator.position, boxCreator.parent.transform.rotation, boxCreator);
         box = boxCreator.GetChild(0).GetComponent<Block>();
+        box.name = CameraController.countOfBlock.ToString();
 
     }
 
@@ -36,7 +37,7 @@ public class CraneController : MonoBehaviour
             hasBlock = false;
         }
     }
-    public void CreateBlock()
+    public void CreateBlock(Rigidbody2D blockForHinge)
     {
   
         if (!hasBlock)
@@ -47,8 +48,13 @@ public class CraneController : MonoBehaviour
             box = boxCreator.GetChild(0).GetComponent<Block>();
             
             CameraController.countOfBlock++;
+
             box.name = CameraController.countOfBlock.ToString();
             box._rigidbody2d = box.GetComponent<Rigidbody2D>();
+            box.hinge = box.GetComponent<HingeJoint2D>();
+            Debug.Log("1 - " + blockForHinge.name);
+
+           // box.hinge.connectedBody = blockForHinge;
 
             rigidbody2Ds.Add(box);
 

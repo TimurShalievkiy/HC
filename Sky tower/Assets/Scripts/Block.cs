@@ -8,10 +8,12 @@ public class Block : MonoBehaviour
     bool detouch = false;
     bool isPlased = false;
     public Rigidbody2D _rigidbody2d;
+    public HingeJoint2D hinge;
 
     private void Start()
     {
         _rigidbody2d = GetComponent<Rigidbody2D>();
+        hinge = GetComponent<HingeJoint2D>();
 
     }
 
@@ -20,9 +22,20 @@ public class Block : MonoBehaviour
 
         if (!isPlased)
         {
+            
             if (collision.transform.tag == "startPlace")
             {
-                CraneController.instance.CreateBlock();
+                Rigidbody2D r = collision.transform.GetComponent<Rigidbody2D>();
+                if (r != null)
+                {
+                    CraneController.instance.CreateBlock(r);
+                    hinge.connectedBody = r;
+                    StartCoroutine(WhaitAndHinge());
+                   
+                }
+                    
+                else
+                    Debug.Log("null");
                 isTouched = true;
                 isPlased = true;
             }
@@ -42,8 +55,12 @@ public class Block : MonoBehaviour
                     isPlased = true;
 
                     transform.position += new Vector3(0, 0.3f);
-                    CraneController.instance.CreateBlock();
+                    CraneController.instance.CreateBlock(collision.transform.GetComponent<Rigidbody2D>());
                     CraneController.instance.StopVelocity();
+
+                    hinge.connectedBody = collision.transform.GetComponent<Rigidbody2D>();
+                    StartCoroutine(WhaitAndHinge());
+
                 }
         }
 
@@ -88,5 +105,11 @@ public class Block : MonoBehaviour
     {
         transform.parent = null;
         detouch = true;
+    }
+
+    IEnumerator WhaitAndHinge()
+    {
+        yield return new WaitForSeconds(1f);
+        hinge.enabled = true;
     }
 }
