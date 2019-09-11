@@ -6,36 +6,46 @@ public class Block : MonoBehaviour
 {
     bool isTouched = false;
     bool detouch = false;
+    bool isPlased = false;
     public Rigidbody2D _rigidbody2d;
 
     private void Start()
     {
         _rigidbody2d = GetComponent<Rigidbody2D>();
+
     }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
 
-
-        if (collision.transform.tag == "startPlace")
+        if (!isPlased)
         {
-            CraneController.instance.CreateBlock();
-            isTouched = true;
-        }
-
-        if (!isTouched)
-            if (collision.transform.tag == "block")
+            if (collision.transform.tag == "startPlace")
             {
-                _rigidbody2d.velocity = Vector2.zero;
-                isTouched = true;
-
-
-                if (transform.localPosition.x <= 0.12 && transform.localPosition.x >= -0.22)
-                    Debug.Log("Perfect");
-
-                Debug.Log(222);
                 CraneController.instance.CreateBlock();
+                isTouched = true;
+                isPlased = true;
             }
-            
+
+            if (!isTouched)
+                if (collision.transform.tag == "block")
+                {
+                    _rigidbody2d.velocity = Vector2.zero;
+                    isTouched = true;
+
+
+                    if (transform.localPosition.x <= 0.12 && transform.localPosition.x >= -0.22)
+                    {
+                        Debug.Log("Perfect");
+                    }
+
+                    isPlased = true;
+
+                    transform.position += new Vector3(0, 0.3f);
+                    CraneController.instance.CreateBlock();
+                    CraneController.instance.StopVelocity();
+                }
+        }
 
     }
 
@@ -43,10 +53,10 @@ public class Block : MonoBehaviour
     {
         if (detouch)
         {
-            
+
             if (transform.rotation.z > 0)
             {
-                transform.eulerAngles -= new Vector3(0,0,1f);
+                transform.eulerAngles -= new Vector3(0, 0, 1f);
                 if (Vector3.Distance(transform.eulerAngles, Vector3.zero) <= 1)
                 {
                     detouch = false;
@@ -61,10 +71,17 @@ public class Block : MonoBehaviour
                     detouch = false;
                     transform.eulerAngles = Vector3.zero;
                 }
-                    
+
             }
-                
+
         }
+        if (!isPlased && CraneController.instance.rigidbody2Ds.Count > 1)
+            if (Vector3.Distance(transform.position, CraneController.instance.rigidbody2Ds[CraneController.instance.rigidbody2Ds.Count - 2].transform.position) <= 4f)
+            {
+                Debug.Log(CraneController.instance.rigidbody2Ds[CraneController.instance.rigidbody2Ds.Count - 2].name);
+                _rigidbody2d.velocity = Vector2.zero;
+            }
+               
     }
 
     public void Detouch()

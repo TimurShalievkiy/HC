@@ -8,7 +8,7 @@ public class CraneController : MonoBehaviour
     [SerializeField] Block box;
     bool hasBlock = true;
 
-    List<Block> rigidbody2Ds;
+    public List<Block> rigidbody2Ds;
 
 
     public static CraneController instance;
@@ -38,7 +38,7 @@ public class CraneController : MonoBehaviour
     }
     public void CreateBlock()
     {
-        Debug.Log(hasBlock);
+  
         if (!hasBlock)
         {
             hasBlock = true;
@@ -48,16 +48,27 @@ public class CraneController : MonoBehaviour
             
             CameraController.countOfBlock++;
             box.name = CameraController.countOfBlock.ToString();
+            box._rigidbody2d = box.GetComponent<Rigidbody2D>();
 
             rigidbody2Ds.Add(box);
 
             for (int i = 0; i < rigidbody2Ds.Count; i++)
             {
 
-                Debug.Log(rigidbody2Ds[i]._rigidbody2d);
-               // Debug.Log(rigidbody2Ds[i]);// = Vector2.zero;
+
+                rigidbody2Ds[i]._rigidbody2d.velocity = Vector2.zero;
+                
             }
 
+        }
+    }
+    public void StopVelocity()
+    {
+        for (int i = 0; i < rigidbody2Ds.Count; i++)
+        {
+
+
+            rigidbody2Ds[i]._rigidbody2d.velocity = Vector2.zero;
         }
     }
 }
