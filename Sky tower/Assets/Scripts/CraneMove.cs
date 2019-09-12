@@ -40,9 +40,14 @@ public class CraneMove : MonoBehaviour
     float X = 0;
     float phase = 0;
 
+    bool showRes = false;
+
+    public static CraneMove instance; 
     // Start is called before the first frame update
     void Start()
     {
+        if (instance == null)
+            instance = this;
         InitCrane(10);
     }
 
@@ -75,15 +80,17 @@ public class CraneMove : MonoBehaviour
     /// </summary>
     void tmr_Elapsed()
     {
+
         this.T = speed * (float)(Mathf.PI * Mathf.Sqrt(this.Length / 9.80665f));
         A = this.Length * (float)Mathf.Sin(8 * Mathf.PI / 180);
 
-        timAfterStar += Time.deltaTime;
+        
         //фаза
         phase = timAfterStar / T;
         /// Отклонение от вертикали
         /// Поскольку маятник начинает движение из положения равновесия, то 
         /// он движется по закону синуса
+        timAfterStar += Time.deltaTime;
         X = A * (float)Mathf.Sin(phase);
 
         //Пересчёт фазы от 0 до 2П
@@ -93,8 +100,11 @@ public class CraneMove : MonoBehaviour
         {
             timAfterStar = 0;
         }
-            
+
          transform.eulerAngles = new Vector3(0,0, angle * X);
+
+       
+        
     }
 
 
@@ -154,6 +164,68 @@ public class CraneMove : MonoBehaviour
                 isPouse = false;
             }
         }
+    }
+    public void ChangeSpeed(float newSpeed)
+    {
+        speed = newSpeed;
+        //this.T = speed * (float)(Mathf.PI * Mathf.Sqrt(this.Length / 9.80665f));
+        //A = this.Length * (float)Mathf.Sin(8 * Mathf.PI / 180);
+
+
+        //phase = timAfterStar / T;
+
+        //X = A * (float)Mathf.Sin(phase);
+        //int exit = 0;
+        //Vector3 euler = new Vector3();
+        //while (true)
+        //{
+        //    if (exit < 100)
+        //        exit++;
+        //    else
+        //    {
+        //        break;
+        //    }
+        //    timAfterStar += Time.deltaTime;
+
+
+        //    phase = timAfterStar / T;
+
+        //    X = A * (float)Mathf.Sin(phase);
+
+        //    euler = new Vector3(0, 0, angle * X);
+        //    if (transform.eulerAngles.z > 200)
+        //    {
+        //        //Debug.Log("1 " + (360 - transform.eulerAngles.z) + " " + euler.z);
+        //        if (360 - transform.eulerAngles.z - euler.z < 0.5f)
+        //        {
+        //            Debug.Log("1 " + (360 - transform.eulerAngles.z) + " " + euler.z);
+        //            transform.eulerAngles = -euler;
+        //            break;
+        //        }
+        //    }
+
+        //    else
+        //    {
+        //        if (transform.eulerAngles.z - euler.z < 0.5f)
+        //        {
+        //            Debug.Log("2 " + transform.eulerAngles.z + " " + euler.z);
+        //            transform.eulerAngles = euler;
+        //            break;
+        //        }
+
+        //    }
+
+
+
+
+
+        //}
+        //Debug.Log(speed + " " + T + " " + X + " " + phase + " " + timAfterStar);
+        //// showRes = true;
+        //Debug.Log(exit + "-------------------------------");
+
+
+
     }
 
 }

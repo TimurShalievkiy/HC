@@ -9,6 +9,7 @@ public class Block : MonoBehaviour
     bool isPlased = false;
     public Rigidbody2D _rigidbody2d;
     public HingeJoint2D hinge;
+    [SerializeField] GameObject particle;
 
     private void Start()
     {
@@ -31,7 +32,16 @@ public class Block : MonoBehaviour
                     CraneController.instance.CreateBlock(r);
                     hinge.connectedBody = r;
                     StartCoroutine(WhaitAndHinge());
-                   
+                    if (CraneController.instance.rigidbody2Ds.Count == 1)
+                    {
+                        if (transform.localPosition.x <= 0.12 && transform.localPosition.x >= -0.22)
+                        {
+                            Debug.Log("Perfect11111");
+                            particle.SetActive(true);
+                        }
+                        
+                    }
+
                 }
                     
                 else
@@ -46,15 +56,30 @@ public class Block : MonoBehaviour
                     _rigidbody2d.velocity = Vector2.zero;
                     isTouched = true;
 
-
-                    if (transform.localPosition.x <= 0.12 && transform.localPosition.x >= -0.22)
+                    if (CraneController.instance.rigidbody2Ds.Count == 1)
                     {
-                        Debug.Log("Perfect");
+                        if (transform.localPosition.x <= 0.12 && transform.localPosition.x >= -0.22)
+                        {
+                            particle.SetActive(true);
+                            Debug.Log("Perfect22222" + " " + particle);
+                           
+                        }
+                        
                     }
+                    else
+                    {
+                        if (transform.localPosition.x <= CraneController.instance.rigidbody2Ds[CraneController.instance.rigidbody2Ds.Count-2].transform.position.x + 0.12 && 
+                            transform.localPosition.x >= CraneController.instance.rigidbody2Ds[CraneController.instance.rigidbody2Ds.Count - 2].transform.position.x - 0.22)
+                        {
+                            Debug.Log("Perfect33333");
+                            particle.SetActive(true);
+                        }
+                    }
+                    
 
                     isPlased = true;
 
-                    transform.position += new Vector3(0, 0.3f);
+                    //transform.position += new Vector3(0, 1f);
                     CraneController.instance.CreateBlock(collision.transform.GetComponent<Rigidbody2D>());
                     CraneController.instance.StopVelocity();
 
@@ -66,6 +91,7 @@ public class Block : MonoBehaviour
 
     }
 
+   
     private void Update()
     {
         if (detouch)
@@ -93,9 +119,8 @@ public class Block : MonoBehaviour
 
         }
         if (!isPlased && CraneController.instance.rigidbody2Ds.Count > 1)
-            if (Vector3.Distance(transform.position, CraneController.instance.rigidbody2Ds[CraneController.instance.rigidbody2Ds.Count - 2].transform.position) <= 4f)
+            if (Vector3.Distance(transform.position, CraneController.instance.rigidbody2Ds[CraneController.instance.rigidbody2Ds.Count - 2].transform.position) <= 3f)
             {
-                Debug.Log(CraneController.instance.rigidbody2Ds[CraneController.instance.rigidbody2Ds.Count - 2].name);
                 _rigidbody2d.velocity = Vector2.zero;
             }
                
@@ -110,6 +135,8 @@ public class Block : MonoBehaviour
     IEnumerator WhaitAndHinge()
     {
         yield return new WaitForSeconds(1f);
+        // int index = CraneController.instance.rigidbody2Ds.IndexOf(this);
+        
         hinge.enabled = true;
     }
 }

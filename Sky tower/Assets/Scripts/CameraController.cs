@@ -15,7 +15,7 @@ public class CameraController : MonoBehaviour
     {
         camera = Camera.main;
         Crane.position = new Vector3(Crane.transform.position.x,  transform.position.y + camera.orthographicSize + 7);
-
+        countOfBlock = 0;
     }
     // Update is called once per frame
     void Update()
