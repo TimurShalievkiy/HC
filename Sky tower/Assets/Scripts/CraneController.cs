@@ -6,12 +6,14 @@ using UnityEngine.SceneManagement;
 
 public class CraneController : MonoBehaviour
 {
+    public PistonsController pistonsController;
+
     [SerializeField] Transform boxCreator;
-    [SerializeField] Block box;
+    Block box;
     [SerializeField] Text countOfBlock;
     bool hasBlock = true;
 
-    public List<Block> rigidbody2Ds;
+    public List<Block> listOfBlocks;
 
 
     public static CraneController instance;
@@ -21,12 +23,14 @@ public class CraneController : MonoBehaviour
         if (CraneController.instance == null)
             instance = this;
 
-        rigidbody2Ds = new List<Block>();
+        listOfBlocks = new List<Block>();
 
         GameObject g = Resources.Load<GameObject>("Block");
         Instantiate(g, boxCreator.position, boxCreator.parent.transform.rotation, boxCreator);
         box = boxCreator.GetChild(0).GetComponent<Block>();
         box.name = CameraController.countOfBlock.ToString();
+
+        listOfBlocks.Add(box);
 
         countOfBlock.text = CameraController.countOfBlock.ToString();
 
@@ -35,13 +39,16 @@ public class CraneController : MonoBehaviour
 
     public void DropBox()
     {
+        if(!CheckForLoose.loose)
         if (boxCreator.childCount > 0)
         {
             boxCreator.GetChild(0).GetComponent<Rigidbody2D>().simulated = true;
             box.Detouch();
             hasBlock = false;
         }
+        
     }
+
     public void CreateBlock(Rigidbody2D blockForHinge)
     {
   
@@ -58,17 +65,17 @@ public class CraneController : MonoBehaviour
             box.name = CameraController.countOfBlock.ToString();
             box._rigidbody2d = box.GetComponent<Rigidbody2D>();
             box.hinge = box.GetComponent<HingeJoint2D>();
-            Debug.Log("1 - " + blockForHinge.name);
+
 
            
 
-            rigidbody2Ds.Add(box);
+            listOfBlocks.Add(box);
 
-            for (int i = 0; i < rigidbody2Ds.Count; i++)
+            for (int i = 0; i < listOfBlocks.Count; i++)
             {
 
 
-                rigidbody2Ds[i]._rigidbody2d.velocity = Vector2.zero;
+                listOfBlocks[i]._rigidbody2d.velocity = Vector2.zero;
                 
             }
             if (CameraController.countOfBlock == 10)
@@ -78,13 +85,14 @@ public class CraneController : MonoBehaviour
 
         }
     }
+
     public void StopVelocity()
     {
-        for (int i = 0; i < rigidbody2Ds.Count; i++)
+        for (int i = 0; i < listOfBlocks.Count; i++)
         {
 
 
-            rigidbody2Ds[i]._rigidbody2d.velocity = Vector2.zero;
+            listOfBlocks[i]._rigidbody2d.velocity = Vector2.zero;
         }
     }
 
@@ -92,6 +100,7 @@ public class CraneController : MonoBehaviour
     {
         SceneManager.LoadScene(1);
     }
+
     public void Play()
     {
         SceneManager.LoadScene(0);
