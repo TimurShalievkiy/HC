@@ -10,12 +10,14 @@ public class CameraController : MonoBehaviour
     Camera camera;
     bool needToMove = false;
     public static int countOfBlock = 0;
-    
+    public static int hard = 0;
+
     private void Start()
     {
         camera = Camera.main;
         Crane.position = new Vector3(Crane.transform.position.x,  transform.position.y + camera.orthographicSize + 7);
         countOfBlock = 0;
+        hard = 0;
     }
     // Update is called once per frame
     void Update()

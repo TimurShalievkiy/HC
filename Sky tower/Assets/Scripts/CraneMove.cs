@@ -42,7 +42,7 @@ public class CraneMove : MonoBehaviour
 
     bool showRes = false;
 
-    public static CraneMove instance; 
+    public static CraneMove instance;
     // Start is called before the first frame update
     void Start()
     {
@@ -59,7 +59,7 @@ public class CraneMove : MonoBehaviour
         MoveUpDownCrane();
     }
 
-   
+
 
 
     /// <summary>
@@ -68,6 +68,11 @@ public class CraneMove : MonoBehaviour
     /// <param name="length">Длина маятника в метрах</param>
     public void InitCrane(float length)
     {
+        ChangeSpeed(0.2f);
+        ChangeAngle(6);
+        ChangeTopDownLength(0.3f, 0.5f);
+        CameraController.hard = 1;
+
         this.Length = length;
         this.T = speed * (float)(Mathf.PI * Mathf.Sqrt(this.Length / 9.80665f));
         /// Максимальная амплитуда колебаний. Рассчитывается, исходя из
@@ -84,7 +89,7 @@ public class CraneMove : MonoBehaviour
         this.T = speed * (float)(Mathf.PI * Mathf.Sqrt(this.Length / 9.80665f));
         A = this.Length * (float)Mathf.Sin(8 * Mathf.PI / 180);
 
-        
+
         //фаза
         phase = timAfterStar / T;
         /// Отклонение от вертикали
@@ -101,10 +106,10 @@ public class CraneMove : MonoBehaviour
             timAfterStar = 0;
         }
 
-         transform.eulerAngles = new Vector3(0,0, angle * X);
+        transform.eulerAngles = new Vector3(0, 0, angle * X);
 
-       
-        
+
+
     }
 
 
@@ -146,7 +151,7 @@ public class CraneMove : MonoBehaviour
                     isMoveup = true;
                     float x = Random.Range(0, maxDistanseTop);
                     currentHeight = x + buffHeight;
-                    
+
                     buffHeight = x;
 
                     if (Random.Range(0, 100) <= chanceForDelay)
@@ -159,7 +164,8 @@ public class CraneMove : MonoBehaviour
         {
             if (CurrentDelay >= 0)
                 CurrentDelay -= Time.deltaTime;
-            else {
+            else
+            {
                 CurrentDelay = delay;
                 isPouse = false;
             }
@@ -226,6 +232,16 @@ public class CraneMove : MonoBehaviour
 
 
 
+    }
+
+    public void ChangeAngle(float newAngle)
+    {
+        angle = newAngle;
+    }
+    public void ChangeTopDownLength(float distanse, float speed)
+    {
+        maxDistanseTop = distanse;
+        upDownSpeed = speed;
     }
 
 }

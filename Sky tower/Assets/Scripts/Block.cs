@@ -10,6 +10,8 @@ public class Block : MonoBehaviour
     public Rigidbody2D _rigidbody2d;
     public HingeJoint2D hinge;
     [SerializeField] GameObject particle;
+    public Transform leftDot;
+    public Transform rightDot;
 
     private void Start()
     {
@@ -41,6 +43,10 @@ public class Block : MonoBehaviour
                             particle.SetActive(true);
                             CraneController.instance.pistonsController.IncrementCountOfPerfect();
                         }
+                        else
+                        {
+                            CraneController.instance.pistonsController.ResetCountOfPerfect();
+                        }
 
                     }
 
@@ -56,14 +62,18 @@ public class Block : MonoBehaviour
                     _rigidbody2d.velocity = Vector2.zero;
                     isTouched = true;
 
-                   
-                        if (transform.localPosition.x <= CraneController.instance.listOfBlocks[CraneController.instance.listOfBlocks.Count - 2].transform.position.x + 0.12 &&
-                            transform.localPosition.x >= CraneController.instance.listOfBlocks[CraneController.instance.listOfBlocks.Count - 2].transform.position.x - 0.12)
-                        {
-                            Debug.Log("Perfect33333");
-                            CraneController.instance.pistonsController.IncrementCountOfPerfect();
-                            particle.SetActive(true);
-                        }
+
+                    if (transform.localPosition.x <= CraneController.instance.listOfBlocks[CraneController.instance.listOfBlocks.Count - 2].transform.position.x + 0.12 &&
+                        transform.localPosition.x >= CraneController.instance.listOfBlocks[CraneController.instance.listOfBlocks.Count - 2].transform.position.x - 0.12)
+                    {
+                        Debug.Log("Perfect33333");
+                        CraneController.instance.pistonsController.IncrementCountOfPerfect();
+                        particle.SetActive(true);
+                    }
+                    else
+                    {
+                        CraneController.instance.pistonsController.ResetCountOfPerfect();
+                    }
                     
 
 
@@ -90,6 +100,7 @@ public class Block : MonoBehaviour
             if (transform.rotation.z > 0)
             {
                 transform.eulerAngles -= new Vector3(0, 0, 1f);
+                Debug.Log(111);
                 if (Vector3.Distance(transform.eulerAngles, Vector3.zero) <= 1)
                 {
                     detouch = false;
@@ -99,6 +110,7 @@ public class Block : MonoBehaviour
             else
             {
                 transform.eulerAngles += new Vector3(0, 0, 1f);
+                Debug.Log(222);
                 if (Vector3.Distance(transform.eulerAngles, Vector3.zero) <= 1)
                 {
                     detouch = false;
