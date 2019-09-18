@@ -72,7 +72,7 @@ public class CraneController : MonoBehaviour
                     CraneMove.instance.ChangeTopDownLength(0.8f, 1f);
                     break;
                 case 26:
-                    CameraController.hard = 3;
+                    CameraController.hard = 4;
                     CraneMove.instance.ChangeSpeed(0.08f);
                     CraneMove.instance.ChangeAngle(12);
                     CraneMove.instance.ChangeTopDownLength(1f, 1.2f);

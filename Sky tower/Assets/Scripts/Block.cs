@@ -13,6 +13,8 @@ public class Block : MonoBehaviour
     public Transform leftDot;
     public Transform rightDot;
 
+    float sizeForPerfect = 1;
+
     private void Start()
     {
         _rigidbody2d = GetComponent<Rigidbody2D>();
@@ -37,7 +39,7 @@ public class Block : MonoBehaviour
                     if (CraneController.instance.listOfBlocks.Count >= 1)
                     {
     
-                        if (transform.localPosition.x <= 0.12 && transform.localPosition.x >= -0.12)
+                        if (transform.localPosition.x <= sizeForPerfect && transform.localPosition.x >= -sizeForPerfect)
                         {
                             Debug.Log("Perfect11111");
                             particle.SetActive(true);
@@ -63,8 +65,8 @@ public class Block : MonoBehaviour
                     isTouched = true;
 
 
-                    if (transform.localPosition.x <= CraneController.instance.listOfBlocks[CraneController.instance.listOfBlocks.Count - 2].transform.position.x + 0.12 &&
-                        transform.localPosition.x >= CraneController.instance.listOfBlocks[CraneController.instance.listOfBlocks.Count - 2].transform.position.x - 0.12)
+                    if (transform.localPosition.x <= CraneController.instance.listOfBlocks[CraneController.instance.listOfBlocks.Count - 2].transform.position.x + sizeForPerfect &&
+                        transform.localPosition.x >= CraneController.instance.listOfBlocks[CraneController.instance.listOfBlocks.Count - 2].transform.position.x - sizeForPerfect)
                     {
                         Debug.Log("Perfect33333");
                         CraneController.instance.pistonsController.IncrementCountOfPerfect();
@@ -100,7 +102,7 @@ public class Block : MonoBehaviour
             if (transform.rotation.z > 0)
             {
                 transform.eulerAngles -= new Vector3(0, 0, 1f);
-                Debug.Log(111);
+
                 if (Vector3.Distance(transform.eulerAngles, Vector3.zero) <= 1)
                 {
                     detouch = false;
@@ -110,7 +112,6 @@ public class Block : MonoBehaviour
             else
             {
                 transform.eulerAngles += new Vector3(0, 0, 1f);
-                Debug.Log(222);
                 if (Vector3.Distance(transform.eulerAngles, Vector3.zero) <= 1)
                 {
                     detouch = false;

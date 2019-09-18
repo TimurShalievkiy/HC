@@ -12,11 +12,17 @@ public class PistonsController : MonoBehaviour
 
     float leftDistance;
     float rightDistance;
+    float cameraHeight;
     // Start is called before the first frame update
     void Start()
     {
         
         countOfPerfectPos = 0;
+
+        Vector2 min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0)); // bottom-left corner
+        cameraHeight = min.x-0.5f;
+
+
     }
 
     // Update is called once per frame
@@ -29,20 +35,21 @@ public class PistonsController : MonoBehaviour
            
             if (CraneController.instance.listOfBlocks.Count > 1)
             {
-                leftPiston.position = Vector3.Lerp(leftPiston.position, new Vector2(-9.2f, CraneController.instance.listOfBlocks[CraneController.instance.listOfBlocks.Count - 2].leftDot.position.y), 0.2f);
-                rightPiston.position = Vector3.Lerp(rightPiston.position, new Vector2(9.2f, CraneController.instance.listOfBlocks[CraneController.instance.listOfBlocks.Count - 2].rightDot.position.y), 0.2f);
+                leftPiston.position = Vector3.Lerp(leftPiston.position, new Vector2(cameraHeight, CraneController.instance.listOfBlocks[CraneController.instance.listOfBlocks.Count - 2].leftDot.position.y), 0.2f);
+                rightPiston.position = Vector3.Lerp(rightPiston.position, new Vector2(-cameraHeight, CraneController.instance.listOfBlocks[CraneController.instance.listOfBlocks.Count - 2].rightDot.position.y), 0.2f);
+
                 smokeLeft.ResetSmoke();
                 smokeRight.ResetSmoke();
             }
         }
         if (countOfPerfectPos == 1)
         {
-            leftPiston.position = Vector3.Lerp(leftPiston.position, new Vector2(-leftDistance , CraneController.instance.listOfBlocks[CraneController.instance.listOfBlocks.Count - 2].leftDot.position.y),0.2f);
+            leftPiston.position = Vector3.Lerp(leftPiston.position, new Vector2(leftDistance , CraneController.instance.listOfBlocks[CraneController.instance.listOfBlocks.Count - 2].leftDot.position.y),0.2f);
             rightPiston.position =  Vector3.Lerp(rightPiston.position, new Vector2(rightDistance , CraneController.instance.listOfBlocks[CraneController.instance.listOfBlocks.Count - 2].rightDot.position.y),0.2f);
         }
         if (countOfPerfectPos == 2)
         {
-            leftPiston.position = Vector3.Lerp(leftPiston.position, new Vector2(-leftDistance, CraneController.instance.listOfBlocks[CraneController.instance.listOfBlocks.Count - 2].leftDot.position.y), 0.2f);
+            leftPiston.position = Vector3.Lerp(leftPiston.position, new Vector2(leftDistance, CraneController.instance.listOfBlocks[CraneController.instance.listOfBlocks.Count - 2].leftDot.position.y), 0.2f);
             rightPiston.position = Vector3.Lerp(rightPiston.position, new Vector2(rightDistance, CraneController.instance.listOfBlocks[CraneController.instance.listOfBlocks.Count - 2].rightDot.position.y), 0.2f);
         }
         if (countOfPerfectPos == 3)
@@ -54,6 +61,7 @@ public class PistonsController : MonoBehaviour
             {
 
                 CraneController.instance.listOfBlocks[i]._rigidbody2d.isKinematic = true;
+                CraneController.instance.listOfBlocks[i]._rigidbody2d.freezeRotation = true;
 
             }
             //StartCoroutine(MovePistonsToBlock());
@@ -64,8 +72,8 @@ public class PistonsController : MonoBehaviour
                 Instantiate(leftPiston, leftPiston.position, Quaternion.identity, leftPiston.parent);
                 Instantiate(rightPiston, rightPiston.position, Quaternion.identity, rightPiston.parent);
 
-                leftPiston.position = new Vector2(-9.2f, CraneController.instance.listOfBlocks[CraneController.instance.listOfBlocks.Count - 2].leftDot.position.y);
-                rightPiston.position = new Vector2(9.2f, CraneController.instance.listOfBlocks[CraneController.instance.listOfBlocks.Count - 2].rightDot.position.y);
+                leftPiston.position = new Vector2(cameraHeight, CraneController.instance.listOfBlocks[CraneController.instance.listOfBlocks.Count - 2].leftDot.position.y);
+                rightPiston.position = new Vector2(-cameraHeight, CraneController.instance.listOfBlocks[CraneController.instance.listOfBlocks.Count - 2].rightDot.position.y);
 
             }
 
@@ -78,49 +86,22 @@ public class PistonsController : MonoBehaviour
 
         countOfPerfectPos++;
         float y = CraneController.instance.listOfBlocks[CraneController.instance.listOfBlocks.Count - 2].leftDot.position.y;
-        leftDistance = Vector3.Distance(new Vector3( leftPiston.position.x,y), CraneController.instance.listOfBlocks[CraneController.instance.listOfBlocks.Count - 2].leftDot.position);
-        rightDistance = Vector3.Distance(new Vector3(rightPiston.position.x, y), CraneController.instance.listOfBlocks[CraneController.instance.listOfBlocks.Count - 2].rightDot.position);
+        leftDistance = Vector3.Distance(new Vector3(cameraHeight, y), CraneController.instance.listOfBlocks[CraneController.instance.listOfBlocks.Count - 2].leftDot.position);
+        rightDistance = Vector3.Distance(new Vector3(-cameraHeight, y), CraneController.instance.listOfBlocks[CraneController.instance.listOfBlocks.Count - 2].rightDot.position);
 
         if (countOfPerfectPos == 1)
         {
             
-            leftDistance = -leftPiston.position.x - (leftDistance *0.3f);
-            rightDistance = rightPiston.position.x - (rightDistance * 0.3f);
+            leftDistance = cameraHeight + (leftDistance *0.3f);
+            rightDistance = -cameraHeight - (rightDistance * 0.3f);
             Debug.Log(leftDistance + " ---" );
         }
         if (countOfPerfectPos == 2)
         {
-           // leftDistance = 0;
-           // rightDistance = 0;
+            leftDistance = cameraHeight + (leftDistance * 0.6f);
+            rightDistance = -cameraHeight - (rightDistance * 0.6f);
         }
-        //if (countOfPerfectPos == 1)
-        //{
-        //    Debug.Log(countOfPerfectPos);
-        //    float x = CraneController.instance.listOfBlocks[CraneController.instance.listOfBlocks.Count - 2].transform.position.x-3;
-        //    float y = CraneController.instance.listOfBlocks[CraneController.instance.listOfBlocks.Count - 2].transform.position.y;
 
-        //    float x2 = leftPiston.transform.position.x * 0.25f; 
-        //   // x2 = x2 - x2 * 0.25f;
-
-        //    leftPiston.transform.position = new Vector2(x2 , y);
-        //    rightPiston.transform.position = new Vector2(-x2 , y);
-        //}
-        //else if (countOfPerfectPos == 2)
-        //{
-        //    Debug.Log(countOfPerfectPos);
-        //    float x = CraneController.instance.listOfBlocks[CraneController.instance.listOfBlocks.Count - 2].transform.position.x;
-        //    float y = CraneController.instance.listOfBlocks[CraneController.instance.listOfBlocks.Count - 2].transform.position.y;
-
-        //    float x2 = leftPiston.transform.position.x - x;
-        //    x2 = x2 - x2 * 0.60f-3;
-        //    Debug.Log(x2);
-        //    leftPiston.transform.position = new Vector2(x2, y);
-        //    rightPiston.transform.position = new Vector2(-x2, y);
-        //}
-        //else if (countOfPerfectPos == 3)
-        //{
-        //    Debug.Log(countOfPerfectPos);
-        //}
 
     }
 
