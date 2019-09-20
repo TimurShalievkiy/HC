@@ -13,6 +13,8 @@ public class CraneController : MonoBehaviour
     [SerializeField] Text countOfBlock;
     bool hasBlock = true;
 
+    public static bool isPause = false;
+
     public List<Block> listOfBlocks;
 
 
@@ -32,18 +34,20 @@ public class CraneController : MonoBehaviour
 
         listOfBlocks.Add(box);
 
+        if(countOfBlock != null)
         countOfBlock.text = CameraController.countOfBlock.ToString();
 
        
 
     }
-
+    
 
     public void DropBox()
     {
         if(!CheckForLoose.loose)
         if (boxCreator.childCount > 0)
         {
+
             boxCreator.GetChild(0).GetComponent<Rigidbody2D>().simulated = true;
             box.Detouch();
             hasBlock = false;
@@ -54,8 +58,9 @@ public class CraneController : MonoBehaviour
     public void CreateBlock(Rigidbody2D blockForHinge)
     {
   
-        if (!hasBlock)
+        if (!hasBlock && boxCreator.childCount==0)
         {
+            Debug.Log("boxCreator.childCount = " + boxCreator.childCount);
             switch (CameraController.countOfBlock)
             {
 
@@ -116,6 +121,11 @@ public class CraneController : MonoBehaviour
         }
     }
 
+    public void Pause(bool pause)
+    {
+        isPause = pause;
+    }
+
     public void StopVelocity()
     {
         for (int i = 0; i < listOfBlocks.Count; i++)
@@ -128,11 +138,11 @@ public class CraneController : MonoBehaviour
 
     public void restart()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(0);
     }
 
     public void Play()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 }

@@ -25,7 +25,7 @@ public class Block : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
 
-        if (!isPlased)
+        if (!isPlased )
         {
 
             if (collision.transform.tag == "startPlace")
@@ -96,6 +96,8 @@ public class Block : MonoBehaviour
 
     private void Update()
     {
+
+        
         if (detouch)
         {
 

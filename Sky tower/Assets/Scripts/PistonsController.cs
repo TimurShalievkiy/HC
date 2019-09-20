@@ -19,7 +19,7 @@ public class PistonsController : MonoBehaviour
         
         countOfPerfectPos = 0;
 
-        Vector2 min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0)); // bottom-left corner
+        Vector2 min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0)); 
         cameraHeight = min.x-0.5f;
 
 
@@ -35,6 +35,9 @@ public class PistonsController : MonoBehaviour
            
             if (CraneController.instance.listOfBlocks.Count > 1)
             {
+                Vector2 min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0));
+                cameraHeight = min.x - 0.5f;
+
                 leftPiston.position = Vector3.Lerp(leftPiston.position, new Vector2(cameraHeight, CraneController.instance.listOfBlocks[CraneController.instance.listOfBlocks.Count - 2].leftDot.position.y), 0.2f);
                 rightPiston.position = Vector3.Lerp(rightPiston.position, new Vector2(-cameraHeight, CraneController.instance.listOfBlocks[CraneController.instance.listOfBlocks.Count - 2].rightDot.position.y), 0.2f);
 
@@ -94,7 +97,7 @@ public class PistonsController : MonoBehaviour
             
             leftDistance = cameraHeight + (leftDistance *0.3f);
             rightDistance = -cameraHeight - (rightDistance * 0.3f);
-            Debug.Log(leftDistance + " ---" );
+
         }
         if (countOfPerfectPos == 2)
         {
