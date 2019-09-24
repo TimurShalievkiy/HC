@@ -6,6 +6,10 @@ public class MoveToLineDirection : MonoBehaviour
 {
     [SerializeField] float speed = 2;
 
+    public void ChangeSpeed(float x)
+    {
+        speed = x;
+    }
     // Update is called once per frame
     void Update()
     {

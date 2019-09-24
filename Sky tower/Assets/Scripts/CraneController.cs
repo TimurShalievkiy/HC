@@ -19,9 +19,13 @@ public class CraneController : MonoBehaviour
 
 
     public static CraneController instance;
+
+
+    string skinName;
     // Start is called before the first frame update
     void Start()
     {
+        skinName = "FreeBuilding";
         if (CraneController.instance == null)
             instance = this;
 
@@ -91,8 +95,8 @@ public class CraneController : MonoBehaviour
 
             }
             hasBlock = true;
-            GameObject g = Resources.Load<GameObject>("Block");
-            g.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("blocks\\" + CameraController.hard.ToString());
+            GameObject g = Resources.Load<GameObject>("Scins\\" + skinName + "\\baseBlock");
+            g.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Scins\\" + skinName + "\\blocks\\" + CameraController.hard.ToString());
             Instantiate(g, boxCreator.position, boxCreator.parent.transform.rotation, boxCreator);
             box = boxCreator.GetChild(0).GetComponent<Block>();
             
@@ -110,10 +114,7 @@ public class CraneController : MonoBehaviour
 
             for (int i = 0; i < listOfBlocks.Count; i++)
             {
-
-
-                listOfBlocks[i]._rigidbody2d.velocity = Vector2.zero;
-                
+                listOfBlocks[i]._rigidbody2d.velocity = Vector2.zero;                
             }
             
             

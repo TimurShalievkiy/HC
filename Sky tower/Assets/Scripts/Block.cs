@@ -13,12 +13,22 @@ public class Block : MonoBehaviour
     public Transform leftDot;
     public Transform rightDot;
 
+    [SerializeField] Transform perfectObjects;
+    static int currentIndexOfPerfectObjects = 0;
+
     float sizeForPerfect = 1;
 
     private void Start()
     {
         _rigidbody2d = GetComponent<Rigidbody2D>();
         hinge = GetComponent<HingeJoint2D>();
+ 
+
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            if(transform.GetChild(i).name == "PerfectObjects")
+                perfectObjects = transform.GetChild(i);
+        }
 
     }
 
@@ -43,6 +53,7 @@ public class Block : MonoBehaviour
                         {
                             Debug.Log("Perfect11111");
                             particle.SetActive(true);
+                            ShowPerfectObject();
                             CraneController.instance.pistonsController.IncrementCountOfPerfect();
                         }
                         else
@@ -69,6 +80,7 @@ public class Block : MonoBehaviour
                         transform.localPosition.x >= CraneController.instance.listOfBlocks[CraneController.instance.listOfBlocks.Count - 2].transform.position.x - sizeForPerfect)
                     {
                         Debug.Log("Perfect33333");
+                        ShowPerfectObject();
                         CraneController.instance.pistonsController.IncrementCountOfPerfect();
                         particle.SetActive(true);
                     }
@@ -143,5 +155,20 @@ public class Block : MonoBehaviour
         // int index = CraneController.instance.rigidbody2Ds.IndexOf(this);
 
         hinge.enabled = true;
+    }
+
+    void ShowPerfectObject()
+    {
+
+        if (perfectObjects.childCount  <= currentIndexOfPerfectObjects)
+        {
+            currentIndexOfPerfectObjects = 0;
+        }
+
+            perfectObjects.GetChild(currentIndexOfPerfectObjects).gameObject.SetActive(true);
+            currentIndexOfPerfectObjects++;
+        
+
+
     }
 }
