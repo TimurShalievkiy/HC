@@ -22,7 +22,9 @@ public class CloudSpawner : MonoBehaviour
             g.GetComponent<SpriteRenderer>().sprite = clouds[Random.Range(0, clouds.Length-1)];
             g.AddComponent<MoveToLineDirection>();
             g.GetComponent<MoveToLineDirection>().ChangeSpeed(Random.Range(1.0f, 3.0f));
+            g.transform.parent = transform;
             g.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+            Destroy(g, 30f);
         }
     }
 
