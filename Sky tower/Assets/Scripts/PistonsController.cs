@@ -29,10 +29,9 @@ public class PistonsController : MonoBehaviour
     void Update()
     {
         
-        if (countOfPerfectPos == 0)
+        if (countOfPerfectPos == 0 && CraneController.instance)
         {
-
-           
+          
             if (CraneController.instance.listOfBlocks.Count > 1)
             {
                 Vector2 min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0));

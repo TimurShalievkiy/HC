@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CraneMove : MonoBehaviour
 {
-
+    public GameObject blockCreator;
     [SerializeField] float maxDistanseTop = 1;
 
     [SerializeField] float upDownSpeed = 1f;
@@ -46,9 +46,17 @@ public class CraneMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+       
         if (instance == null)
             instance = this;
+
+        blockCreator = GameObject.Find("BlockCreator");
+        Debug.Log(blockCreator.name);
+        Debug.Log(instance.name);
+
         InitCrane(10);
+
+        GameController.instance.craneController.Iinit();
     }
 
     // Update is called once per frame

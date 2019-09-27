@@ -7,7 +7,7 @@ public class CheckForLoose : MonoBehaviour
 {
     
    public static bool loose = false;
-    [SerializeField] Transform startPlace;
+   // [SerializeField] Transform startPlace;
     [SerializeField] GameObject loosePanel;
     // Update is called once per frame
     private void Start()
@@ -16,13 +16,13 @@ public class CheckForLoose : MonoBehaviour
     }
     void Update()
     {
-        if(!loose)
+        if(!loose&& CraneController.instance)
         for (int i = 0; i < CraneController.instance.listOfBlocks.Count; i++)
         {
                 if (i == 0)
                 {
 
-                    if (startPlace.position.y >= CraneController.instance.listOfBlocks[0].transform.position.y)
+                    if (GameController.instance.house.transform.position.y >= CraneController.instance.listOfBlocks[0].transform.position.y)
                     {
                         loose = true;
                         Debug.Log("loose1");

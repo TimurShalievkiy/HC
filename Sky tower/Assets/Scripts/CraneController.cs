@@ -23,9 +23,11 @@ public class CraneController : MonoBehaviour
 
     string skinName;
     // Start is called before the first frame update
-    void Start()
+    public void Iinit()
     {
         skinName = "FreeBuilding";
+        Debug.Log(CraneMove.instance);
+        boxCreator = CraneMove.instance.blockCreator.transform;
         if (CraneController.instance == null)
             instance = this;
 
@@ -64,7 +66,7 @@ public class CraneController : MonoBehaviour
   
         if (!hasBlock && boxCreator.childCount==0)
         {
-            Debug.Log("boxCreator.childCount = " + boxCreator.childCount);
+
             switch (CameraController.countOfBlock)
             {
 
