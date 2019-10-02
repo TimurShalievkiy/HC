@@ -28,15 +28,14 @@ public class FieldGenerator : MonoBehaviour
         float canvasWidth = canvas.GetComponent<RectTransform>().sizeDelta.y;
         float height = (canvasHeight - grid.spacing.x*xRange - grid.spacing.x * 2) /xRange ;
 
-        Debug.Log(height+ " " +(height * yRange + grid.spacing.x*2 ) + " - " + (canvasWidth * 0.8f));
+       
 
         if (height * yRange + grid.spacing.x*2  > canvasWidth * 0.8f )
         {
-            Debug.Log("123");
+           
             height = (canvasHeight * 0.8f - grid.spacing.x * yRange - grid.spacing.x * 2) / yRange;
         }
 
-       // Debug.Log(canvas.GetComponent<RectTransform>().sizeDelta.x + " " + Screen.height / xRange);
         grid.cellSize = new Vector2(height, height);
 
 

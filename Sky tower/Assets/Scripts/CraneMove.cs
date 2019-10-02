@@ -51,8 +51,8 @@ public class CraneMove : MonoBehaviour
             instance = this;
 
         blockCreator = GameObject.Find("BlockCreator");
-        Debug.Log(blockCreator.name);
-        Debug.Log(instance.name);
+
+
 
         InitCrane(10);
 

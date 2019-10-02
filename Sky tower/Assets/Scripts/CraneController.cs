@@ -21,19 +21,19 @@ public class CraneController : MonoBehaviour
     public static CraneController instance;
 
 
-    string skinName;
+  
     // Start is called before the first frame update
     public void Iinit()
     {
-        skinName = "FreeBuilding";
-        Debug.Log(CraneMove.instance);
+
         boxCreator = CraneMove.instance.blockCreator.transform;
         if (CraneController.instance == null)
             instance = this;
 
         listOfBlocks = new List<Block>();
 
-        GameObject g = Resources.Load<GameObject>("Block");
+        GameObject g = Resources.Load<GameObject>("Scins\\" + ScinController.GetScin() + "\\baseBlock");
+        Debug.Log(ScinController.GetScin());
         Instantiate(g, boxCreator.position, boxCreator.parent.transform.rotation, boxCreator);
         box = boxCreator.GetChild(0).GetComponent<Block>();
         box.name = CameraController.countOfBlock.ToString();
@@ -97,8 +97,16 @@ public class CraneController : MonoBehaviour
 
             }
             hasBlock = true;
-            GameObject g = Resources.Load<GameObject>("Scins\\" + skinName + "\\baseBlock");
-            g.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Scins\\" + skinName + "\\blocks\\" + CameraController.hard.ToString());
+            GameObject g = Resources.Load<GameObject>("Scins\\" + ScinController.GetScin() + "\\baseBlock");
+
+            
+            Sprite[] s = Resources.LoadAll<Sprite>("Scins\\" + ScinController.GetScin() + "\\blocks\\");
+            int indexOfSprite = CameraController.hard - 1;
+            indexOfSprite = Mathf.Clamp(indexOfSprite, 0, s.Length-1);
+           
+                
+            g.GetComponent<SpriteRenderer>().sprite = s[indexOfSprite];
+
             Instantiate(g, boxCreator.position, boxCreator.parent.transform.rotation, boxCreator);
             box = boxCreator.GetChild(0).GetComponent<Block>();
             

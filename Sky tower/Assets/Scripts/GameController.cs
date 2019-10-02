@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -13,60 +14,79 @@ public class GameController : MonoBehaviour
     GameObject block;
 
     public static GameController instance;
+
+    public string currentScin;
+    public int currentHard;
     // Start is called before the first frame update
     void Start()
     {
-        if (instance == null)
+        
             instance = this;
 
+        GetSkin();
         CreateCrane();
 
 
         CrateHouse();
         InitCamera();
         CreateBackground();
-       
+
 
     }
+
+    void GetSkin()
+    {
+        if (PlayerPrefs.HasKey("currentScin"))
+        {
+            currentScin = PlayerPrefs.GetString("currentScin");
+        }
+        else
+            currentScin = "Building1";
+    }
+
+    #region creatingObjects
 
     void CreateBackground()
     {
         Sprite[] g = Resources.LoadAll<Sprite>("Background");
         if (g.Length > 0)
         {
-            
+
             background = new GameObject();
             background.name = "background";
             background.AddComponent<SpriteRenderer>();
             background.GetComponent<SpriteRenderer>().sprite = g[0];
             background.GetComponent<SpriteRenderer>().sortingOrder = -100;
             background.transform.localScale = new Vector3(8, 8, 8);
-            background.transform.position = new Vector3(0,-mainCamera.GetComponent<Camera>().orthographicSize,0);
+            background.transform.position = new Vector3(0, -mainCamera.GetComponent<Camera>().orthographicSize, 0);
         }
     }
+
     void InitCamera()
     {
         mainCamera = Camera.main.gameObject;
         if (mainCamera.GetComponent<CameraController>() == null)
         {
             mainCamera.AddComponent<CameraController>();
-            
+
         }
         mainCamera.GetComponent<CameraController>().InitCamera(crane.transform, house.transform);
         house.transform.position = new Vector3(0, -mainCamera.GetComponent<Camera>().orthographicSize, 0);
     }
+
     void CrateHouse()
     {
-        GameObject g = Resources.Load<GameObject>("Scins\\Building1\\house");
+        GameObject g = Resources.Load<GameObject>("Scins\\" + currentScin + "\\house");
+
         if (g)
         {
             //house = new GameObject();
-            
+
             house = Instantiate(g);
             house.name = "house";
-            house.transform.localScale = new Vector3(2, 2, 2);
-            
-            Debug.Log(house.name);
+            //house.transform.localScale = new Vector3(2.3f, 2.3f, 2.3f);
+
+            Debug.Log(house.name + " is creating");
         }
     }
 
@@ -80,9 +100,20 @@ public class GameController : MonoBehaviour
             crane = Instantiate(g);
             crane.name = "crane";
             crane.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
-            
-            Debug.Log(crane.name);
+
+            Debug.Log(crane.name + " is creating");
         }
 
     }
+
+    #endregion creatingObjects
+
+    #region scenNavigation      
+
+    public void GoToMainMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    #endregion scenNavigation
 }
