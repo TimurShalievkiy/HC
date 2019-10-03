@@ -159,16 +159,17 @@ public class Block : MonoBehaviour
 
     void ShowPerfectObject()
     {
-
-        if (perfectObjects.childCount  <= currentIndexOfPerfectObjects)
+        if (perfectObjects.childCount > 0)
         {
-            currentIndexOfPerfectObjects = 0;
-        }
-
-            perfectObjects.GetChild(currentIndexOfPerfectObjects).gameObject.SetActive(true);
+            if (perfectObjects.childCount <= currentIndexOfPerfectObjects)
+            {
+                currentIndexOfPerfectObjects = 0;
+            }
+            if (perfectObjects.childCount > 0)
+                perfectObjects.GetChild(currentIndexOfPerfectObjects).gameObject.SetActive(true);
             currentIndexOfPerfectObjects++;
-        
 
+        }
 
     }
 }

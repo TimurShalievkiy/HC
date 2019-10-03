@@ -13,25 +13,64 @@ public class CameraController : MonoBehaviour
     public static int hard = 0;
     float yPosForCamera = 0;
 
+    public float distanseForCrane = 2f;
+    float scaleForBottomDistance = 7f;
+
     public void InitCamera(Transform Crane, Transform house)
     {
+
         this.Crane = Crane ;
         this.house = house;
         MainCamera = Camera.main;
         CameraExtension();
         StartCoroutine(CameraScaler());
-        Crane.position = new Vector3(Crane.transform.position.x, transform.position.y + MainCamera.orthographicSize + 7);
+        //Crane.position = new Vector3(Crane.transform.position.x, transform.position.y + MainCamera.orthographicSize );
         countOfBlock = 0;
         hard = 0;
+
+
+        if (MainCamera.orthographicSize > 13)
+        {
+            distanseForCrane = 1.5f;
+            scaleForBottomDistance = 5f;
+        }
+        else if (MainCamera.orthographicSize <= 13)
+        {
+            distanseForCrane = 2f;
+            scaleForBottomDistance = 6f;
+        }
+
     }
     // Update is called once per frame
     void Update()
     {
 
-        Crane.position = new Vector3(Crane.transform.position.x, MainCamera.rect.y + transform.position.y + MainCamera.orthographicSize + 7);
-        yPosForCamera = Mathf.Clamp(yPosForCamera, yPosForCamera, MainCamera.orthographicSize + 3.9f * countOfBlock);
-        transform.position = Vector3.Lerp(transform.position, new Vector3(0, house.position.y + MainCamera.orthographicSize + 3.9f * countOfBlock, -10), 0.1f);
+        if (CraneController.instance.listOfBlocks.Count == 1)
+        {
+            Crane.position = new Vector3(Crane.transform.position.x, MainCamera.rect.y + transform.position.y + MainCamera.orthographicSize * distanseForCrane);
+            transform.position = Vector3.Lerp(transform.position, new Vector3(0, house.position.y + MainCamera.orthographicSize + 3.9f * countOfBlock, -10), 0.1f);
+            Debug.Log(MainCamera.orthographicSize);
 
+        }
+        else
+        {
+
+            if (MainCamera.orthographicSize > 13)
+                distanseForCrane = 1.5f;
+            else if (MainCamera.orthographicSize <= 13)
+                distanseForCrane = Mathf.Lerp(distanseForCrane,  1.8f,0.1f);
+            Crane.position = new Vector3(Crane.transform.position.x, MainCamera.rect.y + transform.position.y + MainCamera.orthographicSize * distanseForCrane);
+
+            Debug.Log(MainCamera.orthographicSize);
+
+            float buff = yPosForCamera;
+            yPosForCamera = CraneController.instance.listOfBlocks[CraneController.instance.listOfBlocks.Count - 2].transform.position.y + MainCamera.orthographicSize - MainCamera.orthographicSize / scaleForBottomDistance;
+
+            if (buff > yPosForCamera)
+                yPosForCamera = buff;
+
+           transform.position = Vector3.Lerp(transform.position, new Vector3(0, yPosForCamera, -10), 0.1f);
+        }
     }
     IEnumerator CameraScaler()
     {
