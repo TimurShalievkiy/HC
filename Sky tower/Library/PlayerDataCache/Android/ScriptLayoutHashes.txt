@@ -1,6 +1,6 @@
 Android
 PlayerPath?
-C:/Users/User/Desktop/sky.apk
+D:/Рабочий стол/sky.apk
 SceneListBegin?
 Assets/Scenes/menu.unity
 Assets/Scenes/MainGame.unity
