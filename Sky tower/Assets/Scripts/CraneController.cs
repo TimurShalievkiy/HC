@@ -27,7 +27,7 @@ public class CraneController : MonoBehaviour
     {
 
         boxCreator = CraneMove.instance.blockCreator.transform;
-        if (CraneController.instance == null)
+
             instance = this;
 
         listOfBlocks = new List<Block>();
@@ -50,7 +50,7 @@ public class CraneController : MonoBehaviour
 
     public void DropBox()
     {
-        if(!CheckForLoose.loose)
+        if(!CheckForLoose.loose && !isPause)
         if (boxCreator.childCount > 0)
         {
 

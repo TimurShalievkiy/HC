@@ -14,14 +14,14 @@ public class CloudSpawner : MonoBehaviour
 
     private void Update()
     {
-        if (Random.Range(0, 100) <= chance)
+        if (Camera.main.transform.position.y > 70 && Random.Range(0, 100) <= chance)
         {
             GameObject g = new GameObject();
             g.transform.position = new Vector3(12, Random.Range(Camera.main.transform.position.y - 20.0f, Camera.main.transform.position.y + 60.0f));
             g.AddComponent<SpriteRenderer>();
-            g.GetComponent<SpriteRenderer>().sprite = clouds[Random.Range(0, clouds.Length-1)];
+            g.GetComponent<SpriteRenderer>().sprite = clouds[Random.Range(0, clouds.Length)];
             g.AddComponent<MoveToLineDirection>();
-            g.GetComponent<MoveToLineDirection>().ChangeSpeed(Random.Range(1.0f, 3.0f));
+            g.GetComponent<MoveToLineDirection>().ChangeSpeed(1.0f, 3.0f);
             g.transform.parent = transform;
             g.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
             Destroy(g, 30f);

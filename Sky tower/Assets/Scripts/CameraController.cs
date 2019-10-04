@@ -49,7 +49,7 @@ public class CameraController : MonoBehaviour
         {
             Crane.position = new Vector3(Crane.transform.position.x, MainCamera.rect.y + transform.position.y + MainCamera.orthographicSize * distanseForCrane);
             transform.position = Vector3.Lerp(transform.position, new Vector3(0, house.position.y + MainCamera.orthographicSize + 3.9f * countOfBlock, -10), 0.1f);
-            Debug.Log(MainCamera.orthographicSize);
+
 
         }
         else
@@ -61,7 +61,7 @@ public class CameraController : MonoBehaviour
                 distanseForCrane = Mathf.Lerp(distanseForCrane,  1.8f,0.1f);
             Crane.position = new Vector3(Crane.transform.position.x, MainCamera.rect.y + transform.position.y + MainCamera.orthographicSize * distanseForCrane);
 
-            Debug.Log(MainCamera.orthographicSize);
+
 
             float buff = yPosForCamera;
             yPosForCamera = CraneController.instance.listOfBlocks[CraneController.instance.listOfBlocks.Count - 2].transform.position.y + MainCamera.orthographicSize - MainCamera.orthographicSize / scaleForBottomDistance;

@@ -8,7 +8,7 @@ public class GameController : MonoBehaviour
     GameObject background;
     GameObject backAnimationController;
     public GameObject house;
-    GameObject mainCamera;
+    public GameObject mainCamera;
     GameObject crane;
     public CraneController craneController;
     GameObject block;

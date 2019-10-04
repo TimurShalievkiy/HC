@@ -1,6 +1,6 @@
 Android
 PlayerPath?
-D:/Рабочий стол/sky.apk
+C:/Users/User/Desktop/sky.apk
 SceneListBegin?
 Assets/Scenes/menu.unity
 Assets/Scenes/MainGame.unity
@@ -124,7 +124,7 @@ d2f30e331b1b369cd2cee0a89a443a45 Assembly-CSharp.dll:.PistonsController
 71bb6a6b6c8f052f948db64c7dd3ca4f Unity.TextMeshPro.dll:TMPro.TMP_SpriteAnimator
 139832064c71fe44b412ea59cd4a01dd Assembly-CSharp.dll:.Block
 88cbf13bee299d4102421a4777d1a723 Assembly-CSharp.dll:.CheckForLoose
-afc5b93a7b192de2dcb3832fe35a5c7e Assembly-CSharp.dll:.MoveToLineDirection
+709c158efad0c33c98963042626c4c0e Assembly-CSharp.dll:.MoveToLineDirection
 4fd8bf02e3089425d3502e26c44ba31a Unity.TextMeshPro.dll:TMPro.TextContainer
 86419c76051f4a185049e1c6466b33aa Assembly-CSharp.dll:.Backround
 232a042b8ef721ebb8116aa93fa5b387 Assembly-CSharp.dll:.CloudSpawner
@@ -169,4 +169,7 @@ d791aa6007fa3640be1164ea75bb087d Unity.TextMeshPro.dll:TMPro.TMP_StyleSheet
 5372ed2ce39229b1ac910757999a8be2 Unity.TextMeshPro.dll:TMPro.TextMeshPro
 3165968ba45c74472d279ba04455fccb Unity.TextMeshPro.dll:TMPro.TMP_ColorGradient
 8649814970b42d345b89944b862453cc Unity.TextMeshPro.dll:TMPro.TMP_SubMesh
-8eb06bab4520b57ac1114c160d1d248f Assembly-CSharp.dll:.GameController
+65bb25cc1257c22963a6f656325a785a Assembly-CSharp.dll:.GameController
+9c1065ad8bed0b9353fb1a322cfe0a25 Assembly-CSharp.dll:.BirdSpawner
+bb33bff3e0ee3c72af3af3314958b57c Assembly-CSharp.dll:.CarSpawner
+71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.CarTouchController

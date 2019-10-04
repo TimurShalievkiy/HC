@@ -4,15 +4,23 @@ using UnityEngine;
 
 public class MoveToLineDirection : MonoBehaviour
 {
-    [SerializeField] float speed = 2;
+    [SerializeField] float minSpeed = 1;
+    [SerializeField] float maxSpeed = 3;
+    [SerializeField] float currentSpeed = 0;
 
-    public void ChangeSpeed(float x)
+    private void Start()
     {
-        speed = x;
+        ChangeSpeed(minSpeed, maxSpeed);
+    }
+    public void ChangeSpeed(float min, float max)
+    {
+        minSpeed = min;
+        maxSpeed = max;
+        currentSpeed = Random.Range(min, max);
     }
     // Update is called once per frame
     void Update()
     {
-        transform.position += new Vector3(-speed * Time.deltaTime, 0);
+        transform.position += new Vector3(-currentSpeed * Time.deltaTime, 0);
     }
 }

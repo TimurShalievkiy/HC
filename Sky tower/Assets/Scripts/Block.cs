@@ -17,6 +17,7 @@ public class Block : MonoBehaviour
     static int currentIndexOfPerfectObjects = 0;
 
     float sizeForPerfect = 1;
+    Vector3 scale;
 
     private void Start()
     {
@@ -29,7 +30,9 @@ public class Block : MonoBehaviour
             if(transform.GetChild(i).name == "PerfectObjects")
                 perfectObjects = transform.GetChild(i);
         }
-
+        scale = transform.localScale;
+        transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+        StartCoroutine(ScaleBlock());
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -51,7 +54,7 @@ public class Block : MonoBehaviour
     
                         if (transform.localPosition.x <= sizeForPerfect && transform.localPosition.x >= -sizeForPerfect)
                         {
-                            Debug.Log("Perfect11111");
+                           // Debug.Log("Perfect11111");
                             particle.SetActive(true);
                             ShowPerfectObject();
                             CraneController.instance.pistonsController.IncrementCountOfPerfect();
@@ -79,7 +82,7 @@ public class Block : MonoBehaviour
                     if (transform.localPosition.x <= CraneController.instance.listOfBlocks[CraneController.instance.listOfBlocks.Count - 2].transform.position.x + sizeForPerfect &&
                         transform.localPosition.x >= CraneController.instance.listOfBlocks[CraneController.instance.listOfBlocks.Count - 2].transform.position.x - sizeForPerfect)
                     {
-                        Debug.Log("Perfect33333");
+                       // Debug.Log("Perfect33333");
                         ShowPerfectObject();
                         CraneController.instance.pistonsController.IncrementCountOfPerfect();
                         particle.SetActive(true);
@@ -121,6 +124,8 @@ public class Block : MonoBehaviour
                 {
                     detouch = false;
                     transform.eulerAngles = Vector3.zero;
+
+                    
                 }
             }
             else
@@ -130,6 +135,8 @@ public class Block : MonoBehaviour
                 {
                     detouch = false;
                     transform.eulerAngles = Vector3.zero;
+
+                  
                 }
 
             }
@@ -145,8 +152,10 @@ public class Block : MonoBehaviour
 
     public void Detouch()
     {
-        transform.parent = null;
-        detouch = true;
+
+            transform.parent = null;
+            detouch = true;
+      
     }
 
     IEnumerator WhaitAndHinge()
@@ -171,5 +180,19 @@ public class Block : MonoBehaviour
 
         }
 
+    }
+
+    IEnumerator ScaleBlock()
+    {
+        CraneController.isPause = true;
+
+        while (Vector3.Distance(transform.localScale,scale)>0.05)
+        {
+            yield return new WaitForSeconds(0.02f);
+            transform.localScale = Vector3.Lerp(transform.localScale, scale, 0.2f);
+        }
+
+        CraneController.isPause = false;
+        StopCoroutine(ScaleBlock());
     }
 }
