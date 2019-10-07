@@ -13,7 +13,7 @@ public class BirdSpawner : MonoBehaviour
 
 
    
-    float maxY ;
+   public float maxY ;
 
     private void Start()
     {
@@ -43,6 +43,8 @@ public class BirdSpawner : MonoBehaviour
                     g.transform.localScale = new Vector3(1, 1, 1);
 
                 Destroy(g, 5f);
+                if (Camera.main.transform.position.y > maxY + 10)
+                    Destroy(this.gameObject);
             }
         }
     }

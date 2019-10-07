@@ -82,7 +82,7 @@ public class Block : MonoBehaviour
                     if (transform.localPosition.x <= CraneController.instance.listOfBlocks[CraneController.instance.listOfBlocks.Count - 2].transform.position.x + sizeForPerfect &&
                         transform.localPosition.x >= CraneController.instance.listOfBlocks[CraneController.instance.listOfBlocks.Count - 2].transform.position.x - sizeForPerfect)
                     {
-                       // Debug.Log("Perfect33333");
+
                         ShowPerfectObject();
                         CraneController.instance.pistonsController.IncrementCountOfPerfect();
                         particle.SetActive(true);
@@ -134,9 +134,7 @@ public class Block : MonoBehaviour
                 if (Vector3.Distance(transform.eulerAngles, Vector3.zero) <= 1)
                 {
                     detouch = false;
-                    transform.eulerAngles = Vector3.zero;
-
-                  
+                    transform.eulerAngles = Vector3.zero;                  
                 }
 
             }
@@ -189,7 +187,7 @@ public class Block : MonoBehaviour
         while (Vector3.Distance(transform.localScale,scale)>0.05)
         {
             yield return new WaitForSeconds(0.02f);
-            transform.localScale = Vector3.Lerp(transform.localScale, scale, 0.2f);
+            transform.localScale = Vector3.Lerp(transform.localScale, scale, 0.3f);
         }
 
         CraneController.isPause = false;

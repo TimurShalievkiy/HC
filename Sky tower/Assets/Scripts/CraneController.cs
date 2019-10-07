@@ -21,7 +21,10 @@ public class CraneController : MonoBehaviour
     public static CraneController instance;
 
 
-  
+    private void Awake()
+    {
+        
+    }
     // Start is called before the first frame update
     public void Iinit()
     {
@@ -142,8 +145,10 @@ public class CraneController : MonoBehaviour
         for (int i = 0; i < listOfBlocks.Count; i++)
         {
 
-
-            listOfBlocks[i]._rigidbody2d.velocity = Vector2.zero;
+            if (!listOfBlocks[i]._rigidbody2d.isKinematic)
+                listOfBlocks[i]._rigidbody2d.velocity = Vector2.zero;
+            else
+                listOfBlocks[i].StopAllCoroutines();
         }
     }
 
