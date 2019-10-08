@@ -621,6 +621,8 @@ Transform:
   - {fileID: 204246130}
   - {fileID: 961231144}
   - {fileID: 1217017018}
+  - {fileID: 1772034355}
+  - {fileID: 869989320}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1160,6 +1162,59 @@ MonoBehaviour:
   Crane: {fileID: 0}
   house: {fileID: 0}
   distanseForCrane: 2
+--- !u!1 &869989319
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 869989320}
+  - component: {fileID: 869989321}
+  m_Layer: 0
+  m_Name: plane1 (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &869989320
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 869989319}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.3, y: -1.2, z: -1.65625}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 338671006}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &869989321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 869989319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5c4edc9411879e4783a844ccc4600ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  path: vectorObject
+  isright: 1
+  direction: {x: 1, y: 0}
+  minSpeed: 5
+  maxSpeed: 10
+  chance: 1
+  deadTime: 5
+  spawnPos: 3
+  maxY: 120
+  miny: 70
 --- !u!1 &882351342
 GameObject:
   m_ObjectHideFlags: 0
@@ -6937,7 +6992,7 @@ GameObject:
   - component: {fileID: 1772034355}
   - component: {fileID: 1772034354}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: plane1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6956,14 +7011,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   path: vectorObject
-  direction: {x: 1, y: 1}
+  isright: 0
+  direction: {x: -1, y: 0}
   minSpeed: 5
   maxSpeed: 10
   chance: 1
   deadTime: 5
-  spawnPos: 0
-  maxY: 0
-  miny: 0
+  spawnPos: 4
+  maxY: 120
+  miny: 70
 --- !u!4 &1772034355
 Transform:
   m_ObjectHideFlags: 0
@@ -6971,12 +7027,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1772034353}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.3, y: -1.2, z: -1.65625}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_Father: {fileID: 338671006}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1804493706
 GameObject:
@@ -12538,7 +12594,7 @@ PrefabInstance:
     - target: {fileID: 5604123236678454065, guid: 079403c2758ceec4e96d463bb3108538,
         type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5604123236678454065, guid: 079403c2758ceec4e96d463bb3108538,
         type: 3}
