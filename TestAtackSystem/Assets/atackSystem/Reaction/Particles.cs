@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Particles : MonoBehaviour
 {
+    //проигрывание партиклов при атаке
     [SerializeField] ParticleSystem particle;
     GameObject g;
     [SerializeField]AtackListener atackListener;
@@ -18,6 +19,8 @@ public class Particles : MonoBehaviour
         g.transform.localPosition = Vector3.zero;
         particle = g.GetComponent<ParticleSystem>();
 
+
+        //подпись на событие обьект атакован
         atackListener.OnAtacked += delegate { ShowParticles(); };
     }
 

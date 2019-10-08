@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Arrow : MonoBehaviour
 {
-
+    //поведение стрелы, полет и удаление
     float time = 0;
-    // Update is called once per frame
+
     void Update()
     {
 

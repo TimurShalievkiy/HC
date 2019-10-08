@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class AtackListener : MonoBehaviour
 {
+//этот клас вешается как основной на обьект у которого должны быть разные рекции
+// все скрипты из папки Reaction автоматически берут  или если нужно назначить на прямую имеют ссылку на этот компонент
     AtackListener instance;
+
     public delegate void IsAtaked();
+    //событие которое вызываем когда обьект атакован
     public  event IsAtaked OnAtacked;
 
     private void Awake()
@@ -18,10 +22,11 @@ public class AtackListener : MonoBehaviour
         
         if (collision.transform.tag == "Weapon")
         {
+            //если игрок сейчас атакует
             if (PlayerAtackController.isAtacking)
             {
                 PlayerAtackController.isAtacking = false;
-
+                //вызываем событие и все подписанные методы
                 if (OnAtacked != null)
                     OnAtacked();
 

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class DamageText : MonoBehaviour
 {
+    //вывод текста урона
     [SerializeField] Text damageText;
 
     [SerializeField] AtackListener atackListener;
@@ -27,6 +28,8 @@ public class DamageText : MonoBehaviour
             damageText.text = "10";
         }
         stertPos = damageText.transform.position;
+
+        //подпись на событие обьект атакован
         atackListener.OnAtacked += delegate { GetDamage(); };
     }
 

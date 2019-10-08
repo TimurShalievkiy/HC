@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class HelthBar : MonoBehaviour
 {
+    // отображение и уменьшение жизней
     [SerializeField] Slider heltbar;
 
     [SerializeField] AtackListener atackListener;
@@ -23,6 +24,7 @@ public class HelthBar : MonoBehaviour
             heltbar = g.GetComponentInChildren<Slider>();
         }
 
+        //подпись на событие обьект атакован
         atackListener.OnAtacked += delegate { GetDamage(); };
     }
 

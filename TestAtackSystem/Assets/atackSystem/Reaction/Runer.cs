@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Runer : MonoBehaviour
 {
+    //обькт убегает по кругу
     bool startRun = false;
     [SerializeField] AtackListener atackListener;
     private void Start()
@@ -11,9 +12,10 @@ public class Runer : MonoBehaviour
         if (atackListener == null)
             atackListener = transform.GetComponent<AtackListener>();
 
-
+        //подпись на событие обьект атакован
         atackListener.OnAtacked += delegate { StartRun(); };
     }
+
     void Update()
     {
         if (startRun)

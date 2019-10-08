@@ -12,8 +12,8 @@ public class VectorMuving : MonoBehaviour
 
     [SerializeField] float deadTime = 5;
 
-
-
+     enum Direction  { up, upLeft, upRight, midleLeft, midleRight, bottomLeft, bottomCentr, bottomRight};
+    [SerializeField] Direction spawnPos;
 
 
     public float maxY;
@@ -21,7 +21,7 @@ public class VectorMuving : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(GameController.instance.mainCamera.transform.position.y+10<miny)
+      // if(GameController.instance.mainCamera.transform.position.y+10<miny)
         if (Random.Range(0, 100) <= chance)
         {
             GameObject[] list = Resources.LoadAll<GameObject>("BackObjects\\" + path);
@@ -30,9 +30,8 @@ public class VectorMuving : MonoBehaviour
             if (g != null)
             {
 
-                g.transform.position += new Vector3(transform.position.x, Random.Range(transform.position.y, maxY));
-
-                g.GetComponent<MoveToLineDirection>().ChangeSpeed(minSpeed, maxSpeed);
+                g.transform.position = GetSpawnPos();
+                g.GetComponent<MoveByVector>().ChangeSpeed(direction.x, direction.y,minSpeed, maxSpeed);
                 g.transform.parent = transform;
 
          
@@ -42,5 +41,51 @@ public class VectorMuving : MonoBehaviour
                     Destroy(this.gameObject);
             }
         }
+    }
+
+    Vector3 GetSpawnPos()
+    {
+        Vector3 v = Vector3.zero;
+
+        switch (spawnPos)
+        {
+            case Direction.up:
+                v = new Vector3(GameController.instance.mainCamera.transform.position.x, Random.Range(GameController.instance.mainCamera.transform.position.y + Camera.main.orthographicSize , Camera.main.transform.position.y+Camera.main.orthographicSize+2));
+                break;
+            case Direction.upLeft:
+                v = new Vector3(GameController.instance.mainCamera.transform.position.x- Camera.main.orthographicSize- 2, Random.Range(GameController.instance.mainCamera.transform.position.y + Camera.main.orthographicSize, Camera.main.transform.position.y + Camera.main.orthographicSize + 2));
+
+                break;
+            case Direction.upRight:
+                v = new Vector3(GameController.instance.mainCamera.transform.position.x + Camera.main.orthographicSize + 2, Random.Range(GameController.instance.mainCamera.transform.position.y + Camera.main.orthographicSize, Camera.main.transform.position.y + Camera.main.orthographicSize + 2));
+
+                break;
+            case Direction.midleLeft:
+                v = new Vector3(GameController.instance.mainCamera.transform.position.x - Camera.main.orthographicSize , Random.Range(transform.position.y, maxY));
+
+                break;
+            case Direction.midleRight:
+               v = new Vector3(GameController.instance.mainCamera.transform.position.x + Camera.main.orthographicSize , Random.Range(transform.position.y, maxY));
+
+                break;
+            case Direction.bottomLeft:
+                v = new Vector3(GameController.instance.mainCamera.transform.position.x - Camera.main.orthographicSize , Random.Range(GameController.instance.mainCamera.transform.position.y - Camera.main.orthographicSize, Camera.main.transform.position.y - Camera.main.orthographicSize - 2));
+
+                break;
+            case Direction.bottomCentr:
+                v = new Vector3(GameController.instance.mainCamera.transform.position.x, Random.Range(GameController.instance.mainCamera.transform.position.y - Camera.main.orthographicSize, Camera.main.transform.position.y - Camera.main.orthographicSize - 2));
+
+                break;
+             
+            case Direction.bottomRight:
+                v = new Vector3(GameController.instance.mainCamera.transform.position.x + Camera.main.orthographicSize + 2, Random.Range(GameController.instance.mainCamera.transform.position.y - Camera.main.orthographicSize, Camera.main.transform.position.y - Camera.main.orthographicSize - 2));
+
+                break;
+            default:
+                v = Vector3.zero;
+                break;
+        }
+
+        return v;
     }
 }

@@ -69,12 +69,8 @@ public class PlayerAtackController : MonoBehaviour
     }
 
     IEnumerator AtackSpeedDelay()
-    {
- 
+    { 
             yield return new WaitForSeconds(0.5f);
-            isAtacking = false;
-
-
-        
+            isAtacking = false;        
     }
 }
