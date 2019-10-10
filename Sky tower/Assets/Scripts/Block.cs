@@ -58,6 +58,7 @@ public class Block : MonoBehaviour
                             particle.SetActive(true);
                             ShowPerfectObject();
                             CraneController.instance.pistonsController.IncrementCountOfPerfect();
+                            GameController.instance.AddMoney(25);
                         }
                         else
                         {
@@ -85,6 +86,7 @@ public class Block : MonoBehaviour
 
                         ShowPerfectObject();
                         CraneController.instance.pistonsController.IncrementCountOfPerfect();
+                        GameController.instance.AddMoney(25);
                         particle.SetActive(true);
                     }
                     else

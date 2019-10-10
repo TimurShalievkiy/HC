@@ -110,12 +110,15 @@ public class VectorMuving : MonoBehaviour
         {
 
             g.transform.position = GetSpawnPos();
+
+            if (!isright)
+                g.transform.localScale = new Vector3(-g.transform.localScale.x, g.transform.localScale.y, 1);
+
             g.GetComponent<MoveByVector>().ChangeSpeed(direction.x, direction.y, minSpeed, maxSpeed,deadTime);
             g.transform.parent = transform;
-            if (!isright)
-                g.transform.localScale = new Vector3(-1, 1, 1);
 
-            Destroy(g, deadTime);
+
+            //Destroy(g, deadTime);
 
             if (Camera.main.transform.position.y > maxY + 10)
                 Destroy(this.gameObject);

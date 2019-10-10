@@ -2,9 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
+    [SerializeField] Text moneyText;
+    float money = 0;
+
     GameObject background;
     GameObject backAnimationController;
     public GameObject house;
@@ -30,7 +34,7 @@ public class GameController : MonoBehaviour
         CrateHouse();
         InitCamera();
         CreateBackground();
-
+        AddMoney(0);
 
     }
 
@@ -115,5 +119,17 @@ public class GameController : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
+    public void GoToGame()
+    {
+        SceneManager.LoadScene(1);
+    }
+
     #endregion scenNavigation
+
+
+    public void AddMoney(int x)
+    {
+        money += x;
+        moneyText.text = money.ToString();
+    }
 }
