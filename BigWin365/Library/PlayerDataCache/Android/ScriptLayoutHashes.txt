@@ -1,6 +1,6 @@
 Android
 PlayerPath?
-D:/Рабочий стол/sky
+D:/Рабочий стол/bigwin365.aab
 SceneListBegin?
 Assets/UniWebView/Demo/UniWebViewDemo.unity
 SceneListEnd?
