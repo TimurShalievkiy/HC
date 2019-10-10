@@ -21,7 +21,6 @@ public class CarSpawner : MonoBehaviour
 
     IEnumerator CreateCar()
     {
-        Debug.Log(1);
         while (GameController.instance.mainCamera.transform.position.y < 40)
         {
             yield return new WaitForSeconds(Random.Range(2f, 3f));
