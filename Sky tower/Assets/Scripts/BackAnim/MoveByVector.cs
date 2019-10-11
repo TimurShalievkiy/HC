@@ -48,5 +48,11 @@ public class MoveByVector : MonoBehaviour
                
         }
     }
+
+    public void DestoryObject()
+    {
+        lifeTime = 0;
+        
+    }
    
 }

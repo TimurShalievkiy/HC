@@ -129,7 +129,7 @@ public class GameController : MonoBehaviour
 
     public void AddMoney(int x)
     {
-        money += x;
+        money += x* x2MoneyObject.currentScale;
         moneyText.text = money.ToString();
     }
 }
