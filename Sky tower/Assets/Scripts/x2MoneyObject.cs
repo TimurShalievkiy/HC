@@ -67,7 +67,7 @@ public class x2MoneyObject : MonoBehaviour
             g = Instantiate(g);
             g.transform.position = new Vector3(Random.Range(transform.position.x-Screen.width / 3 , transform.position.x+ Screen.width / 3), Screen.height);
             float x = (float)Screen.width / 7;
-            Debug.Log(x);
+
             g.GetComponent<RectTransform>().sizeDelta = new Vector2(x, x);
             g.GetComponent<Button>().onClick.AddListener(TouchObject); 
 
@@ -83,7 +83,7 @@ public class x2MoneyObject : MonoBehaviour
     }
     public void TouchObject()
     {
-        Debug.Log(11111111111);
+
         currentScale = 2;
         currentTimeForActivation = timeForActivation;
         isactive = true;
