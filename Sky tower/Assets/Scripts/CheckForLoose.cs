@@ -9,6 +9,7 @@ public class CheckForLoose : MonoBehaviour
    public static bool loose = false;
    // [SerializeField] Transform startPlace;
     [SerializeField] GameObject loosePanel;
+    [SerializeField] GameObject pauseButton;
     // Update is called once per frame
     private void Start()
     {
@@ -27,6 +28,7 @@ public class CheckForLoose : MonoBehaviour
                         loose = true;
                         Debug.Log("loose1");
                         loosePanel.SetActive(true);
+                        pauseButton.SetActive(false);
                     }
 
                 }
@@ -39,6 +41,7 @@ public class CheckForLoose : MonoBehaviour
                             loose = true;
                             Debug.Log("loose1");
                             loosePanel.SetActive(true);
+                            pauseButton.SetActive(false);
                         }
                     }
                    

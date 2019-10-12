@@ -9910,7 +9910,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4948921018796737285}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.45, z: 0}
+  m_LocalPosition: {x: 0, y: -1.37, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7542239190253515517}
@@ -10282,7 +10282,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.000009119511}
+  m_Offset: {x: 0, y: 0.00034302473}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -10293,7 +10293,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 5.23, y: 2.8863735}
+  m_Size: {x: 5.23, y: 2.8814788}
   m_EdgeRadius: 0
 --- !u!233 &5750649865275864957
 HingeJoint2D:
@@ -10309,8 +10309,8 @@ HingeJoint2D:
   m_BreakForce: 3000
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
-  m_Anchor: {x: -1.687519e-10, y: -1.61}
-  m_ConnectedAnchor: {x: -0.0029664235, y: 1.0145313}
+  m_Anchor: {x: 0, y: -1.4436619}
+  m_ConnectedAnchor: {x: 0, y: -1.631338}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0

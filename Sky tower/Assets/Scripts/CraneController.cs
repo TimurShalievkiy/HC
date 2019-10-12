@@ -73,23 +73,26 @@ public class CraneController : MonoBehaviour
             switch (CameraController.countOfBlock)
             {
 
-                case 8:
+                case 1:
+                    CameraController.hard = 1;
+                    CraneMove.instance.ChangeCranHard(0.15f, 8);
+                    //CraneMove.instance.ChangeSpeed(0.15f);
+                    //CraneMove.instance.ChangeAngle(8);
+                    //CraneMove.instance.ChangeTopDownLength(0.5f, 0.7f);
+                    break;
+                case 2:
                     CameraController.hard = 2;
-                    CraneMove.instance.ChangeSpeed(0.15f);
-                    CraneMove.instance.ChangeAngle(8);
-                    CraneMove.instance.ChangeTopDownLength(0.5f, 0.7f);
+                    CraneMove.instance.ChangeCranHard(0.1f, 10);
+                    //CraneMove.instance.ChangeSpeed(0.1f);
+                    //CraneMove.instance.ChangeAngle(10);
+                    //CraneMove.instance.ChangeTopDownLength(0.8f, 1f);
                     break;
-                case 16:
+                case 3:
                     CameraController.hard = 3;
-                    CraneMove.instance.ChangeSpeed(0.1f);
-                    CraneMove.instance.ChangeAngle(10);
-                    CraneMove.instance.ChangeTopDownLength(0.8f, 1f);
-                    break;
-                case 26:
-                    CameraController.hard = 4;
-                    CraneMove.instance.ChangeSpeed(0.08f);
-                    CraneMove.instance.ChangeAngle(12);
-                    CraneMove.instance.ChangeTopDownLength(1f, 1.2f);
+                    CraneMove.instance.ChangeCranHard(0.08f, 12);
+                    //CraneMove.instance.ChangeSpeed(0.08f);
+                    //CraneMove.instance.ChangeAngle(12);
+                    //CraneMove.instance.ChangeTopDownLength(1f, 1.2f);
                     break;
                 case 34:
                     CameraController.hard = 5;

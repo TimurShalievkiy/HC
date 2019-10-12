@@ -43,10 +43,13 @@ public class CraneMove : MonoBehaviour
     bool showRes = false;
 
     public static CraneMove instance;
+
+    float prevAngle = 0;
+    bool toRight = false;
     // Start is called before the first frame update
     void Start()
     {
-       
+
         if (instance == null)
             instance = this;
 
@@ -113,9 +116,14 @@ public class CraneMove : MonoBehaviour
         {
             timAfterStar = 0;
         }
+        prevAngle = transform.eulerAngles.z;
 
         transform.eulerAngles = new Vector3(0, 0, angle * X);
 
+        if (prevAngle > transform.eulerAngles.z)
+            toRight = false;
+        else
+            toRight = true;
 
 
     }
@@ -191,43 +199,39 @@ public class CraneMove : MonoBehaviour
         //X = A * (float)Mathf.Sin(phase);
         //int exit = 0;
         //Vector3 euler = new Vector3();
+
         //while (true)
         //{
+
         //    if (exit < 100)
         //        exit++;
         //    else
-        //    {
         //        break;
-        //    }
+
         //    timAfterStar += Time.deltaTime;
-
-
         //    phase = timAfterStar / T;
 
         //    X = A * (float)Mathf.Sin(phase);
 
         //    euler = new Vector3(0, 0, angle * X);
-        //    if (transform.eulerAngles.z > 200)
+
+        //    Debug.Log("---------------- " + (360 - transform.eulerAngles.z - euler.z));
+
+        //    if (360 - transform.eulerAngles.z - euler.z < 0.5f)
         //    {
-        //        //Debug.Log("1 " + (360 - transform.eulerAngles.z) + " " + euler.z);
-        //        if (360 - transform.eulerAngles.z - euler.z < 0.5f)
-        //        {
-        //            Debug.Log("1 " + (360 - transform.eulerAngles.z) + " " + euler.z);
-        //            transform.eulerAngles = -euler;
-        //            break;
-        //        }
+        //        Debug.Log("1 " + (360 - transform.eulerAngles.z) + " " + euler.z);
+        //        transform.eulerAngles = -euler;
+        //        break;
         //    }
 
-        //    else
+        //    if (transform.eulerAngles.z - euler.z < 0.5f)
         //    {
-        //        if (transform.eulerAngles.z - euler.z < 0.5f)
-        //        {
-        //            Debug.Log("2 " + transform.eulerAngles.z + " " + euler.z);
-        //            transform.eulerAngles = euler;
-        //            break;
-        //        }
-
+        //        Debug.Log("2 " + transform.eulerAngles.z + " " + euler.z);
+        //        transform.eulerAngles = euler;
+        //        break;
         //    }
+
+
 
 
 
@@ -251,5 +255,101 @@ public class CraneMove : MonoBehaviour
         maxDistanseTop = distanse;
         upDownSpeed = speed;
     }
+
+    public void ChangeCranHard(float newSpeed, float newAngle)
+    {
+        speed = newSpeed;
+        angle = newAngle;
+
+        this.T = speed * (float)(Mathf.PI * Mathf.Sqrt(this.Length / 9.80665f));
+        A = this.Length * (float)Mathf.Sin(8 * Mathf.PI / 180);
+
+
+        phase = timAfterStar / T;
+
+        X = A * (float)Mathf.Sin(phase);
+        int exit = 0;
+        Vector3 euler = new Vector3();
+
+        float preAngleForCh = 0;
+
+        while (true)
+        {
+
+            if (exit < 200)
+                exit++;
+            else
+            {
+                Debug.Log(exit + "-------------------------------");
+                break;
+            }
+                
+
+            timAfterStar += Time.deltaTime;
+            phase = timAfterStar / T;
+
+            X = A * (float)Mathf.Sin(phase);
+
+            preAngleForCh = euler.z;
+
+            euler = new Vector3(0, 0, angle * X);
+
+            if (toRight)
+            {
+                if (prevAngle < euler.z)
+                {
+                    Debug.Log(transform.eulerAngles.z + ">>>>>>>>>>>>>>>>>>>>>" + euler.z);
+                    if (transform.eulerAngles.z - euler.z < 0.5f && transform.eulerAngles.z - euler.z > -0.5f)
+                    {
+                        Debug.Log(">>>>>>>>>>>>>>>>>>>>>");
+                        transform.eulerAngles = euler;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                Debug.Log("<<<<<<<<<<<<<<<<<<<<<<");
+                //if (prevAngle > euler.z)
+                //{
+                //    if (Mathf.Abs(transform.eulerAngles.z) - Mathf.Abs(euler.z) < 0.2f && Mathf.Abs(transform.eulerAngles.z) - Mathf.Abs(euler.z) > 0)
+                //    {
+                //        Debug.Log("<<<<<<<<<<<<<<<<<<<<<<");
+                //        transform.eulerAngles = euler;
+                //        break;
+                //    }
+                //}
+            }
+
+
+            //if (360 - transform.eulerAngles.z - euler.z < 0.5f)
+            //{
+            //    Debug.Log("1 " + (360 - transform.eulerAngles.z) + " " + euler.z);
+            //    transform.eulerAngles = -euler;
+            //    break;
+            //}
+
+            //if (transform.eulerAngles.z - euler.z < 0.5f)
+            //{
+            //    Debug.Log("2 " + transform.eulerAngles.z + " " + euler.z);
+            //    transform.eulerAngles = euler;
+            //    break;
+            //}
+
+
+
+
+
+
+
+        }
+        //Debug.Log(speed + " " + T + " " + X + " " + phase + " " + timAfterStar);
+        //// showRes = true;
+       
+
+
+
+    }
+
 
 }
