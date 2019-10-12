@@ -246,8 +246,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75b293e11ae811949bbaa89250979b4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: {fileID: 114553993}
-  timeToShow: 2
 --- !u!1 &114553991
 GameObject:
   m_ObjectHideFlags: 0
@@ -318,7 +316,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u0421\u0447\u0430\u0441\u0442\u043B\u0438\u0432\u0447\u0438\u043A"
+  m_Text: Wiiinery24
 --- !u!222 &114553994
 CanvasRenderer:
   m_ObjectHideFlags: 0
