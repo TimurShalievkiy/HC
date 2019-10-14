@@ -91,9 +91,7 @@ public class CraneMove : MonoBehaviour
         A = this.Length * (float)Mathf.Sin(8 * Mathf.PI / 180);
 
     }
-    /// <summary>
-    /// Вычисление положения маятника в зависимости от времени
-    /// </summary>
+
     void tmr_Elapsed()
     {
 
@@ -103,10 +101,9 @@ public class CraneMove : MonoBehaviour
 
         //фаза
         phase = timAfterStar / T;
-        /// Отклонение от вертикали
-        /// Поскольку маятник начинает движение из положения равновесия, то 
-        /// он движется по закону синуса
+
         timAfterStar += Time.deltaTime;
+
         X = A * (float)Mathf.Sin(phase);
 
         //Пересчёт фазы от 0 до 2П
@@ -261,6 +258,7 @@ public class CraneMove : MonoBehaviour
         speed = newSpeed;
         angle = newAngle;
 
+
         this.T = speed * (float)(Mathf.PI * Mathf.Sqrt(this.Length / 9.80665f));
         A = this.Length * (float)Mathf.Sin(8 * Mathf.PI / 180);
 
@@ -268,25 +266,30 @@ public class CraneMove : MonoBehaviour
         phase = timAfterStar / T;
 
         X = A * (float)Mathf.Sin(phase);
-        int exit = 0;
+        
         Vector3 euler = new Vector3();
 
         float preAngleForCh = 0;
 
+        int exit = 0;
         while (true)
         {
 
             if (exit < 200)
+            {
                 exit++;
+            }
             else
             {
-                Debug.Log(exit + "-------------------------------");
+                Debug.Log("-----------------------------------");
                 break;
             }
-                
+
+
+            
+            phase = timAfterStar / T;
 
             timAfterStar += Time.deltaTime;
-            phase = timAfterStar / T;
 
             X = A * (float)Mathf.Sin(phase);
 
@@ -294,60 +297,58 @@ public class CraneMove : MonoBehaviour
 
             euler = new Vector3(0, 0, angle * X);
 
-            if (toRight)
+
+            if (prevAngle > transform.eulerAngles.z && preAngleForCh > euler.z )
             {
-                if (prevAngle < euler.z)
+                if (transform.eulerAngles.z > 200 )
                 {
-                    Debug.Log(transform.eulerAngles.z + ">>>>>>>>>>>>>>>>>>>>>" + euler.z);
-                    if (transform.eulerAngles.z - euler.z < 0.5f && transform.eulerAngles.z - euler.z > -0.5f)
+
+                   
+                    float distance = Vector2.Distance(new Vector2(euler.z, 0), new Vector2(-(360 - transform.eulerAngles.z), 0));
+
+                    if (distance < 0.3f )
                     {
-                        Debug.Log(">>>>>>>>>>>>>>>>>>>>>");
-                        transform.eulerAngles = euler;
+                        Debug.Log(">>>>>>>>>>");
+                        transform.eulerAngles = new Vector3(0,0,  euler.z);
                         break;
                     }
                 }
+                else
+                {
+                    if (Mathf.Abs(euler.z - transform.eulerAngles.z) < 0.3f)
+                    {
+                        Debug.Log(">break");
+                        break;
+                    }
+
+                }
+
             }
-            else
+            else if (prevAngle < transform.eulerAngles.z && preAngleForCh < euler.z)
             {
-                Debug.Log("<<<<<<<<<<<<<<<<<<<<<<");
-                //if (prevAngle > euler.z)
-                //{
-                //    if (Mathf.Abs(transform.eulerAngles.z) - Mathf.Abs(euler.z) < 0.2f && Mathf.Abs(transform.eulerAngles.z) - Mathf.Abs(euler.z) > 0)
-                //    {
-                //        Debug.Log("<<<<<<<<<<<<<<<<<<<<<<");
-                //        transform.eulerAngles = euler;
-                //        break;
-                //    }
-                //}
+                if (transform.eulerAngles.z > 200 && euler.z < 0)
+                {
+                    float distance = Vector2.Distance(new Vector2(euler.z, 0), new Vector2(-(360 - transform.eulerAngles.z), 0));
+
+                    if (distance < 0.3f)
+                    {
+                        Debug.Log("<<<<<<<<<<<<<<<<<");
+                        transform.eulerAngles = new Vector3(0, 0, euler.z);
+                        break;
+                    }
+                }
+                else
+                {
+                    if (Mathf.Abs(euler.z - transform.eulerAngles.z) < 0.3f)
+                    {
+                        Debug.Log("<break");
+                        break;
+                    }
+                }
+
             }
-
-
-            //if (360 - transform.eulerAngles.z - euler.z < 0.5f)
-            //{
-            //    Debug.Log("1 " + (360 - transform.eulerAngles.z) + " " + euler.z);
-            //    transform.eulerAngles = -euler;
-            //    break;
-            //}
-
-            //if (transform.eulerAngles.z - euler.z < 0.5f)
-            //{
-            //    Debug.Log("2 " + transform.eulerAngles.z + " " + euler.z);
-            //    transform.eulerAngles = euler;
-            //    break;
-            //}
-
-
-
-
-
-
 
         }
-        //Debug.Log(speed + " " + T + " " + X + " " + phase + " " + timAfterStar);
-        //// showRes = true;
-       
-
-
 
     }
 

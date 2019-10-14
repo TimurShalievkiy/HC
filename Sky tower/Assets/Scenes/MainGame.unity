@@ -1895,6 +1895,7 @@ MonoBehaviour:
   pistonsController: {fileID: 746455555}
   boxCreator: {fileID: 0}
   countOfBlock: {fileID: 1644336842}
+  animator: {fileID: 0}
   listOfBlocks: []
 --- !u!114 &893848719
 MonoBehaviour:
@@ -13678,6 +13679,80 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4691b9804b4cdfe4daff854e2046ce96, type: 3}
+--- !u!1001 &4663013771591738087
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 278443551641483790, guid: 9603bd53818897748aee744dfca1717e,
+        type: 3}
+      propertyPath: m_Name
+      value: Crane
+      objectReference: {fileID: 0}
+    - target: {fileID: 278443551641483790, guid: 9603bd53818897748aee744dfca1717e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 278443551641483791, guid: 9603bd53818897748aee744dfca1717e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 278443551641483791, guid: 9603bd53818897748aee744dfca1717e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 27.96
+      objectReference: {fileID: 0}
+    - target: {fileID: 278443551641483791, guid: 9603bd53818897748aee744dfca1717e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 278443551641483791, guid: 9603bd53818897748aee744dfca1717e,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 278443551641483791, guid: 9603bd53818897748aee744dfca1717e,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 278443551641483791, guid: 9603bd53818897748aee744dfca1717e,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 278443551641483791, guid: 9603bd53818897748aee744dfca1717e,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 278443551641483791, guid: 9603bd53818897748aee744dfca1717e,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 278443551641483791, guid: 9603bd53818897748aee744dfca1717e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 278443551641483791, guid: 9603bd53818897748aee744dfca1717e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 278443551641483791, guid: 9603bd53818897748aee744dfca1717e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9603bd53818897748aee744dfca1717e, type: 3}
 --- !u!1001 &4700016229340167701
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13685,6 +13760,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6962161519647829896, guid: 15631c98a0988a84b8374917ac65746b,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 703414630481974381, guid: 15631c98a0988a84b8374917ac65746b,
         type: 3}
       propertyPath: m_Name
@@ -13749,11 +13829,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6962161519647829896, guid: 15631c98a0988a84b8374917ac65746b,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 15631c98a0988a84b8374917ac65746b, type: 3}

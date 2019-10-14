@@ -132,4 +132,9 @@ public class GameController : MonoBehaviour
         money += x* x2MoneyObject.currentScale;
         moneyText.text = money.ToString();
     }
+
+    public GameObject GetCrane()
+    {
+        return crane;
+    }
 }

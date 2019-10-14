@@ -117,11 +117,11 @@ public class Block : MonoBehaviour
         
         if (detouch)
         {
-
+            
             if (transform.rotation.z > 0)
             {
                 transform.eulerAngles -= new Vector3(0, 0, 1f);
-
+                
                 if (Vector3.Distance(transform.eulerAngles, Vector3.zero) <= 1)
                 {
                     detouch = false;
@@ -186,6 +186,7 @@ public class Block : MonoBehaviour
     {
         CraneController.isPause = true;
 
+        GameController.instance.craneController.SetAnimationFlag(false);
         while (Vector3.Distance(transform.localScale,scale)>0.05)
         {
             yield return new WaitForSeconds(0.02f);

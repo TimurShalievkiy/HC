@@ -11,6 +11,7 @@ public class CraneController : MonoBehaviour
     [SerializeField] Transform boxCreator;
     Block box;
     [SerializeField] Text countOfBlock;
+    [SerializeField] Animator animator;
     bool hasBlock = true;
 
     public static bool isPause = false;
@@ -23,7 +24,7 @@ public class CraneController : MonoBehaviour
 
     private void Awake()
     {
-        
+
     }
     // Start is called before the first frame update
     public void Iinit()
@@ -31,8 +32,8 @@ public class CraneController : MonoBehaviour
 
         boxCreator = CraneMove.instance.blockCreator.transform;
 
-            instance = this;
-
+        instance = this;
+        animator = GameController.instance.GetCrane().transform.GetComponent<Animator>();
         listOfBlocks = new List<Block>();
 
         GameObject g = Resources.Load<GameObject>("Scins\\" + ScinController.GetScin() + "\\baseBlock");
@@ -43,31 +44,31 @@ public class CraneController : MonoBehaviour
 
         listOfBlocks.Add(box);
 
-        if(countOfBlock != null)
-        countOfBlock.text = CameraController.countOfBlock.ToString();
+        if (countOfBlock != null)
+            countOfBlock.text = CameraController.countOfBlock.ToString();
 
-       
+
 
     }
-    
+
 
     public void DropBox()
     {
-        if(!CheckForLoose.loose && !isPause)
-        if (boxCreator.childCount > 0)
-        {
+        if (!CheckForLoose.loose && !isPause)
+            if (boxCreator.childCount > 0)
+            {
+                SetAnimationFlag(true);
+                boxCreator.GetChild(0).GetComponent<Rigidbody2D>().simulated = true;
+                box.Detouch();
+                hasBlock = false;
+            }
 
-            boxCreator.GetChild(0).GetComponent<Rigidbody2D>().simulated = true;
-            box.Detouch();
-            hasBlock = false;
-        }
-        
     }
 
     public void CreateBlock(Rigidbody2D blockForHinge)
     {
-  
-        if (!hasBlock && boxCreator.childCount==0)
+
+        if (!hasBlock && boxCreator.childCount == 0)
         {
 
             switch (CameraController.countOfBlock)
@@ -105,17 +106,17 @@ public class CraneController : MonoBehaviour
             hasBlock = true;
             GameObject g = Resources.Load<GameObject>("Scins\\" + ScinController.GetScin() + "\\baseBlock");
 
-            
+
             Sprite[] s = Resources.LoadAll<Sprite>("Scins\\" + ScinController.GetScin() + "\\blocks\\");
             int indexOfSprite = CameraController.hard - 1;
-            indexOfSprite = Mathf.Clamp(indexOfSprite, 0, s.Length-1);
-           
-                
+            indexOfSprite = Mathf.Clamp(indexOfSprite, 0, s.Length - 1);
+
+
             g.GetComponent<SpriteRenderer>().sprite = s[indexOfSprite];
 
             Instantiate(g, boxCreator.position, boxCreator.parent.transform.rotation, boxCreator);
             box = boxCreator.GetChild(0).GetComponent<Block>();
-            
+
             CameraController.countOfBlock++;
             countOfBlock.text = CameraController.countOfBlock.ToString();
 
@@ -124,16 +125,16 @@ public class CraneController : MonoBehaviour
             box.hinge = box.GetComponent<HingeJoint2D>();
 
 
-           
+
 
             listOfBlocks.Add(box);
 
             for (int i = 0; i < listOfBlocks.Count; i++)
             {
-                listOfBlocks[i]._rigidbody2d.velocity = Vector2.zero;                
+                listOfBlocks[i]._rigidbody2d.velocity = Vector2.zero;
             }
-            
-            
+
+
 
         }
     }
@@ -163,5 +164,21 @@ public class CraneController : MonoBehaviour
     public void Play()
     {
         SceneManager.LoadScene(1);
+    }
+
+    public void SetAnimationFlag(bool flag)
+    {
+        animator.SetBool("PlayAnim", flag);
+        if (flag)
+            StartCoroutine(WhaitAnim());
+    }
+    public void SetAnimationFlagOnFalse()
+    {
+        animator.SetBool("PlayAnim", false);
+    }
+    IEnumerator WhaitAnim()
+    {
+        yield return new WaitForSeconds(0.4f);
+        SetAnimationFlagOnFalse();
     }
 }
