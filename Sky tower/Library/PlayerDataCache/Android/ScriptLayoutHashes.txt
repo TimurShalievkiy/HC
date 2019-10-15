@@ -1,6 +1,6 @@
 Android
 PlayerPath?
-D:/Рабочий стол/sky.apk
+C:/Users/User/Desktop/sky.apk
 SceneListBegin?
 Assets/Scenes/menu.unity
 Assets/Scenes/MainGame.unity
@@ -169,7 +169,7 @@ bb33bff3e0ee3c72af3af3314958b57c Assembly-CSharp.dll:.CarSpawner
 5fc094978ce3e3591a7500ed380d854a Unity.Analytics.DataPrivacy.dll:UnityEngine.Analytics.DataPrivacyButton
 185fafbd3d537f9b69375b61ca6fe073 Assembly-CSharp.dll:.CraneController
 d251bf88db6c95a6b1aa0b69298da9ef UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
-39ccc810bb9e6488b33b27c0e2a806de Assembly-CSharp.dll:.CameraController
+41582a76d0a564bdde099e50ec85bbc3 Assembly-CSharp.dll:.CameraController
 d791aa6007fa3640be1164ea75bb087d Unity.TextMeshPro.dll:TMPro.TMP_StyleSheet
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.StopVelocity
 5372ed2ce39229b1ac910757999a8be2 Unity.TextMeshPro.dll:TMPro.TextMeshPro

@@ -118,6 +118,7 @@ public class VectorMuving : MonoBehaviour
             g.transform.parent = transform;
 
 
+
             //Destroy(g, deadTime);
 
             if (Camera.main.transform.position.y > maxY + 10)

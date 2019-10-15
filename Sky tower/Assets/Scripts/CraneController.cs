@@ -22,10 +22,6 @@ public class CraneController : MonoBehaviour
     public static CraneController instance;
 
 
-    private void Awake()
-    {
-
-    }
     // Start is called before the first frame update
     public void Iinit()
     {
@@ -74,31 +70,25 @@ public class CraneController : MonoBehaviour
             switch (CameraController.countOfBlock)
             {
 
-                case 1:
+                case 4:
                     CameraController.hard = 1;
                     CraneMove.instance.ChangeCranHard(0.15f, 8);
-                    //CraneMove.instance.ChangeSpeed(0.15f);
-                    //CraneMove.instance.ChangeAngle(8);
-                    //CraneMove.instance.ChangeTopDownLength(0.5f, 0.7f);
+                    CraneMove.instance.ChangeTopDownLength(0.5f, 0.7f);
                     break;
-                case 2:
+                case 9:
                     CameraController.hard = 2;
                     CraneMove.instance.ChangeCranHard(0.1f, 10);
-                    //CraneMove.instance.ChangeSpeed(0.1f);
-                    //CraneMove.instance.ChangeAngle(10);
-                    //CraneMove.instance.ChangeTopDownLength(0.8f, 1f);
+                    CraneMove.instance.ChangeTopDownLength(0.8f, 1f);
                     break;
-                case 3:
+                case 20:
                     CameraController.hard = 3;
                     CraneMove.instance.ChangeCranHard(0.08f, 12);
-                    //CraneMove.instance.ChangeSpeed(0.08f);
-                    //CraneMove.instance.ChangeAngle(12);
-                    //CraneMove.instance.ChangeTopDownLength(1f, 1.2f);
+
+                    CraneMove.instance.ChangeTopDownLength(1f, 1.2f);
                     break;
                 case 34:
                     CameraController.hard = 5;
-                    CraneMove.instance.ChangeSpeed(0.07f);
-                    CraneMove.instance.ChangeAngle(15);
+                    CraneMove.instance.ChangeCranHard(0.07f, 15);
                     CraneMove.instance.ChangeTopDownLength(1.2f, 1.2f);
                     break;
 
@@ -172,10 +162,12 @@ public class CraneController : MonoBehaviour
         if (flag)
             StartCoroutine(WhaitAnim());
     }
+
     public void SetAnimationFlagOnFalse()
     {
         animator.SetBool("PlayAnim", false);
     }
+
     IEnumerator WhaitAnim()
     {
         yield return new WaitForSeconds(0.4f);

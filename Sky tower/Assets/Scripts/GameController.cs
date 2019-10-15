@@ -22,10 +22,19 @@ public class GameController : MonoBehaviour
     public string currentScin;
     public int currentHard;
     // Start is called before the first frame update
+    private void Awake()
+    {
+        instance = this;
+
+        //CreateCrane();
+        //CrateHouse();
+
+        //CreateBackground();
+    }
     void Start()
     {
         
-            instance = this;
+           
 
         GetSkin();
         CreateCrane();

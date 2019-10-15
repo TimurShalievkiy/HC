@@ -64,7 +64,7 @@ public class PistonsController : MonoBehaviour
 
                 CraneController.instance.listOfBlocks[i]._rigidbody2d.isKinematic = true;
                 CraneController.instance.listOfBlocks[i]._rigidbody2d.freezeRotation = true;
-
+                CraneController.instance.listOfBlocks[i]._rigidbody2d.velocity = Vector2.zero;
             }
             //StartCoroutine(MovePistonsToBlock());
             if (Vector3.Distance(leftPiston.position, CraneController.instance.listOfBlocks[CraneController.instance.listOfBlocks.Count - 2].leftDot.position) <= 0.1&&

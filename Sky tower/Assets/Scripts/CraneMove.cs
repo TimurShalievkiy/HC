@@ -281,7 +281,6 @@ public class CraneMove : MonoBehaviour
             }
             else
             {
-                Debug.Log("-----------------------------------");
                 break;
             }
 
@@ -308,7 +307,6 @@ public class CraneMove : MonoBehaviour
 
                     if (distance < 0.3f )
                     {
-                        Debug.Log(">>>>>>>>>>");
                         transform.eulerAngles = new Vector3(0,0,  euler.z);
                         break;
                     }
@@ -317,7 +315,6 @@ public class CraneMove : MonoBehaviour
                 {
                     if (Mathf.Abs(euler.z - transform.eulerAngles.z) < 0.3f)
                     {
-                        Debug.Log(">break");
                         break;
                     }
 
@@ -332,7 +329,6 @@ public class CraneMove : MonoBehaviour
 
                     if (distance < 0.3f)
                     {
-                        Debug.Log("<<<<<<<<<<<<<<<<<");
                         transform.eulerAngles = new Vector3(0, 0, euler.z);
                         break;
                     }
@@ -341,7 +337,6 @@ public class CraneMove : MonoBehaviour
                 {
                     if (Mathf.Abs(euler.z - transform.eulerAngles.z) < 0.3f)
                     {
-                        Debug.Log("<break");
                         break;
                     }
                 }

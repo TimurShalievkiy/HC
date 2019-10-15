@@ -14,7 +14,7 @@ public class CloudSpawner : MonoBehaviour
 
     private void Update()
     {
-        if (Camera.main.transform.position.y > 70 && Random.Range(0, 100) <= chance)
+        if (Camera.main.transform.position.y > 50 && Random.Range(0, 100) <= chance)
         {
             GameObject g = new GameObject();
             g.transform.position = new Vector3(12, Random.Range(Camera.main.transform.position.y - 20.0f, Camera.main.transform.position.y + 60.0f));
