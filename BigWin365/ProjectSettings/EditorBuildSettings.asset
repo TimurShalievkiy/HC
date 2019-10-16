@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/UniWebView/Demo/UniWebViewDemo.unity
+    guid: 938c077f40a814d4584ce2ad17947cf3
   m_configObjects: {}
