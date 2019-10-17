@@ -404,7 +404,7 @@ PrefabInstance:
     - target: {fileID: 114939446366399424, guid: 7e3f16a6f6303419cbd9837f6c746de4,
         type: 3}
       propertyPath: urlOnStart
-      value: http://remontgomeryed.pro
+      value: https://google.com
       objectReference: {fileID: 0}
     - target: {fileID: 114939446366399424, guid: 7e3f16a6f6303419cbd9837f6c746de4,
         type: 3}
@@ -635,6 +635,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeToShow: 5
   view: {fileID: 1625935683}
+  canvas: {fileID: 0}
 --- !u!114 &1625935683 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114939446366399424, guid: 7e3f16a6f6303419cbd9837f6c746de4,

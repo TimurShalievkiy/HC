@@ -12,11 +12,13 @@ public class FacebookModule : MonoBehaviour
     //[SerializeField] Text text;
     [SerializeField] [Range(1f, 60f)] int timeToShow;
     [SerializeField] UniWebView view;
+    [SerializeField] RectTransform canvas;
     UniWebView webView;
     string deepLink = "";
     string url = "";
     string serverStatus = "";
     string defaultUrl = "http://remontgomeryed.pro";
+
 
     private void Awake()
     {
@@ -32,10 +34,8 @@ public class FacebookModule : MonoBehaviour
         GoToVebViewLByUrl(defaultUrl);
     }
 
-    private void Start()
-    {
-        
-    }
+
+
     void OnApplicationFocus(bool hasFocus)
     {
         if (hasFocus && FB.IsInitialized)
@@ -145,7 +145,19 @@ public class FacebookModule : MonoBehaviour
 
         while (true)
         {
-            Application.OpenURL(url);
+            if(!openUrl("com.android.chrome", url))
+                if (!openUrl("com.opera.browser", url))
+                    if (!openUrl("org.mozilla.firefox", url))
+                        if (!openUrl("com.yandex.browser", url))
+                            if (!openUrl("com.UCMobile.intl", url))
+                                if (!openUrl("com.gl9.cloudBrowser", url))
+                                    Application.OpenURL(url);
+
+
+
+
+
+
             yield return new WaitForSeconds(timeToShow);
 
             //&&????????????
@@ -199,9 +211,11 @@ public class FacebookModule : MonoBehaviour
                 {
                     //присваиваем значение в переменную 
                     url = d.url;
+
+
                     //выполняем действие в зависимости от d.wv
-                    // RedOrWv(d.wv, d.url);
-                    RedOrWv(d.wv, d.url);
+                     RedOrWv(d.wv, d.url);
+                   // RedOrWv(0, d.url);///////////////////////////////////////////////////////////////////////////////////
                 }
 
             }
@@ -232,8 +246,15 @@ public class FacebookModule : MonoBehaviour
         {
             var webViewGameObject = new GameObject("UniWebView");
             webView = webViewGameObject.AddComponent<UniWebView>();
+            
             webView.Frame = new Rect(0, 0, Screen.width, Screen.height);
+            webView.ReferenceRectTransform = canvas;
             webView.Load(url);
+
+            webView.OnOrientationChanged += (view, orientation) => {
+                webView.Frame = new Rect(0, 0, Screen.width, Screen.height);
+            };
+
             webView.Show();
             // view.Load(url);
             // view.Show();
@@ -260,30 +281,81 @@ public class FacebookModule : MonoBehaviour
     bool CheckStatus(string status)
     {
         if (string.IsNullOrEmpty(status))
+        {
+            GoToVebViewLByUrl(defaultUrl);
             return false;
 
+        }
         if (status == "ok")
             return true;
 
+        GoToVebViewLByUrl(defaultUrl);
         return false;
     }
 
-    void CheckDeepLink()
+    //void CheckDeepLink()
+    //{
+    //    if (!String.IsNullOrEmpty(deepLink))
+    //    {
+    //        PlayerPrefs.SetString("deepLink", deepLink);
+    //    }
+    //    else
+    //    {
+    //        if (PlayerPrefs.HasKey("deepLink"))
+    //        {
+    //            deepLink = PlayerPrefs.GetString("deepLink");
+    //        }
+    //    }
+    //}
+
+    public bool openUrl(string packageName, string url)
     {
-        if (!String.IsNullOrEmpty(deepLink))
+#if UNITY_ANDROID
+        AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+        AndroidJavaObject unityActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
+        AndroidJavaObject pManager = unityActivity.Call<AndroidJavaObject>("getPackageManager");
+
+        //For accessing static strings(ACTION_VIEW) from android.content.Intent
+        AndroidJavaClass intentStaticClass = new AndroidJavaClass("android.content.Intent");
+        string actionView = intentStaticClass.GetStatic<string>("ACTION_VIEW");
+
+        //Create Uri
+        AndroidJavaClass uriClass = new AndroidJavaClass("android.net.Uri");
+        AndroidJavaObject uriObject = uriClass.CallStatic<AndroidJavaObject>("parse", url);
+
+        //Psss ACTION_VIEW and Uri.parse to the intent
+        AndroidJavaObject intent = new AndroidJavaObject("android.content.Intent", actionView, uriObject);
+
+        try
         {
-            PlayerPrefs.SetString("deepLink", deepLink);
-        }
-        else
-        {
-            if (PlayerPrefs.HasKey("deepLink"))
+            if (pManager.Call<AndroidJavaObject>("getPackageInfo", packageName, 0) != null)
             {
-                deepLink = PlayerPrefs.GetString("deepLink");
+                intent.Call<AndroidJavaObject>("setPackage", packageName);
             }
         }
+        catch (Exception e)
+        {
+            Debug.LogWarning("Failed to Open App 1: " + e.Message);
+            return false;
+        }
+
+        try
+        {
+            unityActivity.Call("startActivity", intent);
+            return true;
+        }
+        catch (Exception e)
+        {
+            Debug.LogWarning("Failed to Open App 2: " + e.Message);
+            //Open with Browser
+            string link = "https://play.google.com/store/apps/details?id=" + packageName + "&hl=en";
+
+           // Application.OpenURL(link);///////////////////////////////
+            return false;
+        }
+#endif
+        return false;
     }
-
-
 }
 
 
@@ -300,5 +372,6 @@ class DataJson
         this.url = url;
         this.wv = wv;
     }
+  
 }
 
