@@ -1,6 +1,6 @@
 Android
 PlayerPath?
-D:/Рабочий стол/winerly
+D:/Рабочий стол/winerly/winerly.aab
 SceneListBegin?
 Assets/proj/Scenes/Start1.unity
 Assets/proj/Scenes/Game1.unity
