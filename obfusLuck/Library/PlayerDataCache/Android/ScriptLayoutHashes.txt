@@ -1,6 +1,6 @@
 Android
 PlayerPath?
-D:/Рабочий стол/winerly/winerly.aab
+D:/Рабочий стол/winerly
 SceneListBegin?
 Assets/proj/Scenes/Start1.unity
 Assets/proj/Scenes/Game1.unity
@@ -23,6 +23,9 @@ e1bbf0ab858085e38fae6b12ebbdcd35 UnityEngine.Timeline.dll:UnityEngine.Timeline.P
 201e3fde670b00545944bb3db215c80a UnityEngine.Timeline.dll:UnityEngine.Timeline.TimelineAsset
 38dae354f8d4e9d4e38151ceef1b9f16 Assembly-CSharp.dll:.Ball
 e7a73f5f78ba6445195ec23b74a1ce2d Unity.TextMeshPro.dll:TMPro.TMP_ScrollbarEventHandler
+2db0fd20144758340577e36de3c5d32d Assembly-CSharp.dll:.FacebookModule
+71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:Facebook.Unity.Example.AppEvents
+71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:Facebook.Unity.Example.AccessTokenMenu
 cf9f5cf2c3145a37ac07f00e50e460f9 UnityEngine.UI.dll:UnityEngine.UI.AspectRatioFitter
 71bb6a6b6c8f052f948db64c7dd3ca4f UnityEngine.UI.dll:UnityEngine.EventSystems.BaseInput
 5fc094978ce3e3591a7500ed380d854a UnityEngine.UI.dll:UnityEngine.UI.Button
@@ -88,7 +91,27 @@ fc108ce7d98c40ac0907e8ca7f500c76 UnityEngine.UI.dll:UnityEngine.UI.Text
 0fd6822f6177297bd0eb4d83cc7a9030 UnityEngine.UI.dll:UnityEngine.UI.ToggleGroup
 abf1930d8126d0b2e00e9449129a0190 UnityEngine.UI.dll:UnityEngine.EventSystems.TouchInputModule
 64e54c0cbb0177c5ea26f340efb9ff85 UnityEngine.UI.dll:UnityEngine.UI.VerticalLayoutGroup
+71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:Facebook.Unity.Example.Pay
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.Wall
+71bb6a6b6c8f052f948db64c7dd3ca4f Facebook.Unity.dll:Facebook.Unity.Mobile.Android.AndroidFacebookGameObject
+71bb6a6b6c8f052f948db64c7dd3ca4f Facebook.Unity.dll:Facebook.Unity.Mobile.Android.AndroidFacebookLoader
+71bb6a6b6c8f052f948db64c7dd3ca4f Facebook.Unity.dll:Facebook.Unity.AsyncRequestString
+71bb6a6b6c8f052f948db64c7dd3ca4f Facebook.Unity.dll:Facebook.Unity.Canvas.CanvasFacebookGameObject
+71bb6a6b6c8f052f948db64c7dd3ca4f Facebook.Unity.dll:Facebook.Unity.Canvas.CanvasFacebookLoader
+71bb6a6b6c8f052f948db64c7dd3ca4f Facebook.Unity.dll:Facebook.Unity.CodelessCrawler
+71bb6a6b6c8f052f948db64c7dd3ca4f Facebook.Unity.dll:Facebook.Unity.CodelessUIInteractEvent
+71bb6a6b6c8f052f948db64c7dd3ca4f Facebook.Unity.dll:Facebook.Unity.Editor.EditorFacebookGameObject
+71bb6a6b6c8f052f948db64c7dd3ca4f Facebook.Unity.dll:Facebook.Unity.Editor.EditorFacebookLoader
+71bb6a6b6c8f052f948db64c7dd3ca4f Facebook.Unity.dll:Facebook.Unity.Editor.Dialogs.EmptyMockDialog
+71bb6a6b6c8f052f948db64c7dd3ca4f Facebook.Unity.dll:Facebook.Unity.FacebookScheduler
+71bb6a6b6c8f052f948db64c7dd3ca4f Facebook.Unity.dll:Facebook.Unity.FB
+71bb6a6b6c8f052f948db64c7dd3ca4f Facebook.Unity.dll:Facebook.Unity.Gameroom.GameroomFacebookGameObject
+71bb6a6b6c8f052f948db64c7dd3ca4f Facebook.Unity.dll:Facebook.Unity.Gameroom.GameroomFacebookLoader
+71bb6a6b6c8f052f948db64c7dd3ca4f Facebook.Unity.dll:Facebook.Unity.Mobile.IOS.IOSFacebookGameObject
+71bb6a6b6c8f052f948db64c7dd3ca4f Facebook.Unity.dll:Facebook.Unity.Mobile.IOS.IOSFacebookLoader
+71bb6a6b6c8f052f948db64c7dd3ca4f Facebook.Unity.dll:Facebook.Unity.Canvas.JsBridge
+71bb6a6b6c8f052f948db64c7dd3ca4f Facebook.Unity.dll:Facebook.Unity.Editor.Dialogs.MockLoginDialog
+71bb6a6b6c8f052f948db64c7dd3ca4f Facebook.Unity.dll:Facebook.Unity.Editor.Dialogs.MockShareDialog
 97324bf308df6c04d4e511860762517b Assembly-CSharp.dll:.Box
 71bb6a6b6c8f052f948db64c7dd3ca4f UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationPlayableAsset
 06f0fef534ca4c1d6064fd77a26bf722 UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationTrack
@@ -121,14 +144,21 @@ ad9173d3a69d99153f38ed4b62226129 UnityEngine.Networking.dll:UnityEngine.Networki
 d251bf88db6c95a6b1aa0b69298da9ef UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
 303ad70ce203ad874efe2965d0fbcff9 Unity.Analytics.Tracker.dll:UnityEngine.Analytics.AnalyticsEventTracker
 7fb9de8dcf73854b6b328eca1f7a6e6d Unity.Analytics.Tracker.dll:UnityEngine.Analytics.AnalyticsTracker
+71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:Facebook.Unity.Example.AppLinks
 b8a5e8091ab0b8861d2add371082c5e0 Unity.TextMeshPro.dll:TMPro.TMP_SpriteAsset
+71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:Facebook.Unity.Example.DialogShare
+71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:Facebook.Unity.Example.GraphRequest
+71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:Facebook.Unity.Example.LogView
+71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:Facebook.Unity.Example.ConsoleBase
 b3ab2106268377ffe25dd18ac23dca28 Unity.TextMeshPro.dll:TMPro.TMP_Asset
 4114a5d21a872932a63100165ba81a74 Assembly-CSharp.dll:.RocketController
 71bb6a6b6c8f052f948db64c7dd3ca4f Unity.Analytics.Editor.dll:UnityEditor.Analytics.AnalyticsEventTrackerEditor
 71bb6a6b6c8f052f948db64c7dd3ca4f Unity.TextMeshPro.dll:TMPro.TMP_SpriteAnimator
+30298b180b354aeedfbde54511904de4 Assembly-CSharp.dll:.connecting
 2fab3361d3ec6d26396059b433fc01f9 Assembly-CSharp.dll:.ClasterCreator
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.JsonFileWriter
 4fd8bf02e3089425d3502e26c44ba31a Unity.TextMeshPro.dll:TMPro.TextContainer
+71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:Facebook.Unity.Example.MainMenu
 e6ae40841db498b6e673877ac45ad208 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkAnimator
 71bb6a6b6c8f052f948db64c7dd3ca4f UnityEngine.Networking.dll:UnityEngine.Networking.NetworkBehaviour
 1dcb82730d983b77cec736c6ef19f814 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkDiscovery
@@ -162,11 +192,19 @@ fb6a1ea36b4f6ef5948d283d93760765 UnityEngine.GoogleAudioSpatializer.dll:UnityEng
 5b0391b7e3d9ea9db6c0a8fbd0ca23f6 UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioSoundfieldExtension
 5b0391b7e3d9ea9db6c0a8fbd0ca23f6 UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioSourceExtension
 ee0cef6caaac8ae485bfa82f000f0f7b Unity.TextMeshPro.dll:TMPro.TextMeshProUGUI
+78ef6e0cebc857eba82f40739d69334d Assembly-CSharp.dll:.UniWebView
 5fc094978ce3e3591a7500ed380d854a Unity.Analytics.DataPrivacy.dll:UnityEngine.Analytics.DataPrivacyButton
+600945004a87db28328ae620927d1b96 Facebook.Unity.Settings.dll:Facebook.Unity.Settings.FacebookSettings
 d251bf88db6c95a6b1aa0b69298da9ef UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.TriggerZoneClaster
+9391996244a844d4224ddcabb20bc8d0 Assembly-CSharp.dll:.GameControllerExample
 b244e81345bdd9c157bd1996ed7afce1 Assembly-CSharp.dll:.ScoreManager
+68b9630ba5ee140d610885bc96b6291d Assembly-CSharp.dll:.UniWebViewNativeListener
 d791aa6007fa3640be1164ea75bb087d Unity.TextMeshPro.dll:TMPro.TMP_StyleSheet
 5372ed2ce39229b1ac910757999a8be2 Unity.TextMeshPro.dll:TMPro.TextMeshPro
+71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.OneSignalObject
 3165968ba45c74472d279ba04455fccb Unity.TextMeshPro.dll:TMPro.TMP_ColorGradient
+71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.UniWebViewAndroidStaticListener
 8649814970b42d345b89944b862453cc Unity.TextMeshPro.dll:TMPro.TMP_SubMesh
+71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:Facebook.Unity.Example.AppRequests
+71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.OneSignal
