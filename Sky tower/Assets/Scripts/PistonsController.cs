@@ -13,6 +13,8 @@ public class PistonsController : MonoBehaviour
     float leftDistance;
     float rightDistance;
     float cameraHeight;
+
+    bool isCreqating = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -39,7 +41,7 @@ public class PistonsController : MonoBehaviour
 
                 leftPiston.position = Vector3.Lerp(leftPiston.position, new Vector2(cameraHeight, CraneController.instance.listOfBlocks[CraneController.instance.listOfBlocks.Count - 2].leftDot.position.y), 0.2f);
                 rightPiston.position = Vector3.Lerp(rightPiston.position, new Vector2(-cameraHeight, CraneController.instance.listOfBlocks[CraneController.instance.listOfBlocks.Count - 2].rightDot.position.y), 0.2f);
-
+                isCreqating = false;
                 smokeLeft.ResetSmoke();
                 smokeRight.ResetSmoke();
             }
@@ -56,6 +58,7 @@ public class PistonsController : MonoBehaviour
         }
         if (countOfPerfectPos == 3)
         {
+           
             leftPiston.position = Vector3.Lerp(leftPiston.position, CraneController.instance.listOfBlocks[CraneController.instance.listOfBlocks.Count - 2].leftDot.position, 0.2f);
             rightPiston.position = Vector3.Lerp(rightPiston.position,  CraneController.instance.listOfBlocks[CraneController.instance.listOfBlocks.Count - 2].rightDot.position, 0.2f);
 
@@ -67,12 +70,36 @@ public class PistonsController : MonoBehaviour
                 CraneController.instance.listOfBlocks[i]._rigidbody2d.velocity = Vector2.zero;
             }
             //StartCoroutine(MovePistonsToBlock());
-            if (Vector3.Distance(leftPiston.position, CraneController.instance.listOfBlocks[CraneController.instance.listOfBlocks.Count - 2].leftDot.position) <= 0.1&&
+            if (!isCreqating &&Vector3.Distance(leftPiston.position, CraneController.instance.listOfBlocks[CraneController.instance.listOfBlocks.Count - 2].leftDot.position) <= 0.2 &&
+                Vector3.Distance(rightPiston.position, CraneController.instance.listOfBlocks[CraneController.instance.listOfBlocks.Count - 2].rightDot.position) <= 0.2)
+            {
+
+                Transform newLeft = Instantiate(leftPiston, leftPiston.position, Quaternion.identity, leftPiston.parent);
+                Transform newRight = Instantiate(rightPiston, rightPiston.position, Quaternion.identity, rightPiston.parent);
+
+                newLeft.GetChild(0).GetComponent<smoke>().ActivateSmoke();
+                newRight.GetChild(0).GetComponent<smoke>().ActivateSmoke();
+                isCreqating = true;
+            }
+                if (Vector3.Distance(leftPiston.position, CraneController.instance.listOfBlocks[CraneController.instance.listOfBlocks.Count - 2].leftDot.position) <= 0.1&&
                 Vector3.Distance(rightPiston.position, CraneController.instance.listOfBlocks[CraneController.instance.listOfBlocks.Count - 2].rightDot.position) <= 0.1)
             {
+
                 countOfPerfectPos = 0;
-                Instantiate(leftPiston, leftPiston.position, Quaternion.identity, leftPiston.parent);
-                Instantiate(rightPiston, rightPiston.position, Quaternion.identity, rightPiston.parent);
+                //Transform newLeft = Instantiate(leftPiston, leftPiston.position, Quaternion.identity, leftPiston.parent);
+                //Transform newRight = Instantiate(rightPiston, rightPiston.position, Quaternion.identity, rightPiston.parent);
+
+                //newLeft.GetChild(0).GetComponent<smoke>().ActivateSmoke();
+                //newRight.GetChild(0).GetComponent<smoke>().ActivateSmoke();
+
+                //newLeft.GetChild(0).SetParent(leftPiston);
+                //newRight.GetChild(0).SetParent(rightPiston);
+
+                //leftPiston.GetChild(1).SetParent(newLeft);
+                //rightPiston.GetChild(1).SetParent(newRight);
+
+                
+
 
                 leftPiston.position = new Vector2(cameraHeight, CraneController.instance.listOfBlocks[CraneController.instance.listOfBlocks.Count - 2].leftDot.position.y);
                 rightPiston.position = new Vector2(-cameraHeight, CraneController.instance.listOfBlocks[CraneController.instance.listOfBlocks.Count - 2].rightDot.position.y);

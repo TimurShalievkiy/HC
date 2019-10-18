@@ -25,12 +25,12 @@ public class CheckForLoose : MonoBehaviour
 
                     if (GameController.instance.house.transform.position.y >= CraneController.instance.listOfBlocks[0].transform.position.y)
                     {
-                        loose = true;
-                        Debug.Log("loose1");
-                        loosePanel.SetActive(true);
-                        pauseButton.SetActive(false);
+                        Loose();
                     }
-
+                    if (CraneController.instance.listOfBlocks[0].transform.rotation.z > 45 || CraneController.instance.listOfBlocks[0].transform.rotation.z <-45)
+                    {
+                        Loose();
+                    }
                 }
                 else
                 {
@@ -38,15 +38,24 @@ public class CheckForLoose : MonoBehaviour
                     {
                         if (CraneController.instance.listOfBlocks[j].transform.position.y >= CraneController.instance.listOfBlocks[i].transform.position.y)
                         {
-                            loose = true;
-                            Debug.Log("loose1");
-                            loosePanel.SetActive(true);
-                            pauseButton.SetActive(false);
+                            Loose();
+                        }
+
+                        if (CraneController.instance.listOfBlocks[j].transform.rotation.z > 0.3 || CraneController.instance.listOfBlocks[j].transform.rotation.z < -0.3)
+                        {
+                            Loose();
                         }
                     }
                    
                 }
         }
 
+    }
+    void Loose()
+    {
+        loose = true;
+        Debug.Log("loose1");
+        loosePanel.SetActive(true);
+        pauseButton.SetActive(false);
     }
 }
